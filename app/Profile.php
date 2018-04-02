@@ -13,4 +13,20 @@ class Profile extends Model
     'objective', 'title_modality', 'count', 'assigned', 'finalized', 'sent', 'profile_state',
     'area_id'
   ];
+
+
+  public function area()
+  {
+    return $this->belongsTo('App\Area');
+  }
+
+  public function assingements()
+  {
+    return $this->hasMany('App\Assignement');
+  }
+
+  public function historys()
+  {
+    return $this->hasMany('App\History');
+  }
 }

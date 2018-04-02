@@ -10,4 +10,14 @@ class AreaInterest extends Model
   protected $filleable = [
     'area_id', 'professional_id'
   ];
+
+  public function professional()
+  {
+    return $this->belongsTo('App\Professional');
+  }
+
+  public function area()
+  {
+    return $this->belongsTo('App\Area');
+  }  
 }

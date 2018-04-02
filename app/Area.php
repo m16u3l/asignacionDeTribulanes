@@ -8,4 +8,16 @@ class Area extends Model
 {
   protected $table = "areas";
   protected $filleable = ['name', 'area_id'];
+
+  
+  public function profiles()
+  {
+    return $this->hasMany('App\Profile');
+  }
+
+  public function areas_interests()
+  {
+    return $this->hasMany('App\AreaInterest');
+  }
+  
 }

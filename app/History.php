@@ -10,4 +10,14 @@ class History extends Model
   protected $filleable = [
     'profile_id', 'professional_id', 'assigned'
   ];
+
+  public function professional()
+  {
+    return $this->belongsTo('App\Professional');
+  }
+
+  public function profile()
+  {
+    return $this->belongsTo('App\Profile');
+  }
 }

@@ -12,4 +12,20 @@ class Professional extends Model
     'phone', 'address', 'email', 'image', 'account_name', 'password', 'password_repeat','profile',
     'count'
   ];
+  
+  public function assingements()
+  {
+    return $this->hasMany('App\Assignement');
+  }
+
+  public function historys()
+  {
+    return $this->hasMany('App\History');
+  }
+  
+  public function interests()
+  {
+    return $this->hasMany('App\AreaInterest');
+  }
+  
 }
