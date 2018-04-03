@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Profiles extends Migration
 {
-  /**
-   * Run the migrations.
-   *
-   * @return void
-   */
   public function up()
   {
     Schema::create('profiles', function( Blueprint $table){
@@ -22,20 +17,20 @@ class Profiles extends Migration
       $table->string('applicant_name', 60);
       $table->string('applicant_last_name_mother', 60);
       $table->string('applicant_last_name_father', 60);
-      $table->string('objective', 60);
-      $table->string('title_modality', 60);
+      $table->string('objective', 60)->nullable();
+      $table->string('title_modality', 60)->nullable();
 
       $table->rememberToken();
       $table->timestamps();
 
       // internal Control
-      $table->integer('count');
-      $table->boolean('assigned');
-      $table->boolean('finalized');
-      $table->boolean('sent');
-      $table->boolean('profile_state');
+      $table->integer('count')->default(0);
+      $table->boolean('assigned')->default(false);
+      $table->boolean('finalized')->default(false);
+      $table->boolean('sent')->default(false);
+      $table->boolean('profile_state')->default(false);
 
-      $table->integer('area_id')->unsigned();
+      $table->integer('area_id')->nullable()->unsigned();
 
       $table->foreign('area_id')->references('id')->on('areas');
 
@@ -43,13 +38,8 @@ class Profiles extends Migration
     });
   }
 
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
   public function down()
   {
-    //
+    Schema::drop('profiles');
   }
 }

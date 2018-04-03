@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class Assigned extends Migration
 {
-  /**
-   * Run the migrations.
-   *
-   * @return void
-   */
   public function up()
   {
     Schema::create('assignements', function (Blueprint $table){
@@ -28,13 +23,8 @@ class Assigned extends Migration
     });
   }
 
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
   public function down()
   {
-    //
+    Schema::drop('assignements');
   }
 }

@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AreasInterest extends Migration
 {
-  /**
-   * Run the migrations.
-   *
-   * @return void
-   */
+
   public function up()
   {
     Schema::create('areas_interest', function (Blueprint $table){
@@ -26,13 +22,8 @@ class AreasInterest extends Migration
     });
   }
 
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
   public function down()
   {
-    //
+    Schema::drop('areas_interest');
   }
 }
