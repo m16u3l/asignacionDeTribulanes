@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Assignement extends Model
 {
   protected $table = "assignements";
-  protected $filleable = [
+  protected $fillable = [
     'profile_id', 'professional_id', 'assigned'
   ];
 

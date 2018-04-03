@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
   protected $table = "areas";
-  protected $filleable = ['name', 'area_id'];
+  protected $fillable = ['name', 'area_id'];
 
   
   public function profiles()
