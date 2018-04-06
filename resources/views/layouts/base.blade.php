@@ -1,4 +1,4 @@
-@section('tittlenavbar')
+@section('headAndTittle')
 
 <!doctype html>
 
@@ -38,17 +38,53 @@
       </div>
     </nav>
   </header>
-  @show 
-  
-  @yield('content')
- @section('footer')
-  <footer class="footer">
+@show
+
+@section('navbar')
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="sidebar">
+
+            <ul class="navbar-nav flex-column">
+              <li class="nav-item">
+                <img class="img-thumbnail" src="http://www.umss.edu.bo/wp-content/uploads/2017/09/cropped-LogoBaseBlanca.png">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Test</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Reports</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Analytics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Export</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      @yield('content')
+
+    </div>
+  </div>
+@show
+
+@section('footer')
+  <footer class="footer fixed-bottom">
     <div class="container">
       <span class="text-muted">BOY S-Code™</span>
     </div>
   </footer>
   <script src="js/scripts.js"></script>
-@show  
+@show
 </body>
 
 </html>
