@@ -1,5 +1,3 @@
-@section('headAndTittle')
-
 <!doctype html>
 
 <html lang="en">
@@ -11,16 +9,15 @@
   <meta name="description" content="Sistema de Asignacion de Tribunales UMSS">
   <meta name="BOY S-Code" content="">
 
+  <link rel="shortcut icon" href="static/images/favicon.ico">
+  <link href="static/css/icons.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="css/body.css">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-  <script src="libraries/bootstrap/js/bootstrap.js"></script>
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+
 </head>
 
 <body class="body">
@@ -38,9 +35,7 @@
       </div>
     </nav>
   </header>
-@show
 
-@section('navbar')
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2 bg-light">
@@ -70,21 +65,23 @@
             </ul>
           </div>
         </nav>
-      </div>
-      @yield('content')
 
+      </div>
+      <div class="col-lg-10">
+        @yield('content')
+
+      </div>
     </div>
   </div>
-@show
 
-@section('footer')
   <footer class="footer fixed-bottom">
     <div class="container">
       <span class="text-muted">BOY S-Code™</span>
     </div>
   </footer>
-  <script src="js/scripts.js"></script>
-@show
+
+<script src="libraries/bootstrap/js/bootstrap.js"></script>
+@yield('js_own')
 </body>
 
 </html>

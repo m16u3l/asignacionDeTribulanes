@@ -11,18 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-
-    $perfil1 = array(
-        'nombrePerfil'=>'Perfil Test 1',
-        'nombreTesista'=>'Tesista X1',
-        'nombreTutor'=>'Tutor Test 1',
-        'carrera'=>'Informatica',
-        'area'=>'Bases de datos',
-        'subareas'=>['SubArea1', 'SubArea2'],
-        'modalidad'=>'Proyecto de Grado'
-    );
-    return view('content')-> with($perfil1);
-});
-
-
+Route::get('/', "ProfileController@index");
