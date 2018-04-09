@@ -10,7 +10,7 @@ class Profiles extends Migration
   {
     Schema::create('profiles', function( Blueprint $table){
       $table->increments('id');
-      $table->string('title', 60);
+      $table->string('title', 200);
       $table->string('tutor_name', 60);
       $table->string('tutor_last_name_mother', 60);
       $table->string('tutor_last_name_father', 60);
@@ -18,7 +18,10 @@ class Profiles extends Migration
       $table->string('applicant_last_name_mother', 60);
       $table->string('applicant_last_name_father', 60);
       $table->string('objective', 60)->nullable();
-      $table->string('title_modality', 60)->nullable();
+      $table->string('career', 60)->nullable();
+      $table->date('registration_date');
+      $table->integer('period')->default(1);
+      $table->string('title_modality', 60)->nullable();            
 
       $table->rememberToken();
       $table->timestamps();
