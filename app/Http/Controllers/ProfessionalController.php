@@ -4,25 +4,40 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Profile;
-class ProfileController extends Controller
+use App\Area;
+use App\Professional;
+class ProfessionalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
+        $profile = Profile::find($id);
+        $area= Area::find($profile->area_id);
 
-        #$profiles=Profile::join("areas","profiles.area_id","=","areas.id")->get();
-        $profiles = DB::table('profiles')
-            ->join('areas', 'profiles.area_id', '=', 'areas.id')
-            ->select('profiles.*', 'areas.name')
+        $professionals = DB::table('professionals')
+            ->join('areas_interest', 'professionals.id', '=', 'areas_interest.professional_id')
+
+            ->select('professionals.*')
+            ->where('areas_interest.area_id','=',$area->id)
+            ->orderBy('count')
+            ->whereNotIn('professionals.id', DB::table('professionals')
+                                            ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
+                                            ->select('professionals.id'))
             ->get();
-        #$profiles=Profile::all();
-        return view('court_assignment.list_profiles', compact('profiles'));
-        //$area = Area::find();
 
+        $professionals_asignados = DB::table('professionals')
+            ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
+            ->select('professionals.*')
+            ->where('assignements.profile_id','=',$profile->id)
+            ->get();
+
+
+        return view('court_assignment.list_professionals',compact('profile','area','professionals','professionals_asignados'));
+        #return count($professionals_asignados);
     }
 
     /**

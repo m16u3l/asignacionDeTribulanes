@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', "ProfileController@index");
+Route::get('/', ['as' => 'list_profiles', 'uses' => "ProfileController@index"]);
+Route::get('/asignacion/{omar}', ['as' => 'crear_obra', 'uses' => "ProfessionalController@index"]);

@@ -8,3 +8,11 @@
   font-style: italic;
   font-weight: bold;
 }
+.mas{
+  font-size: 40px;
+  color: green;
+}
+.menos{
+  font-size: 40px;
+  color: red;
+}
