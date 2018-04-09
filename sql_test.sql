@@ -32,3 +32,6 @@ insert into professionals (name, last_name_father, last_name_mother, email, degr
 insert into professionals (name, last_name_father, last_name_mother, email, degree, workload, account_name, phone, address) values ('Vladimir', 'Costas', 'Costas', 'vcostas@cs.umss.edu.bo', 'Msc.' , 'Tiempo Completo', 'vla.cos', '4666037', 'Centro MEMI - Area Informatica');
 insert into professionals (name, last_name_father, last_name_mother, email, degree, workload, account_name, phone, address) values ('Corina Justina', 'Flores', 'Flores', 'corina@memi.umss.edu.bo', 'Lic.' , 'Tiempo Parcial', 'cor.flo', '4252439', 'Programa MEMI (UMSS).');
 
+insert into areas_interest(area_id, professional_id) values(1,1);
+insert into areas_interest(area_id, professional_id) values(1,2);
+insert into areas_interest(area_id, professional_id) values(1,3);
