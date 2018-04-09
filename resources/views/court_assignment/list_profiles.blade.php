@@ -1,5 +1,8 @@
 @extends('layouts.base')
 @section('content')
+  @if ($profiles->isEmpty())
+  <h1> No existen perfiles</h1>
+  @else
 <div class=" col-lg-12 body-bg">
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." class="mt-4">
   <br>
@@ -44,6 +47,7 @@
       @endforeach
     </ul>
 
+  @endif
 @include('court_assignment.modal_show_profile')
 @endsection
 
