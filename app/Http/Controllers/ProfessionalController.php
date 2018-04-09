@@ -33,7 +33,6 @@ class ProfessionalController extends Controller
             ->select('professionals.*')
             ->where('assignements.profile_id','=',$profile->id)
             ->get();
-
         return view('court_assignment.list_professionals',compact('profile','area','professionals','professionals_asignados'));
         #return count($professionals_asignados);
     }

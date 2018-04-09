@@ -10,9 +10,9 @@ class Professionals extends Migration
   {
     Schema::create('professionals', function (Blueprint $table){
       $table->increments('id');
-      $table->string('cod_sis');
-      $table->string('ci');
-      $table->string('title');
+      $table->string('cod_sis')->default("000000");
+      $table->string('ci')->default("00000");
+      $table->string('degree');
       $table->string('name');
       $table->string('last_name_mother');
       $table->string('last_name_father');
@@ -20,13 +20,13 @@ class Professionals extends Migration
       $table->string('phone');
       $table->string('address');
       $table->string('email');
-      $table->string('image');
+      $table->string('image')->nullable();
 
       // Data account
-      $table->string('account_name');
-      $table->string('password');
-      $table->string('password_repeat');
-      $table->string('profile');
+      $table->string('account_name')->nullable();
+      $table->string('password')->nullable();
+      $table->string('password_repeat')->nullable();
+      $table->string('profile')->nullable();
 
       $table->integer('count')->default(0);
 

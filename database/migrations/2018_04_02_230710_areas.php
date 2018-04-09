@@ -18,6 +18,7 @@ class Areas extends Migration
       $table->integer('area_id')->nullable()->unsigned();
 
       $table->foreign('area_id')->references('id')->on('areas');
+      
 
     });
   }

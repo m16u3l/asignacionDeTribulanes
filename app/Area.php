@@ -19,5 +19,15 @@ class Area extends Model
   {
     return $this->hasMany('App\AreaInterest');
   }
+
+  public function sub_areas()
+  {
+    return $this->hasMany('App\Area');
+  }
+  public function sub_area()
+  {
+    return $this->belongsTo('App\Area');
+
+  }
   
 }
