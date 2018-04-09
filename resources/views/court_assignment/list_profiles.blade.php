@@ -34,7 +34,7 @@
               data-tutor_last_name_mother="{{$profile->tutor_last_name_mother}}"
               data-title_modality="{{$profile->title_modality}}"
               data-objective="{{$profile->objective}}"
-              data-name="{{$profile->name}}"
+              data-name="{{$profile->area->name}}"
             ><i class="fa fa-info"></i></button>
             <br><br>
             <a

@@ -20,7 +20,6 @@ class ProfessionalController extends Controller
 
         $professionals = DB::table('professionals')
             ->join('areas_interest', 'professionals.id', '=', 'areas_interest.professional_id')
-
             ->select('professionals.*')
             ->where('areas_interest.area_id','=',$area->id)
             ->orderBy('count')
@@ -34,7 +33,6 @@ class ProfessionalController extends Controller
             ->select('professionals.*')
             ->where('assignements.profile_id','=',$profile->id)
             ->get();
-
 
         return view('court_assignment.list_professionals',compact('profile','area','professionals','professionals_asignados'));
         #return count($professionals_asignados);
