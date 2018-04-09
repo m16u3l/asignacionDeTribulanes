@@ -14,8 +14,10 @@ class ProfileController extends Controller
     public function index()
     {
 
-        $profiles=Profile::join("areas","profiles.area_id","=","areas.id")->get();
-        return view('court_assignment.list_profiles', compact('profiles'));
+        // $profiles=Profile::join("areas","profiles.area_id","=","areas.id")->get();
+        // return view('court_assignment.list_profiles', compact('profiles'));
+      $profiles = Profile::all();
+      return view('court_assignment.list_profiles', compact('profiles'));
         //$area = Area::find();
 
     }

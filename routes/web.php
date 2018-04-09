@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', "ProfileController@index");
+Route::get('/profiles', "ProfileController@index");
