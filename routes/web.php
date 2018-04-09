@@ -11,4 +11,5 @@
 |
 */
 
+
 Route::get('/profiles', "ProfileController@index");

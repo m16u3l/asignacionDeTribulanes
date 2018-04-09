@@ -40,7 +40,8 @@
               data-name="{{$profile->name}}"
             ><i class="fa fa-info"></i></button>
             <br><br>
-            <button class="btn btn-success"><i class="fa fa-users"></i></button>
+            <a
+            <a href="{{ route ('crear_obra',[$profile->id])}}" class="btn btn-success"><i class="fa fa-users"></i></a>
           </div>
         </div>
       </li>
