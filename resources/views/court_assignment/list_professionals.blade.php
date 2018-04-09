@@ -17,7 +17,7 @@
           <div class="perfil col-5 col-lg-7">
             <label class=" texto">{{$profile->applicant_name}}  {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</label> <br>
             <label class=" texto">{{$profile->tutor_name}}  {{$profile->tutor_last_name_father}}  {{$profile->tutor_last_name_mother}}</label><br>
-            <label class=" texto">{{$profile->title_modality}}</label>
+            <label class=" texto">{{$profile->degree_modality}}</label>
           </div>
         </div>
 
@@ -28,7 +28,7 @@
             <label class="bold texto"></label>
           </div>
           <div class="perfil col-5 col-lg-7">
-            <label class="bold texto">{{$area->name}}</label> <br>
+            <label class="bold texto">{{$area->name or 'Sin area'}}</label> <br>
             <label id="title"  class="bold texto"></label><br>
 
           </div>
