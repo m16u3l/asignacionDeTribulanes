@@ -22,7 +22,7 @@
           <div class="col-12 col-md-3">
             <label class="texto">{{$area->name or 'Sin area'}}</label> <br>
           </div>
-          <div class="perfil col-12 col-md-3">  
+          <div class="perfil col-12 col-md-3">
             <label class="h6 texto">Tutor(es):</label>
           </div>
           <div class="perfil col-12 col-md-3">
@@ -30,16 +30,16 @@
           </div>
           <div class="col-12 col-md-6">
             <label class="h6 texto">Sub-area(s):</label><br>
-          </div>    
-         <div class="perfil col-12 col-md-3">  
+          </div>
+         <div class="perfil col-12 col-md-3">
             <label class="h6 texto">Modalidad:</label>
           </div>
           <div class="perfil col-12 col-md-3">
             <label class=" texto">{{$profile->degree_modality}}</label>
           </div>
- 
+
         </div>
-    
+
       <br>
 
       <h4>ASIGNAR TRIBUNALES</h4>
@@ -60,11 +60,11 @@
 
 
       <br>
-      
+
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="perfil col-12 col-lg-12">
-          <button  id="add" type="button" class="btn btn-primary" >ASIGNAR TRIBUNALES</button>
+          <button  id="add" type="button" class="btn btn-primary" >NUEVO TRIBUNAL</button>
           </div>
         </div>
         <div class="col-12 col-lg-6">
