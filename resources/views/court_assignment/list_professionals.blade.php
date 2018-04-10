@@ -64,19 +64,11 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="perfil col-12 col-lg-12">
-<<<<<<< HEAD
           <button  id="add" type="button" class="btn btn-primary" >ASIGNAR TRIBUNALES</button>
           </div>
         </div>
         <div class="col-12 col-lg-6">
           <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-danger pull-right">atras</a>
-=======
-            <button  id="add" type="button" class="btn btn-link" >Asignar mas tribunales</button>
-          </div>
-        </div>
-        <div class="col-12 col-lg-6">
-          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-info pull-right">Atras</a>
->>>>>>> 4d5e588b76299322340da38d80032f8fd9b6d8b7
 
         </div>
       </div>
