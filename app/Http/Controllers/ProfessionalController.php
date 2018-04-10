@@ -21,7 +21,7 @@ class ProfessionalController extends Controller
         $professionals = DB::table('professionals')
             ->join('areas_interest', 'professionals.id', '=', 'areas_interest.professional_id')
             ->select('professionals.*')
-            ->where('areas_interest.area_id','=',$area->id)
+            ->where('areas_interest.area_id','=',$area->$id)
             ->orderBy('count')
             ->whereNotIn('professionals.id', DB::table('professionals')
                                             ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
