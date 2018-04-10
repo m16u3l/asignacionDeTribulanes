@@ -2,42 +2,47 @@
 @section('content')
 <br>
 
-  <div class="row container-fluid">
-    <div class=" col-12 col-lg-12 text-justify element-bg">
+  <div class="container-fluid">
+    <div class=" col-12 col-lg-12 element-bg">
       <br>
-      <h2 class="bold h4 mb-3">{{$profile->title}}</h2>
+      <h2 class="bold h4 mb-3">{{$profile->degree}}</h2>
       <br>
       <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="perfil col-5 col-lg-3">
-            <label class="bold texto">Estudiante:</label> <br>
-            <label class="bold texto">Tutor(es):</label><br>
-            <label class="bold texto">Modalidad:</label>
+
+          <div class="perfil col-12 col-md-3">
+            <label class="h6 texto">Estudiante:</label>
           </div>
-          <div class="perfil col-5 col-lg-7">
-            <label class=" texto">{{$profile->applicant_name}}  {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</label> <br>
-            <label class=" texto">{{$profile->tutor_name}}  {{$profile->tutor_last_name_father}}  {{$profile->tutor_last_name_mother}}</label><br>
+          <div class="perfil col-12 col-md-3">
+            <label class=" texto">{{$profile->applicant_name}}  {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</label>
+          </div>
+
+          <div class="col-12 col-md-3">
+              <label class="h6 texto">Area:</label> <br>
+          </div>
+          <div class="col-12 col-md-3">
+            <label class="texto">{{$area->name or 'Sin area'}}</label> <br>
+          </div>
+          <div class="perfil col-12 col-md-3">  
+            <label class="h6 texto">Tutor(es):</label>
+          </div>
+          <div class="perfil col-12 col-md-3">
+            <label class=" texto">{{$profile->tutor_name}}  {{$profile->tutor_last_name_father}}  {{$profile->tutor_last_name_mother}}</label>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="h6 texto">Sub-area(s):</label><br>
+          </div>    
+         <div class="perfil col-12 col-md-3">  
+            <label class="h6 texto">Modalidad:</label>
+          </div>
+          <div class="perfil col-12 col-md-3">
             <label class=" texto">{{$profile->degree_modality}}</label>
           </div>
+ 
         </div>
-
-        <div class="col-12 col-lg-6">
-          <div class="perfil col-6 col-lg-3">
-            <label class="bold texto">Area:</label> <br>
-            <label class="bold texto">sub-area(s):</label><br>
-            <label class="bold texto"></label>
-          </div>
-          <div class="perfil col-5 col-lg-7">
-            <label class="bold texto">{{$area->name or 'Sin area'}}</label> <br>
-            <label id="title"  class="bold texto"></label><br>
-
-          </div>
-        </div>
-      </div>
-<br>
+    
       <br>
 
-      <h4>ASIGNAR TRIBUNAL</h4>
+      <h4>ASIGNAR TRIBUNALES</h4>
       <br>
       @foreach($professionals_asignados as $professional_asignado)
       <form  action="index.html" method="post">
@@ -59,11 +64,11 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="perfil col-12 col-lg-12">
-            <button  id="add" type="button" class="btn btn-link" >asignar mas tribunales</button>
+            <button  id="add" type="button" class="btn btn-link" >Asignar mas tribunales</button>
           </div>
         </div>
         <div class="col-12 col-lg-6">
-          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-info pull-right">atras</a>
+          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-info pull-right">Atras</a>
 
         </div>
       </div>

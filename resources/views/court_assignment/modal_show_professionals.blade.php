@@ -10,24 +10,36 @@
 
       <div class="modal-body">
         @if ( empty($professionals[0]))
-          <h1>no hay ningun docente pertinente al area</h1>
+          <h2>No hay ningun docente pertinente al area</h2>
         @else
           @foreach($professionals as $professional)
             <li class="list-group-item list-group-item-action element-bg mb-3">
               <div class="row">
-                <div class="col-12 col-lg-11 text-justify">
-                  <div class="perfil col-4 col-lg-4">
-                    <label class="bold texto">Profecional:</label> <br>
-                    <label class="bold texto">carga de perfiles:</label><br>
-                    <label class="bold texto">areas de interes:</label>
+                <div class="col-12 col-lg-10 text-justify">
+                  <div class="perfil col-12 col-lg-4">
+                    <label class="h6 texto">Profesional:</label> <br>
+                  </div>
+                  <div class="col-12 col-lg-8">
+                    <label class=" texto">{{$professional->name}}  {{$professional->last_name_father}} {{$professional->last_name_mother}}</label><br>
+                  </div>
+                  <div class="perfil col-12 col-lg-4">
+                    <label class="h6 texto">Carga de perfiles:</label><br>
+                  </div>
+                  <div class="col-12 col-lg-8">
+                    <label class=" texto">{{$professional->count}} perfiles</label><br>
+                  </div> 
+                  <div class="perfil col-12 col-lg-4">    
+                    <label class="h6 texto">Areas de interes:</label>
                   </div>
                   <div class="perfil  col-6 col-lg-6">
-                    <label class=" texto">{{$professional->name}}  {{$professional->last_name_father}} {{$professional->last_name_mother}}</label><br>
-                    <label class=" texto">{{$professional->count}} perfiles</label><br>
+                    
                     <label class=" texto"></label>
                   </div>
                 </div>
+                <div class="col-12 col-lg-2 text-center">
+                  <button class="btn btn-link"><i class="mas fa fa-plus-circle"></i></button>
                 </div>
+              
             </li>
             @endforeach
           @endif
