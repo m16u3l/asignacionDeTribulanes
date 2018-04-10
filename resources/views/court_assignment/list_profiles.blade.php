@@ -4,11 +4,11 @@
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." class="mt-4">
   <br>
   <br>
-  <ul class="list-group" id="profile_list">
+  <div class="container" id="profile_list">
     @foreach($profiles as $profile)
       <li class="list-group-item list-group-item-action element-bg mb-3">
         <div class="row">
-          <div class="col-12 col-lg-10 text-justify">
+        <div class="col-12 col-lg-10 text-justify">
             <h2 class="bold h6 mb-3 text-center mb-3"> {{$profile->degree}} </h2>
             <div class="row">
               <div class="col-md-6">
@@ -17,17 +17,16 @@
               <div class="col-md-6">
                 <label class=" texto">{{$profile->applicant_name}}  {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</label><br>
               </div>
-            </div>
-            <div class="row">
+          </div>
+          <div class="row">
               <div class="col-md-6">
                 <label class="h6 texto">Tutor(es):</label><br>
               </div>
               <div class="col-md-6">
                 <label class=" texto">{{$profile->tutor_name}}  {{$profile->tutor_last_name_father}}  {{$profile->tutor_last_name_mother}}</label><br>
               </div>
-            </div>
-
-            <div class="row">
+          </div>
+          <div class="row">
               <div class="col-md-6">
                 <label class="h6 texto">Carrera:</label>
               </div>
@@ -36,11 +35,9 @@
               </div>
             </div>
 
-          </div>
-
-          <div class="col-lg-1 col-12 text-center">
-            <br>
-            <div class="row">
+           </div>
+           <div class="col-lg-1 col-12 text-center">
+           <div class="row">
               <div class="col-6 col-md-12">
                 <button type="button" class="edit-modal btn btn-info" data-toggle="modal" data-target="#myModal"
                   data-title="{{$profile->degree}}"
@@ -60,12 +57,11 @@
                 <a href="{{ route ('asignacion',[$profile->id])}}" class="btn btn-success"><i class="fa fa-users"></i></a>
               </div>
             </div>
-          </div>
-        </div>
+       </div>
       </li>
-      @endforeach
-    </ul>
-
+    @endforeach
+  </div>
+  {{ $profiles->links() }}
 @include('court_assignment.modal_show_profile')
 @endsection
 
