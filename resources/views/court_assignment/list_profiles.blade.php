@@ -4,7 +4,8 @@
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." class="mt-4">
   <br>
   <br>
-  <ul class="list-group ">
+  
+  <div class="container">
     @foreach($profiles as $profile)
       <li class="list-group-item list-group-item-action element-bg mb-3">
         <div class="row">
@@ -34,7 +35,7 @@
               data-tutor_last_name_mother="{{$profile->tutor_last_name_mother}}"
               data-title_modality="{{$profile->degree_modality}}"
               data-objective="{{$profile->objective}}"
-              data-area="{{$profile->area->name or 'Sin area'}}"
+              data-area="{{$Area->name or 'Sin areas'}}"
             ><i class="fa fa-info"></i></button>
             <br><br>
             <a
@@ -42,9 +43,9 @@
           </div>
         </div>
       </li>
-      @endforeach
-    </ul>
-
+    @endforeach
+  </div>
+  {{ $profiles->links() }}
 @include('court_assignment.modal_show_profile')
 @endsection
 

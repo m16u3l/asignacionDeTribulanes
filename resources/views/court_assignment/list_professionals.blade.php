@@ -47,7 +47,6 @@
           <button  type="button" class="btn btn-link" ><i class="menos fa fa-minus-circle"></i></button>
 
         </div>
-
         @endforeach
         <div class="prueba">
 
@@ -56,14 +55,15 @@
 
 
       <br>
+      
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="perfil col-12 col-lg-12">
-            <button  id="add" type="button" class="btn btn-link" >asignar mas tribunales</button>
+          <button  id="add" type="button" class="btn btn-primary" >ASIGNAR TRIBUNALES</button>
           </div>
         </div>
         <div class="col-12 col-lg-6">
-          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-info pull-right">atras</a>
+          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-danger pull-right">atras</a>
 
         </div>
       </div>

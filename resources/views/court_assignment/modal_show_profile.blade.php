@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group rows">
-          <label class="bold control-label col-sm-3" for="title">area:</label>
+          <label class="bold control-label col-sm-3" for="title">Area:</label>
           <label  id="name" class="control-label col-sm-7" for=""></label>
         </div>
 

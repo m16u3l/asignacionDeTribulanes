@@ -8,7 +8,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $profiles = Profile::all();
+        $profiles = DB::table('profiles')->paginate(3);
         return view('court_assignment.list_profiles', compact('profiles'));
     }
 
