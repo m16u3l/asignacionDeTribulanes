@@ -53,7 +53,7 @@
 
         </div>
         @endforeach
-        <div class="prueba">
+        <div class="add_new_field">
 
         </div>
       </form>
