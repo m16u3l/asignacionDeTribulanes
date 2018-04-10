@@ -51,10 +51,10 @@
                 <img class="img-thumbnail" src="http://www.umss.edu.bo/wp-content/uploads/2017/09/cropped-LogoBaseBlanca.png">
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route ('list_profiles_asigned')}}">perfiles asignados</a>
+                <a class="nav-link" href="{{ route ('list_profiles')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Reports</a>
+                <a class="nav-link" href="{{ route ('list_profiles_asigned')}}">perfiles asignados</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Analytics</a>
