@@ -52,13 +52,11 @@
                   data-tutor_last_name_mother="{{$profile->tutor_last_name_mother}}"
                   data-title_modality="{{$profile->degree_modality}}"
                   data-objective="{{$profile->objective}}"
-                  data-area="{{$profile->area->name or 'Sin area'}}"
+                  data-area="{{$profile->name}}"
                 ><i class="fa fa-info"></i></button>
                 <br><br>
               </div>
-              <div class="col-6 col-md-12">
-                <a href="{{ route ('asignacion',[$profile->id])}}" class="btn btn-success"><i class="fa fa-users"></i></a>
-              </div>
+
             </div>
           </div>
         </div>
@@ -66,7 +64,7 @@
       @endforeach
     </ul>
 
-@include('court_assignment.modal_show_profile')
+@include('profiles_assigned_professionals.modal_show_profile_assigned')
 @endsection
 
 @section('js_own')
@@ -74,5 +72,5 @@
 <script type="text/javascript" src="{{ url('js/search_bar.js')}}"></script>
 @endsection
 @section('css_own')
-<link href="url('css/search_bar.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ url('css/search_bar.css')}}" rel="stylesheet" type="text/css">
 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\Area;
 use App\Professional;
+use App\Assignement;
 class ProfessionalController extends Controller
 {
     /**
@@ -25,7 +26,8 @@ class ProfessionalController extends Controller
             ->orderBy('count')
             ->whereNotIn('professionals.id', DB::table('professionals')
                                             ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
-                                            ->select('professionals.id'))
+                                            ->select('professionals.id')
+                                            ->where('assignements.profile_id','=',$profile->id))
             ->get();
 
         $professionals_asignados = DB::table('professionals')
@@ -33,7 +35,9 @@ class ProfessionalController extends Controller
             ->select('professionals.*')
             ->where('assignements.profile_id','=',$profile->id)
             ->get();
-        return view('court_assignment.list_professionals',compact('profile','area','professionals','professionals_asignados'));
+
+        $url = '/register_tribunal';
+        return view('court_assignment.list_professionals',compact('url','profile','area','professionals','professionals_asignados'));
         #return count($professionals_asignados);
     }
 
@@ -55,7 +59,21 @@ class ProfessionalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $url='profiles/';
+      $profile_id = $request->profile_id;
+      $professional_id = $request->professional_id;
+
+      $assignement = new Assignement;
+      $assignement->profile_id = $profile_id;
+      $assignement->professional_id = $professional_id;
+      $assignement->assigned = '2008-12-2';
+      $assignement->save();
+
+      DB::table('profiles')->where('id',$profile_id)->increment('count');
+      DB::table('professionals')->where('id',$professional_id)->increment('count');
+
+      return redirect($url.$profile_id);
+
     }
 
     /**
