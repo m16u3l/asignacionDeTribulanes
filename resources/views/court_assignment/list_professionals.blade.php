@@ -1,9 +1,12 @@
 @extends('layouts.base')
+
+@section('head')
+<title>{{$profile->degree}} - Asignacion de Tribunales UMSS</title>
+@endsection
+
 @section('content')
 <br>
-
-  <div class="container-fluid">
-    <div class=" col-12 col-lg-12 element-bg">
+    <div class=" col element-bg">
       <br>
       <h2 class="bold h4 mb-3">{{$profile->degree}}</h2>
       <br>
@@ -48,7 +51,7 @@
       <form  action="index.html" method="post">
 
         <div class="form-group form-inline">
-          <input type="text" class=" form-control "  value="{{$professional_asignado->name}}">
+          <input type="text" class=" form-control "  value="{{$professional_asignado->name}} {{$professional_asignado->last_name_father}}">
           <button  type="button" class="btn btn-link" ><i class="menos fa fa-minus-circle"></i></button>
 
         </div>
@@ -80,6 +83,6 @@
 @include('court_assignment.modal_show_professionals')
 @endsection
 
-@section('js_own')
+@section('child_js')
 <script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
 @endsection
