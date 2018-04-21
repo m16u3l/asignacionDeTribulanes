@@ -1,9 +1,20 @@
 @extends('layouts.base')
 @section('content')
-<div class=" col-lg-12 body-bg">
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." class="mt-4">
-  <br>
-  <br>
+<!-Buscador->
+<div class=" col-lg-12 body-bg">  
+  <form class="navbar-form pull right" action="{{ route ('list_profiles')}}" method="GET" role = "search">
+    <div class="panel-body">
+      <div class="input-group">                  
+        <input type="text" class="form-control" name="name" placeholder="Buscar">   
+        <button type="submit" class="btn btn-info">Buscar</button>                               
+      </div>
+    </div>
+  </form>
+</div>
+<!-Fin de buscador->
+  @if ( empty($profiles[0]))
+    <h2>No hay ningun perfil disponible</h2>
+  @else
   <div class="container" id="profile_list">
     @foreach($profiles as $profile)
       <li class="list-group-item list-group-item-action element-bg mb-3">
@@ -61,6 +72,7 @@
       </li>
     @endforeach
   </div>
+  @endif
   {{ $profiles->links() }}
 @include('court_assignment.modal_show_profile')
 @endsection
