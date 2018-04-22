@@ -8,10 +8,8 @@ class Profile extends Model
 {
   protected $table = "profiles";
   protected $fillable = [
-    'degree','tutor_name', 'tutor_last_name_mother', 'tutor_last_name_father',
-    'applicant_name', 'applicant_last_name_mother', 'applicant_last_name_father',
-    'objective', 'degree_modality', 'count', 'assigned', 'finalized', 'sent', 'profile_state',
-    'area_id'
+    'objective', 'registration_date', 'period', 'degree_modality', 'count',
+    'profile_state', 'area_id'
   ];
   /*
   +    consulta para buscar perfiles por Titulo de perfil
@@ -34,9 +32,14 @@ class Profile extends Model
     return $this->hasMany('App\Assignement');
   }
 
-  public function historys()
+  public function tutors()
   {
-    return $this->hasMany('App\History');
+    return $this->hasMany('App\Tutor');
+  }
+
+  public function students()
+  {
+    return $this->hasMany('App\StudentProfile');
   }
   
 }

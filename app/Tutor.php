@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class History extends Model
+class Tutor extends Model
 {
-  protected $table = "history";
+  protected $table = "tutors";
   protected $fillable = [
-    'profile_id', 'professional_id', 'assigned'
+    'profile_id', 'professional_id'
   ];
 
   public function professional()
