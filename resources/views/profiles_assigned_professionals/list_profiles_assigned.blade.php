@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<div class=" col">
+<div class="col">
   <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." class="mt-4">
   <br>
   <br>
