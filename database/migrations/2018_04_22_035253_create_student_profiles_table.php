@@ -4,27 +4,25 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Assigned extends Migration
+class CreateStudentProfilesTable extends Migration
 {
   public function up()
   {
-    Schema::create('assignements', function (Blueprint $table){
+    Schema::create('student_profiles', function (Blueprint $table) {
       $table->increments('id');
+      $table->integer('student_id');
       $table->integer('profile_id');
-      $table->integer('professional_id');
-      $table->dateTime('assigned');
 
       $table->rememberToken();
       $table->timestamps();
 
+      $table->foreign('student_id')->references('id')->on('students');
       $table->foreign('profile_id')->references('id')->on('profiles');
-      $table->foreign('professional_id')->references('id')->on('professionals');
-
     });
   }
 
   public function down()
   {
-    Schema::drop('assignements');
+    Schema::dropIfExists('student_profiles');
   }
 }

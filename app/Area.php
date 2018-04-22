@@ -9,7 +9,7 @@ class Area extends Model
   protected $table = "areas";
   protected $fillable = ['name', 'area_id'];
 
-  
+
   public function profiles()
   {
     return $this->hasMany('App\Profile');
@@ -24,6 +24,4 @@ class Area extends Model
   {
     return $this->hasMany('App\Area');
   }
-
-  
 }
