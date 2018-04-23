@@ -12,6 +12,7 @@ class CreateProfilesTable extends Migration
     Schema::create('profiles', function (Blueprint $table) {
 
       $table->increments('id');
+      $table->string('title');
       $table->string('objective', 60)->nullable();
       $table->date('finalized_date')->nullable();
       $table->integer('period')->default(1);

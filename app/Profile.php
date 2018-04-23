@@ -19,6 +19,7 @@ class Profile extends Model
     'profile_assgined',
     'letter_professional',
     'area_id',
+
   ];
 
   /*
