@@ -8,8 +8,19 @@ class Professional extends Model
 {
   protected $table = "professionals";
   protected $fillable = [
-    'cod_sis', 'ci', 'degree', 'name', 'last_name_mother', 'last_name_father',
-    'workload', 'phone', 'address', 'email', 'image', 'profile', 'count'
+    'cod_sis',
+    'ci',
+    'degree',
+    'professional_name',
+    'professional_last_name_mother',
+    'professional_last_name_father',
+    'workload',
+    'phone',
+    'address',
+    'email',
+    'image',
+    'profile',
+    'count'
   ];
 
   public function assingements()

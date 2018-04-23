@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tutor extends Model
+class History extends Model
 {
-  protected $table = "tutors";
-  protected $fillable = [
-    'profile_id', 'professional_id', 'letter'
+  protected $table = "history";
+  protected $filleable = [
+    "profile_id", "professional_id", "assigned"
   ];
-
+  
   public function professional()
   {
     return $this->belongsTo('App\Professional');
@@ -20,4 +20,5 @@ class Tutor extends Model
   {
     return $this->belongsTo('App\Profile');
   }
+                     
 }

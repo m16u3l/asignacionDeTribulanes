@@ -13,9 +13,9 @@ class CreateProfessionalsTable extends Migration
           $table->string('cod_sis')->default("000000");
           $table->string('ci')->default("00000");
           $table->string('degree');
-          $table->string('name');
-          $table->string('last_name_mother');
-          $table->string('last_name_father');
+          $table->string('professional_name');
+          $table->string('professional_last_name_mother');
+          $table->string('professional_last_name_father');
           $table->string('workload');
           $table->string('phone');
           $table->string('address');
