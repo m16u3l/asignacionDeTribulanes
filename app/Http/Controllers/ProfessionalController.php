@@ -19,45 +19,36 @@ class ProfessionalController extends Controller
     {
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
-
+      $allProfessionals = [] ;
       $professionals = DB::table('professionals')
-        ->join('areas_interest', 'professionals.id', '=', 'areas_interest.professional_id')
+        ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
         ->select('professionals.*')
-        ->where('areas_interest.area_id', '=', $area->id)
+        ->where('area_interests.area_id', '=', $area->id)
         ->orderBy('count')
         ->whereNotIn('professionals.id', DB::table('professionals')
-            ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
+            ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
             ->select('professionals.id')
-            ->where('assignements.profile_id', '=', $profile->id))
+            ->where('tutors.profile_id', '=', $profile->id))
         ->get();
 
-      $professionals_asignados = DB::table('professionals')
-        ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
-        ->select('professionals.*')
-        ->where('assignements.profile_id', '=', $profile->id)
-        ->get();
+        $url = '/register_tribunal';
+          $allProfessionals = DB::table('professionals')
+            ->orderBy('count')
+            ->whereNotIn('professionals.id', DB::table('professionals')
+                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                ->select('professionals.id')
+                ->where('tutors.profile_id', '=', $profile->id))
+            ->whereNotIn('professionals.id', DB::table('professionals')
+            ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+            ->select('professionals.id')
+            ->where('area_interests.area_id', '=', $area->id))
+            ->get();
 
-    	$url = '/register_tribunal';
-      return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals', 'professionals_asignados'));
+          return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals', 'allProfessionals'));
+  
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 			$url = 'profiles/';
@@ -77,46 +68,21 @@ class ProfessionalController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

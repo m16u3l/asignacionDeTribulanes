@@ -8,7 +8,7 @@ class Profile extends Model
 {
   protected $table = "profiles";
   protected $fillable = [
-    'objective', 'registration_date', 'period', 'degree_modality', 'count',
+    'title', 'objective', 'registration_date', 'period', 'degree_modality', 'count',
     'profile_state', 'area_id'
   ];
 

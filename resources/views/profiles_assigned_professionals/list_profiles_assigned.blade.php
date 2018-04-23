@@ -72,4 +72,3 @@
   <script type="text/javascript" src="{{ url('asset/court_assignment/list_profiles.js')}}"></script>
   <script type="text/javascript" src="{{ url('js/search_bar.js')}}"></script>
 @endsection
- 
