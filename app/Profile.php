@@ -8,25 +8,14 @@ class Profile extends Model
 {
   protected $table = "profiles";
   protected $fillable = [
-    'objective',
-    'registration_date',
-    'period',
-    'degree_modality',
-    'count',
-    'profile_state',
-    'profile_finalized',
-    'profile_sended',
-    'profile_assgined',
-    'letter_professional',
-    'area_id',
-
-  ];
+    'title', 'objective', 'finalized_date', 'period', 'degree_modality', 'count',
+    'profile_state', 'profile_state', 'profile_finalized',
+    'profile_sended', 'profile_assigened', 'letter_professional' , 'area_id'
 
   /*
   +    consulta para buscar perfiles por Titulo de perfil
   +    y tambien por nombre de Estudiante no sensibles a mayusculas y minusculas
   +  */
-
   public function scopeBuscarPorTituloOEstudiante($query, $name)
   {
     $query -> where('degree', 'ilike','%'.$name.'%')
@@ -53,5 +42,5 @@ class Profile extends Model
   {
     return $this->hasMany('App\StudentProfile');
   }
-  
+
 }

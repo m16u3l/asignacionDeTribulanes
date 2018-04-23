@@ -13,7 +13,7 @@ class CreateProfilesTable extends Migration
 
       $table->increments('id');
       $table->string('title');
-      $table->string('objective', 60)->nullable();
+      $table->string('objective')->nullable();
       $table->date('finalized_date')->nullable();
       $table->integer('period')->default(1);
       $table->string('degree_modality', 60)->nullable(true);
@@ -27,7 +27,7 @@ class CreateProfilesTable extends Migration
       $table->boolean('profile_finalized')->default(false);
       $table->boolean('profile_sended')->default(false);
       $table->boolean('profile_assigened')->default(false);
-      
+
       $table->boolean('letter_professional')->default(false);
 
       $table->integer('area_id')->nullable()->unsigned();

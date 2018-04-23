@@ -16,3 +16,7 @@ Route::get('/profiles/{id}', [
 Route::post('/register_tribunal', [
     'as' => 'register_tribunal',
     'uses' => "ProfessionalController@store"]);
+
+Route::get('/finalizar_tribunal/{id}', [
+    'as' => 'finalizar_tribunal',
+    'uses' => "ProfileController@finalizar_perfil"]);

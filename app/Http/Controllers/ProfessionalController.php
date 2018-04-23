@@ -43,10 +43,8 @@ class ProfessionalController extends Controller
             ->select('professionals.id')
             ->where('area_interests.area_id', '=', $area->id))
             ->get();
-
+          
           return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals', 'allProfessionals'));
-  
-
     }
 
     public function store(Request $request)
