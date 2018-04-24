@@ -18,9 +18,9 @@ class Profile extends Model
   +  */
   public function scopeBuscarPorTituloOEstudiante($query, $name)
   {
-    $query -> where('degree', 'ilike','%'.$name.'%')
-      ->orWhere(\DB::raw("concat(applicant_name, ' ', applicant_last_name_father, ' ',
-      applicant_last_name_mother)"), 'ilike','%'.$name.'%');
+    $query -> where('title', 'ilike','%'.$name.'%')
+      ->orWhere(\DB::raw("concat(student_name, ' ', student_last_name_father, ' ',
+      student_last_name_mother)"), 'ilike','%'.$name.'%');
   }
 
   public function area()

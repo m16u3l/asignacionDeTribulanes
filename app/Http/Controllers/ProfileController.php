@@ -23,7 +23,7 @@ class ProfileController extends Controller
 		return view('profiles_assigned_professionals.list_profiles_assigned', compact('profiles'));
 	}
 
-	public function index()
+	public function index(Request $request)
 	{
 
 		$profiles = DB::table('profiles')
@@ -35,6 +35,7 @@ class ProfileController extends Controller
 			->get();
 
 		 return view('court_assignment.list_profiles', compact('profiles'));
+
 	}
 
 	public function finalizar_perfil($id)
