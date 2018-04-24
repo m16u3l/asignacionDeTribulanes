@@ -29,13 +29,9 @@
       <div class="navbar">
         <div class="col-md-2 col-2">
           <a href="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-lg"></i></a>
-
         </div>
-       
-          
-      
         <div class=" col text-center" style="background-color:#2A3F54; color: #ffffff">
-          <img class="logo d-inline mr-5" src="/images/UMSS.png">
+          <img class="logo d-inline mr-2" src="/images/UMSS.png">
           <h6 class="h6 d-inline"> ASIGNACION DE TRIBUNALES</h6>
         </div>
       </div>
@@ -47,7 +43,7 @@
   <div class="container-fluid">
     <div class="row">
       <!--sidebar-->
-      <div class="col-md-2 col-2 pl-0 pr-0 collapse show   in bg-theme-1 " id="sidebar">
+      <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" >
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
           <div class="collapse" id="menu1">
@@ -64,10 +60,10 @@
         </div>
       </div>
       <!--end sidebar-->
-
+      
         @yield('content')
 
-      </div>
+      
     </div>
   </div>
 

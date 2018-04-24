@@ -1,88 +1,215 @@
-@extends('layouts.base')
-
+@extends('layouts.base') 
 @section('head')
-<title>{{$profile->degree}} - Asignacion de Tribunales UMSS</title>
+<title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
-
+ 
 @section('content')
-<br>
-    <div class=" col element-bg">
-      <br>
-      <h2 class="bold h4 mb-3">{{$profile->degree}}</h2>
-      <br>
+<div class="col">
+  <section id="profile-info">
+    <div class="container">
       <div class="row">
+        <div class="col-lg-10">
+          <div class="card mt-3">
 
-          <div class="perfil col-12 col-md-3">
-            <label class="h6 texto">Estudiante:</label>
-          </div>
-          <div class="perfil col-12 col-md-3">
-            <label class=" texto">{{$profile->applicant_name}}  {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</label>
-          </div>
-
-          <div class="col-12 col-md-3">
-              <label class="h6 texto">Area:</label> <br>
-          </div>
-          <div class="col-12 col-md-3">
-            <label class="texto">{{$area->name or 'Sin area'}}</label> <br>
-          </div>
-          <div class="perfil col-12 col-md-3">
-            <label class="h6 texto">Tutor(es):</label>
-          </div>
-          <div class="perfil col-12 col-md-3">
-            <label class=" texto">{{$profile->tutor_name}}  {{$profile->tutor_last_name_father}}  {{$profile->tutor_last_name_mother}}</label>
-          </div>
-          <div class="col-12 col-md-6">
-            <label class="h6 texto">Sub-area(s):</label><br>
-          </div>
-         <div class="perfil col-12 col-md-3">
-            <label class="h6 texto">Modalidad:</label>
-          </div>
-          <div class="perfil col-12 col-md-3">
-            <label class=" texto">{{$profile->degree_modality}}</label>
-          </div>
-
-        </div>
-
-      <br>
-
-      <h4>ASIGNAR TRIBUNALES</h4>
-      <br>
-      @foreach($professionals_asignados as $professional_asignado)
-      <form  action="index.html" method="post">
-
-        <div class="form-group form-inline">
-          <input type="text" class=" form-control "  value="{{$professional_asignado->name}} {{$professional_asignado->last_name_father}}">
-          <button  type="button" class="btn btn-link" ><i class="menos fa fa-minus-circle"></i></button>
-
-        </div>
-        @endforeach
-        <div class="add_new_field">
-
-        </div>
-      </form>
+            <div class="card-header clearfix">
+              <div class="row">
+                <div class="col-lg-11">
+                  <h4 class="h4 text-center">{{$profile->title}}</h4>
 
 
-      <br>
+                </div>
+              </div>
+            </div>
 
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="perfil col-12 col-lg-12">
-          <button  id="add" type="button" class="btn btn-primary" >NUEVO TRIBUNAL</button>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-11">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <label class="h6 card-subtitle">Tutor(es):</label>
+                      <p class="card-text mb-2">{{$profile->tutor_name}} {{$profile->tutor_last_name_father}} {{$profile->tutor_last_name_mother}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <label class="h6 card-subtitle">Area(s):</label>
+                      <p class="card-text mb-2">{{$profile->area->name or 'Sin area'}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <label class="h6 card-subtitle">Carrera:</label>
+                      <p class="card-text mb-2">Informatica</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <label class="h6 card-subtitle">Modalidad:</label>
+                      <p class="card-text mb-2  ">{{$profile->degree_modality}}</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <h6 class="h6 d-inline">Tesista:</h6>
+                      <p class="mb-0 d-inline"> {{$profile->applicant_name}} {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
           </div>
         </div>
-        <div class="col-12 col-lg-6">
-          <a href="{{ route ('list_profiles')}}" type="button" class="btn btn-danger pull-right">atras</a>
-
+        <div class="col-lg-2">
+          <div class="card mt-3">
+            <div class="card-header">
+              <h6 class="h6 text-center">PROFESIONALES NECESARIOS:</h6>
+            </div>
+            <div class="card-body text-center h-17">
+              <label for="" class="h5 d-block mb-4">0/3</label>
+              <button class="btn bg-theme-4"><i class="fa fa-plus"></i></button>
+              <button class="btn bg-theme-4"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <br>
+  <section id="selected-professional">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 mt-3">
+
+          <h5 class="h5">
+            PROFESIONALES SELECCIONADOS
+          </h5>
+        </div>
+        @foreach($professionals_asignados as $professional_asignado)
+
+        <div class="col-md-4">
+          <div class="card list-group-item list-group-item-action mb-2">
+            <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style="overflow: hidden;
+            white-space: nowrap;">
+              <label class="h6 texto mb-0">Profesional:</label>
+              <label class=" texto mb-0">{{$professional_asignado->name}} {{$professional_asignado->last_name_father}}</label>
+            </div>
+
+            <div class="card-body collapse" id="{{$professional_asignado->id}}">
+              <div class="perfil col-12">
+                <label class="h6 texto mb-0">Carga de perfiles:</label>
+                <label class=" texto mb-0">{{$professional_asignado->count}} perfiles</label>
+              </div>
+              <div class="perfil col-12 mb-0">
+                <label class="h6 texto">Areas de interes:</label>
+                <label class=" texto">Ninguna</label>
+              </div>
+              <div class="col-12 text-center">
+                <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                  <input type="hidden" name="profile_id" value="{{$profile->id}}">
+                  <input type="hidden" name="professional_id" value="{{$professional_asignado->id}}  ">
+
+                  <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        @endforeach
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-1">
+
+  <section id="professional-list">
+
+    <div class="container-fluid" style=" height: 41%; overflow-y: auto;">
+      <div class="row">
+        <div class="col-md-12">
+          <h5>SELECCIONAR PROFESIONALES</h5>
+          <label class="h6 ml-2">Profesionales relacionados con el area</label>
+        </div>
+
+        @if ( empty($professionals[0]))
+        <h2>No hay ningun profesional pertinente al area</h2>
+        @else @foreach($professionals as $professional)
+        <div class="col-md-4">
+          <div class="card list-group-item list-group-item-action mb-3">
+
+            <div class="col-12 text-justify">
+              <div class="perfil col-12">
+                <label class="h6 texto mb-0">Profesional:</label>
+                <label class=" texto mb-0">{{$professional->name}}  {{$professional->last_name_father}} {{$professional->last_name_mother}}</label><br>
+              </div>
+              <div class="perfil col-12">
+                <label class="h6 texto mb-0">Carga de perfiles:</label>
+                <label class=" texto mb-0">{{$professional->count}} perfiles</label>
+              </div>
+              <div class="perfil col-12 mb-0">
+                <label class="h6 texto">Areas de interes:</label>
+                <label class=" texto">Ninguna</label>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                <input type="hidden" name="profile_id" value="{{$profile->id}}">
+                <input type="hidden" name="professional_id" value="{{$professional->id}}">
+
+                <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+
+              </form>
+            </div>
+          </div>
+        </div>
+        @endforeach @endif
+
+        <div class="col-md-12">
+          <label class="h6 ml-2">Profesionales no relacionados con el area</label>
+        </div>
+
+        @if ( empty($professionals[0]))
+        <h2>No hay mas profesionales registrados</h2>
+        @else @foreach($professionals as $professional)
+        <div class="col-md-4">
+          <div class="card list-group-item list-group-item-action mb-3">
+
+            <div class="col-12 text-justify">
+              <div class="perfil col-12">
+                <label class="h6 texto mb-0">Profesional:</label>
+                <label class=" texto mb-0">{{$professional->name}}  {{$professional->last_name_father}} {{$professional->last_name_mother}}</label><br>
+              </div>
+              <div class="perfil col-12">
+                <label class="h6 texto mb-0">Carga de perfiles:</label>
+                <label class=" texto mb-0">{{$professional->count}} perfiles</label>
+              </div>
+              <div class="perfil col-12 mb-0">
+                <label class="h6 texto">Areas de interes:</label>
+                <label class=" texto">Ninguna</label>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                <input type="hidden" name="profile_id" value="{{$profile->id}}">
+                <input type="hidden" name="professional_id" value="{{$professional->id}}">
+                <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+        @endforeach @endif
+      </div>
+    </div>
+  </section>
+  <div class="row">
+    <div class="col-12">
+
+      <button id="add" type="button" class="btn bg-theme-4 float-right">ASIGNAR TRIBUNALES</button>
+
     </div>
   </div>
-
-@include('court_assignment.modal_show_professionals')
 @endsection
-
+ 
 @section('child_js')
-<script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
+  <script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
 @endsection

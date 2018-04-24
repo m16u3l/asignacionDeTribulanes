@@ -28,15 +28,15 @@
         <h5 class="h5 text-center">No hay ningun perfil disponible</h5>
         @else @foreach($profiles as $profile)
 
-        <div class="card list-group-item-action element-bg mb-3">
+        <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->degree}}">
-                  <h6 class="">{{$profile->degree}}</h6>
-                
+                <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
+                  <h6 class="">{{$profile->title}}</h6>
+
                   <h6 class="h6 d-inline">Tesista:</h6>
-                  <p class="mb-0 d-inline"> {{$profile->applicant_name}} {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</p>
+                  <p class="mb-0 d-inline"> {{$profile->student_name}} {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</p>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
@@ -53,7 +53,7 @@
               </div>
             </div>
 
-            <div class="card-body collapse" id="{{$profile->degree}}">
+            <div class="card-body collapse" id="{{$profile->title}}">
               <div class="row">
                 <div class="col-lg-11">
                   <div class="row">
