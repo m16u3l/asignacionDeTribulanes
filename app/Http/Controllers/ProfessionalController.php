@@ -123,20 +123,20 @@ class ProfessionalController extends Controller
     {
       $file = Input::file('fileProfessionals');
       (new FastExcel)->import($file, function ($line) {
-        $professional = new Professional();
-        $professional->professional_name = $line['NOMBRE '];
-        $professional->professional_last_name_mother = $line['APELLIDO PATERNO '];
-        $professional->professional_last_name_father = $line['APELLIDO MATERNO '];
-        $professional->email = $line['CORREO'];
-        $professional->degree = $line['TITULO DOCENTE'];
-        $professional->workload = $line['CARGA HORARIA'];
-        $professional->phone = $line['TELEFONO'];
-        $professional->address = $line['DIRECCION'];
-        $professional->profile = $line['PERFIL'];
-        $professional->ci = $line['CI'];
-        $professional->cod_sis = $line['COD SIS'];
-        $professional->save();
+        Professional::firstOrCreate(array(
+            'professional_name' => $line['NOMBRE '],
+            'professional_last_name_mother' => $line['APELLIDO MATERNO '],
+            'professional_last_name_father' => $line['APELLIDO PATERNO '],
+            'email' => $line['CORREO'],
+            'degree' => $line['TITULO DOCENTE'],
+            'workload' => $line['CARGA HORARIA'],
+            'phone' => $line['TELEFONO'],
+            'address' => $line['DIRECCION'],
+            'profile' => $line['PERFIL'],
+            'ci' => $line['CI'],
+            'cod_sis' => $line['COD SIS'],
+          ));
       });
-
+      return view('import.import_professionals');
     }
 }
