@@ -26,13 +26,13 @@ class ProfileController extends Controller
 	public function index(Request $request)
 	{
 
-		$profiles = DB::table('profiles')
-			->join('areas', 'profiles.area_id', '=', 'areas.id')
-			->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
-			->join('students', 'student_profiles.student_id', '=', 'students.id')
-			->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
-			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
-			->get();
+		$profiles = Profile::join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
+					->join('students', 'student_profiles.profile_id', '=', 'students.id')
+					->join('tutors', 'profiles.id', '=', 'tutors.id')
+					->join('professionals', 'tutors.id', '=', 'tutors.id')
+					->join('areas', 'profiles.area_id', '=', 'areas.id')
+					->buscarPorTituloOEstudiante($request->name)
+					->paginate(10);
 
 		 return view('court_assignment.list_profiles', compact('profiles'));
 
