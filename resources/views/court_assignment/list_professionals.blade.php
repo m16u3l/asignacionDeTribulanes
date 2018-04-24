@@ -57,15 +57,15 @@
 
           </div>
         </div>
-        <div class="col-lg-2 ml-0">
+        <div class="col-lg-2 ml-0 d-none">
           <div class="card mt-3">
             <div class="card-header">
               <h6 class="h6 text-center">PROFESIONALES NECESARIOS:</h6>
             </div>
             <div class="card-body text-center h-17">
-              <label for="" class="h5 d-block mb-4 " id="professional-number-label">0/3</label>
-              <button class="btn bg-theme-4"><i class="fa fa-plus"></i></button>
-              <button class="btn bg-theme-4"><i class="fa fa-minus"></i></button>
+              <p for="" class="h5 d-block mb-4 " id="professional-number-label">0/3</p>
+              <button class="btn bg-theme-4" onclick="increaseMaxProf()"><i class="fa fa-plus"></i></button>
+              <button class="btn bg-theme-4" onclick="decreaseMaxProf()"><i class="fa fa-minus"></i></button>
             </div>
           </div>
         </div>
@@ -83,12 +83,15 @@
           </h5>
 
         </div>
-        <div class="col-md-4" id="no-selection-message">
+
+        
+        <!--div class="col-md-4 " id="no-selection-message">
           <div class="card list-group-item list-group-item-action mb-0">
             <h6>Ningun profesional ha sido seleccionado</h6>
           </div>
-        </div>
-        <!--@foreach($professionals_asignados as $professional_asignado)
+        </div-->
+
+       @foreach($professionals_asignados as $professional_asignado)
 
         <div class="col-md-4">
           <div class="card list-group-item list-group-item-action mb-2">
@@ -113,7 +116,7 @@
                   <input type="hidden" name="profile_id" value="{{$profile->id}}">
                   <input type="hidden" name="professional_id" value="{{$professional_asignado->id}}  ">
 
-                  <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+                  <button type="submit" class="btn bg-theme-4" ><i class="fa fa-minus-circle"></i></button>
 
                 </form>
               </div>
@@ -121,8 +124,8 @@
 
           </div>
         </div>
-        
-        @endforeach-->
+
+        @endforeach
 
       </div>
     </div>
@@ -134,7 +137,7 @@
   <section id="professional-list">
 
     <div class="container-fluid" style=" height: 41%; overflow-y: auto;">
-      <div class="row">
+      <div class="row" id="area-related-list">
         <div class="col-md-12">
           <h5>SELECCIONAR PROFESIONALES</h5>
           <label class="h6 ml-2">Profesionales relacionados con el area</label>
@@ -147,7 +150,7 @@
           </div>
         </div>
         @else @foreach($professionals as $professional)
-        <div class="col-md-4" onclick="addProfessional(this)">
+        <div class="col-md-4 area-related-professional">
           <div class="card list-group-item list-group-item-action mb-3">
 
             <div class="col-12 text-justify">
@@ -165,13 +168,13 @@
                   <label class=" texto">Ninguna</label>
                 </div>
               </div>
-              <div class="col-12 text-center d-none">
+              <div class="col-12 text-center">
                 <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" name="profile_id" value="{{$profile->id}}">
                   <input type="hidden" name="professional_id" value="{{$professional->id}}">
 
-                  <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+                  <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
 
                 </form>
               </div>
@@ -179,7 +182,8 @@
           </div>
         </div>
         @endforeach @endif
-
+      </div>
+      <div class="row" id="not-related-list">
         <div class="col-md-12">
           <label class="h6 ml-2">Profesionales no relacionados con el area</label>
         </div>
@@ -187,7 +191,7 @@
         @if ( empty($allProfessionals[0]))
         <h6>No hay mas profesionales registrados</h6>
         @else @foreach($allProfessionals as $allprofessional)
-        <div class="col-md-4 " onclick="addProfessional(this)">
+        <div class="col-md-4 not-related-professional">
           <div class="card list-group-item list-group-item-action mb-3">
 
             <div class="col-12 text-justify">
@@ -205,12 +209,12 @@
                   <label class=" texto">Ninguna</label>
                 </div>
               </div>
-              <div class="col-12 text-center d-none">
+              <div class="col-12 text-center">
                 <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" name="profile_id" value="{{$profile->id}}">
                   <input type="hidden" name="professional_id" value="{{$allprofessional->id}}">
-                  <button type="submit" class="btn bg-theme-4"><i class="fa fa-plus-circle"></i></button>
+                  <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
                 </form>
               </div>
             </div>
@@ -223,8 +227,28 @@
   <div class="row">
     <div class="col-12">
 
-      <button id="add" type="button" class="btn bg-theme-4 float-right">ASIGNAR TRIBUNALES</button>
+      <button id="register" type="button" class="btn bg-theme-4 float-right" data-toggle="modal" data-target="#myModal">ASIGNAR TRIBUNALES</button>
 
+    </div>
+  </div>
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">REGISTRO DE TRIBUNALES</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>¿Esta seguro de que desea registrar los tribunales seleccionados? </p>
+          <div class="modal-footer">
+            <button type="button" class="btn bg-theme-4" data-dismiss="modal" onClick="window.location.reload();">Registrar</button>
+            <button type="button" class="btn bg-theme-5" data-dismiss="modal ">Cancelar</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 @endsection
