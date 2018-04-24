@@ -16,16 +16,25 @@ class ProfileController extends Controller
 
 		$profiles = DB::table('profiles')
 			->join('areas', 'profiles.area_id', '=', 'areas.id')
-			->select('profiles.*', 'areas.name')
-			->where('profiles.count', '>=', 3)
+			->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
+			->join('students', 'student_profiles.student_id', '=', 'students.id')
 			->get();
+
 		return view('profiles_assigned_professionals.list_profiles_assigned', compact('profiles'));
 	}
 
 	public function index()
 	{
-		$profiles = DB::table('profiles')->paginate(10);
-		return view('court_assignment.list_profiles', compact('profiles'));
+
+		$profiles = DB::table('profiles')
+			->join('areas', 'profiles.area_id', '=', 'areas.id')
+			->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
+			->join('students', 'student_profiles.student_id', '=', 'students.id')
+			->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
+			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
+			->get();
+
+		 return view('court_assignment.list_profiles', compact('profiles'));
 	}
 
 	public function finalizar_perfil($id)
@@ -37,6 +46,7 @@ class ProfileController extends Controller
 			->select('assignements.professional_id')
 			->where('assignements.profile_id', '=', $id)
 			->get();
+
 
 			foreach ($professionals as &$professional) {
 				DB::table('professionals')->where('id', $professional->professional_id)->decrement('count');
