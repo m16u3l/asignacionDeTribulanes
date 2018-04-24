@@ -22,9 +22,18 @@ class ProfileController extends Controller
 		return view('profiles_assigned_professionals.list_profiles_assigned', compact('profiles'));
 	}
 
-	public function index()
+	public function index(Request $request)
 	{
-		$profiles = DB::table('profiles')->paginate(10);
+		//$profiles = DB::table('profiles')->paginate(10);
+		$profiles = Profile::join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
+			->join('students', 'student_profiles.profile_id', '=', 'students.id')
+			->join('tutors', 'profiles.id', '=', 'tutors.id')
+			->join('professionals', 'tutors.id', '=', 'tutors.id')
+			->join('areas', 'profiles.area_id', '=', 'areas.id')
+			->buscarPorTituloOEstudiante($request->name)
+			->paginate(10);
+		
+			//dd($profiles);
 		return view('court_assignment.list_profiles', compact('profiles'));
 	}
 
