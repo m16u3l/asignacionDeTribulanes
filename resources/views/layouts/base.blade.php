@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{{ url('css/body.css')}}">
   <link rel="stylesheet" href="/css/fer_imagen.css">
   <link rel="stylesheet" href="/css/navbar.css">
-  
+
   @yield('child_css')
 
 
@@ -22,7 +22,7 @@
 </head>
 
 <body class="body">
-  
+
 <!--header-bar-->
   <header class="bg-theme-1">
     <nav class="text-white">
@@ -50,20 +50,20 @@
             <a href="{{ route ('list_profiles')}}" class="list-group-item" data-parent="#menu1">Perfiles sin tribunales</a>
             <a href="{{ route ('list_profiles_asigned')}}" class="list-group-item" data-parent="#menu1">Perfiles con tribunales asignados</a>
           </div>
-          
+
           <a href="#menu3" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Carga de datos</span></a>
           <div class="collapse" id="menu3">
             <a href="#" class="list-group-item" data-parent="#menu3">Perfiles</a>
-            
-            <a href="#" class="list-group-item" data-parent="#menu3">Profesionales</a>
+
+            <a href="{{ route ('import_professionals')}}" class="list-group-item" data-parent="#menu3">Profesionales</a>
           </div>
         </div>
       </div>
       <!--end sidebar-->
-      
+
         @yield('content')
 
-      
+
     </div>
   </div>
 
@@ -76,7 +76,7 @@
 
 
 
-  
+
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
