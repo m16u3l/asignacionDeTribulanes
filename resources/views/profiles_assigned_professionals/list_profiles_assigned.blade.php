@@ -14,6 +14,11 @@
   <br>
   <br>
   <ul class="list-group" id="profile_list">
+  <div class="panel-body">
+    {{$profiles->total()}} registros |
+      pagina {{ $profiles->currentPage() }}
+      de {{ $profiles->lastPage() }}
+  </div>
     @foreach($profiles as $profile)
 
 
@@ -67,9 +72,10 @@
       </div>
     </div>
 
-
     @endforeach
   </ul>
+  {{$profiles->render()}}
+</div>
   @include('profiles_assigned_professionals.modal_show_profile_assigned')
 @endsection
 
