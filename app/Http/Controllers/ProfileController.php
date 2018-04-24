@@ -18,6 +18,8 @@ class ProfileController extends Controller
 			->join('areas', 'profiles.area_id', '=', 'areas.id')
 			->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
 			->join('students', 'student_profiles.student_id', '=', 'students.id')
+			->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
+			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
 			->get();
 
 		return view('profiles_assigned_professionals.list_profiles_assigned', compact('profiles'));
