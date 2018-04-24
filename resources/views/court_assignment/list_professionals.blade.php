@@ -27,11 +27,12 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <label class="h6 card-subtitle">Tutor(es):</label>
-                      <p class="card-text mb-2">{{$profile->tutor_name}} {{$profile->tutor_last_name_father}} {{$profile->tutor_last_name_mother}}</p>
+                      <p class="card-text mb-2">
+                        {{$tutor->professional_name}} {{$tutor->professional_last_name_father}} {{$tutor->professional_last_name_mother}}</p>
                     </div>
                     <div class="col-lg-4">
                       <label class="h6 card-subtitle">Area(s):</label>
-                      <p class="card-text mb-2">{{$profile->area->name or 'Sin area'}}</p>
+                      <p class="card-text mb-2">{{$area->area_name or 'Sin area'}}</p>
                     </div>
                     <div class="col-lg-4">
                       <label class="h6 card-subtitle">Carrera:</label>
@@ -43,7 +44,9 @@
                     </div>
                     <div class="col-lg-4">
                       <h6 class="h6 d-inline">Tesista:</h6>
-                      <p class="mb-0 d-inline"> {{$profile->applicant_name}} {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</p>
+                      <p class="mb-0 d-inline">
+                        {{$student->student_name}} {{$student->student_last_name_father}} {{$student->student_last_name_mother}}
+                      </p>
                     </div>
                   </div>
                 </div>

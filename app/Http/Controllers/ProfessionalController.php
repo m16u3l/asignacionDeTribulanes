@@ -14,22 +14,33 @@ use Illuminate\Support\Facades\Input;
 
 class ProfessionalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
+      $url = '/register_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
-      $url = '/register_tribunal';
+      $student = DB::table('profiles')
+        ->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
+        ->select('students.*')
+        ->where('student_profiles.profile_id','=',$profile->area_id)
+        ->join('students', 'student_profiles.student_id', '=', 'students.id')
+        ->get()
+        ->first();
+
+        $tutor = DB::table('profiles')
+          ->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
+          ->select('professionals.*')
+          ->where('tutors.profile_id','=',$profile->area_id)
+          ->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
+          ->get()
+          ->first();
 
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
         ->select('professionals.*')
         ->where('area_interests.area_id', '=', $area->id)
-        ->orderBy('count')
+
         ->whereNotIn('professionals.id', DB::table('professionals')
             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
             ->select('professionals.id')
@@ -38,6 +49,7 @@ class ProfessionalController extends Controller
             ->join('assignements','professionals.id', '=', 'assignements.professional_id')
             ->select('professionals.id')
             ->where('assignements.profile_id', '=', $profile->id))
+        ->orderBy('count')
         ->get();
 
         $professionals_asignados = DB::table('professionals')
@@ -45,7 +57,6 @@ class ProfessionalController extends Controller
             ->where('assignements.profile_id', '=', $profile->id)
             ->get();
           $allProfessionals = DB::table('professionals')
-            ->orderBy('count')
             ->whereNotIn('professionals.id', DB::table('professionals')
                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
                 ->select('professionals.id')
@@ -58,9 +69,10 @@ class ProfessionalController extends Controller
                 ->join('assignements','professionals.id', '=', 'assignements.professional_id')
                 ->select('professionals.id')
                 ->where('assignements.profile_id', '=', $profile->id))
+            ->orderBy('count')
             ->get();
 
-          return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
+          return view('court_assignment.list_professionals', compact('url','tutor','student' ,'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
     }
 
     public function store(Request $request)
