@@ -10,16 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class ProfessionalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id)
     {
+      $url = '/register_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
-      $allProfessionals = [] ;
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
         ->select('professionals.*')
@@ -29,9 +25,18 @@ class ProfessionalController extends Controller
             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
             ->select('professionals.id')
             ->where('tutors.profile_id', '=', $profile->id))
+        ->whereNotIn('professionals.id', DB::table('professionals')
+        ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
+        ->select('professionals.id')
+        ->where('assignements.profile_id', '=', $profile->id))
         ->get();
 
-        $url = '/register_tribunal';
+        $professionals_asignados = DB::table('professionals')
+        ->join('assignements', 'professionals.id', '=', 'assignements.professional_id')
+        ->select('professionals.*')
+        ->where('assignements.profile_id', '=', $profile->id)
+        ->get();
+
           $allProfessionals = DB::table('professionals')
             ->orderBy('count')
             ->whereNotIn('professionals.id', DB::table('professionals')
@@ -43,8 +48,8 @@ class ProfessionalController extends Controller
             ->select('professionals.id')
             ->where('area_interests.area_id', '=', $area->id))
             ->get();
-          
-          return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals', 'allProfessionals'));
+            
+          return view('court_assignment.list_professionals', compact('url', 'profile', 'area', 'professionals','professionals_asignados', 'allProfessionals'));
     }
 
     public function store(Request $request)

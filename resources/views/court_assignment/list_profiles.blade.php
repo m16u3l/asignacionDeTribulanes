@@ -1,11 +1,11 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title>Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
 @endsection
- 
+
 @section('content')
 <div class="col">
 
@@ -36,18 +36,18 @@
                   <h6 class="">{{$profile->title}}</h6>
 
                   <h6 class="h6 d-inline">Tesista:</h6>
-                  <p class="mb-0 d-inline"> {{$profile->student_name}} {{$profile->applicant_last_name_father}} {{$profile->applicant_last_name_mother}}</p>
+                  <p class="mb-0 d-inline"> {{$profile->student_name}} {{$profile->student_last_name_father}} {{$profile->student_last_name_mother}}</p>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
                 </div>
                 <!--div class="col-lg-1 col-6 text-center">
-                  <button v-on:"click.stop" type="button" class="edit-modal btn btn-info" data-toggle="modal" data-target="#myModal" data-title="{{$profile->degree}}"
-                    data-applicant_name="{{$profile->applicant_name}}" data-applicant_last_name_father="{{$profile->applicant_last_name_father}}"
-                    data-applicant_last_name_mother="{{$profile->applicant_last_name_mother}}" data-tutor_name="{{$profile->tutor_name}}"
-                    data-tutor_last_name_father="{{$profile->tutor_last_name_father}}" data-tutor_last_name_mother="{{$profile->tutor_last_name_mother}}"
+                  <button v-on:"click.stop" type="button" class="edit-modal btn btn-info" data-toggle="modal" data-target="#myModal" data-title="{{$profile->title}}"
+                    data-student_name="{{$profile->student_name}}" data-student_last_name_father="{{$profile->student_last_name_father}}"
+                    data-student_last_name_mother="{{$profile->student_last_name_mother}}" data-professional_name="{{$profile->professional_name}}"
+                    data-professional_last_name_father="{{$profile->professional_last_name_father}}" data-professional_last_name_mother="{{$profile->professional_last_name_mother}}"
                     data-title_modality="{{$profile->degree_modality}}" data-objective="{{$profile->objective}}" data-area="{{$profile->area->name or 'Sin area'}}"><i class="fa fa-info "></i>
-                
+
                   </button>
                 </div-->
               </div>
@@ -59,11 +59,11 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <label class="h6 card-subtitle">Tutor(es):</label>
-                      <p class="card-text mb-2">{{$profile->tutor_name}} {{$profile->tutor_last_name_father}} {{$profile->tutor_last_name_mother}}</p>
+                      <p class="card-text mb-2">{{$profile->professional_name}} {{$profile->professional_last_name_father}} {{$profile->professional_last_name_mother}}</p>
                     </div>
                     <div class="col-lg-6">
                       <label class="h6 card-subtitle">Area(s):</label>
-                      <p class="card-text mb-2">{{$profile->area->name or 'Sin area'}}</p>
+                      <p class="card-text mb-2">{{$profile->area_name}}</p>
                     </div>
                     <div class="col-lg-6">
                       <label class="h6 card-subtitle">Carrera:</label>
@@ -90,12 +90,10 @@
       </div>
     </div>
   </div>
-  <ul class="pagination">
-    {{ $profiles->links() }}
-  </ul>
+
   @include('court_assignment.modal_show_profile')
 @endsection
- 
+
 @section('child_js')
   <script type="text/javascript" src="{{ url('asset/court_assignment/list_profiles.js')}}"></script>
   <script type="text/javascript" src="{{ url('js/search_bar.js')}}"></script>
