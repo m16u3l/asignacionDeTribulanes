@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-
+  
   @include('court_assignment.modal_show_profile')
 @endsection
 

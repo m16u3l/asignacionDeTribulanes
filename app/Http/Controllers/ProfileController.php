@@ -21,8 +21,8 @@ class ProfileController extends Controller
 			->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
 			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
 			->get();
-
 		return view('profiles_assigned_professionals.list_profiles_assigned', compact('profiles'));
+
 	}
 
 	public function index(Request $request)
@@ -35,7 +35,7 @@ class ProfileController extends Controller
 			->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
 			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
 			->get();
-			
+
 		 return view('court_assignment.list_profiles', compact('profiles'));
 
 	}

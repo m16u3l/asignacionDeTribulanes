@@ -1,12 +1,12 @@
-insert into areas (id,name) values(1,'Sistemas de Información');
-insert into areas (id,name) values(2,'Bases de Datos');
-insert into areas (id,name) values(3,'Procesamiento de Imagenes');
-insert into areas (id,name) values(4,'Computación Gráfica');
-insert into areas (id,name) values(5,'Ingeniería de Software');
-insert into areas (id,name) values(6,'Especificación y Dise&ntilde;o de Software');
-insert into areas (id,name) values(7,'Sistemas Multimedios e Hipermedios');
-insert into areas (id,name) values(8,'Sistemas de Información');
-insert into areas (id,name) values(9,'Sistemas de Información') ;
+insert into areas (id,area_name) values(1,'Sistemas de Información');
+insert into areas (id,area_name) values(2,'Bases de Datos');
+insert into areas (id,area_name) values(3,'Procesamiento de Imagenes');
+insert into areas (id,area_name) values(4,'Computación Gráfica');
+insert into areas (id,area_name) values(5,'Ingeniería de Software');
+insert into areas (id,area_name) values(6,'Especificación y Dise&ntilde;o de Software');
+insert into areas (id,area_name) values(7,'Sistemas Multimedios e Hipermedios');
+insert into areas (id,area_name) values(8,'Sistemas de Información');
+insert into areas (id,area_name) values(9,'Sistemas de Información') ;
 
 insert into students (id,student_name,student_last_name_father,student_last_name_mother,career) values (1,'Fabiola','Cuchallo','Flores','Licenciatura en Ingenieria Informática');
 insert into students (id,student_name,student_last_name_father,student_last_name_mother,career) values (2,'Monica Liz','Ustariz','Vasquez','Licenciatura en Ingenieria Informática');
@@ -92,7 +92,7 @@ insert into tutors (profile_id,professional_id) values (26,2);
 insert into tutors (profile_id,professional_id) values (27,5);
 insert into tutors (profile_id,professional_id) values (28,6);
 
-insert into student_profiles (student_id,profile_id) values (1,1);
+insert into student_profiles (student_id,profile_id) values (1,3);
 insert into student_profiles (student_id,profile_id) values (2,2);
 insert into student_profiles (student_id,profile_id) values (3,3);
 insert into student_profiles (student_id,profile_id) values (4,4);
