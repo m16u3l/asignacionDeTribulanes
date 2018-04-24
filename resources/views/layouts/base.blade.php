@@ -55,7 +55,7 @@
           <div class="collapse" id="menu3">
             <a href="#" class="list-group-item" data-parent="#menu3">Perfiles</a>
             
-            <a href="#" class="list-group-item" data-parent="#menu3">Profesionales</a>
+            <a href="/import_professionals" class="list-group-item" data-parent="#menu3">Profesionales</a>
           </div>
         </div>
       </div>
