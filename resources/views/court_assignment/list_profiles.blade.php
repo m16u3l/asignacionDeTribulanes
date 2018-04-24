@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-
+  {{ $profiles->links() }}
   @include('court_assignment.modal_show_profile')
 @endsection
 
