@@ -1,8 +1,8 @@
-@extends('layouts.base')
+@extends('layouts.base') 
 @section('head')
 <title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
-
+ 
 @section('content')
 <div class="col">
   <section id="profile-info">
@@ -13,7 +13,7 @@
 
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-11">
+                <div class="col">
                   <h4 class="h4 text-center">{{$profile->title}}</h4>
 
 
@@ -57,13 +57,13 @@
 
           </div>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 ml-0">
           <div class="card mt-3">
             <div class="card-header">
               <h6 class="h6 text-center">PROFESIONALES NECESARIOS:</h6>
             </div>
             <div class="card-body text-center h-17">
-              <label for="" class="h5 d-block mb-4">0/3</label>
+              <label for="" class="h5 d-block mb-4 " id="professional-number-label">0/3</label>
               <button class="btn bg-theme-4"><i class="fa fa-plus"></i></button>
               <button class="btn bg-theme-4"><i class="fa fa-minus"></i></button>
             </div>
@@ -75,19 +75,25 @@
 
   <section id="selected-professional">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 mt-3">
+      <div class="row" id="selected-professional-list">
+        <div class="col-12 mt-3" >
 
           <h5 class="h5">
             PROFESIONALES SELECCIONADOS
           </h5>
+
         </div>
-        @foreach($professionals_asignados as $professional_asignado)
+        <div class="col-md-4" id="no-selection-message">
+          <div class="card list-group-item list-group-item-action mb-0" >
+            <h6>Ningun profesional ha sido seleccionado</h6>
+          </div>
+        </div>
+        <!--@foreach($professionals_asignados as $professional_asignado)
 
         <div class="col-md-4">
           <div class="card list-group-item list-group-item-action mb-2">
-            <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style ="overflow: hidden;
-               white-space: nowrap;" >
+            <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style="overflow: hidden;
+               white-space: nowrap;">
               <label class="h6 texto mb-0">Profesional:</label>
               <label class=" texto mb-0">{{$professional_asignado->professional_name}} {{$professional_asignado->professional_last_name_father}}</label>
             </div>
@@ -115,14 +121,15 @@
 
           </div>
         </div>
+        
+        @endforeach-->
 
-        @endforeach
       </div>
     </div>
   </section>
 
 
-  <hr class="my-1">
+  <hr class="my-2">
 
   <section id="professional-list">
 
@@ -134,9 +141,13 @@
         </div>
 
         @if ( empty($professionals[0]))
-        <h2>No hay ningun profesional pertinente al area</h2>
-        @else @foreach($professionals as $professional)
         <div class="col-md-4">
+          <div class="card list-group-item list-group-item-action mb-0">
+            <h6>No hay ningun profesional pertinente al area</h6>
+          </div>
+        </div>
+        @else @foreach($professionals as $professional)
+        <div class="col-md-4" onclick="addProfessional(this)">
           <div class="card list-group-item list-group-item-action mb-3">
 
             <div class="col-12 text-justify">
@@ -172,9 +183,9 @@
         </div>
 
         @if ( empty($allProfessionals[0]))
-        <h2>No hay mas profesionales registrados</h2>
+        <h6>No hay mas profesionales registrados</h6>
         @else @foreach($allProfessionals as $allprofessional)
-        <div class="col-md-4">
+        <div class="col-md-4 " onclick="addProfessional(this)">
           <div class="card list-group-item list-group-item-action mb-3">
 
             <div class="col-12 text-justify">
@@ -213,7 +224,8 @@
     </div>
   </div>
 @endsection
-
+ 
 @section('child_js')
   <script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
+  <script src="/js/selected_professional.js"></script>
 @endsection

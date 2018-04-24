@@ -21,14 +21,15 @@
       <div class="card list-group-item-action">
         <div class="card-header clearfix">
           <div class="row">
-            <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
+            <div class="col-lg-10" data-toggle="collapse" href="#{{$profile->title}}">
               <h6 class="">{{$profile->title}}</h6>
 
               <h6 class="h6 d-inline">Tesista:</h6>
               <p class="mb-0 d-inline"> {{$profile->student_name}} {{$profile->student_last_name_father}} {{$profile->student_last_name_mother}}</p>
             </div>
-            <div class="col-lg-1 col-12 text-center row-sm-center">
-              <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
+            <div class="col-lg-2 col-12 text-center row-sm-center">
+              <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 mt-0 mb-0"><i class="fa fa-users"></i></a>
+              <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 mt-0 mb-0"><i class="fa fa-check"></i></a>
             </div>
           </div>
         </div>
