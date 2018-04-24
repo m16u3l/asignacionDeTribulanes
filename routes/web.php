@@ -20,3 +20,16 @@ Route::post('/register_tribunal', [
 Route::get('/finalizar_tribunal/{id}', [
     'as' => 'finalizar_tribunal',
     'uses' => "ProfileController@finalizar_perfil"]);
+
+
+/*
++ Rutas de Importacion
++*/
+
+Route::get('import_professionals',[
+  'as'=>'import_professionals',
+  'uses'=>'ProfessionalController@uploadProfessionals']);
+
+Route::post('import_professionals',[
+  'as'=>'import_professionals',
+  'uses'=>'ProfessionalController@importProfessionals']);
