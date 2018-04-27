@@ -25,7 +25,7 @@
         </div>
         <!-Fin de buscador->
         @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No hay ningun perfil disponible</h5>
+        <h5 class="h5 text-center">No se encontró perfiles</h5>
         @else @foreach($profiles as $profile)
 
         <div class="card list-group-item-action element-bg mb-1">

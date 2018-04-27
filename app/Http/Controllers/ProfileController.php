@@ -41,7 +41,7 @@ class ProfileController extends Controller
 			->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
 			->select('profiles.*','students.student_name','students.student_last_name_mother','students.student_last_name_father','areas.area_name'
 			,'professionals.professional_name','professionals.professional_last_name_father','professionals.professional_last_name_mother')
-			->buscarPorTituloOEstudiante($request->name)
+			->search_by_title_or_student($request->name)
 			->orderBy('title')
 			->paginate(10);
 

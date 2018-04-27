@@ -16,7 +16,7 @@ class Profile extends Model
   +    consulta para buscar perfiles por Titulo de perfil
   +    y tambien por nombre de Estudiante no sensibles a mayusculas y minusculas
   +  */
-  public function scopeBuscarPorTituloOEstudiante($query, $name)
+  public function scopeSearch_by_title_or_student($query, $name)
   {
     $query -> where('title', 'ilike','%'.$name.'%')
       ->orWhere(\DB::raw("concat(student_name, ' ', student_last_name_father, ' ',
