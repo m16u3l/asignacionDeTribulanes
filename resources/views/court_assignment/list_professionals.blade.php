@@ -1,8 +1,8 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('content')
 <div class="col">
   <section id="profile-info">
@@ -84,7 +84,7 @@
 
         </div>
 
-        
+
         <!--div class="col-md-4 " id="no-selection-message">
           <div class="card list-group-item list-group-item-action mb-0">
             <h6>Ningun profesional ha sido seleccionado</h6>
@@ -252,7 +252,7 @@
     </div>
   </div>
 @endsection
- 
+
 @section('child_js')
   <script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
   <script src="/js/selected_professional.js"></script>

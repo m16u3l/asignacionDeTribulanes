@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-2 col-12 text-center row-sm-center">
               <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 mt-0 mb-0"><i class="fa fa-users"></i></a>
-              <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 mt-0 mb-0"><i class="fa fa-check"></i></a>
+              <a href="{{ route ('finalizar_tribunal',[$profile->id])}}" class="btn bg-theme-5 mt-0 mb-0"><i class="fa fa-check"></i></a>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@
 
     @endforeach
   </ul>
-  {{$profiles->render()}}
+  a
 </div>
   @include('profiles_assigned_professionals.modal_show_profile_assigned')
 @endsection
