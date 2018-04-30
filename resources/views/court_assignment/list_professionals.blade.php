@@ -143,7 +143,7 @@
             <form class="navbar-form pull right" action="{{ route ('asignacion',[$profile->id]) }}" method="GET" role="search">
               <div class="panel-body">
                 <div class="input-group input-group">
-                  <input type="text" class="form-control" name="name" placeholder="Nombre de profesional o area de interes..." aria-describedby="basic-addon2">
+                  <input type="text" class="form-control" name="name" placeholder="Buscar profesional..." aria-describedby="basic-addon2">
                   <span class="input-group-append"><button type="submit" class="btn bg-theme-1 input-group-append">Buscar</button></span>
                 </div>
               </div>
