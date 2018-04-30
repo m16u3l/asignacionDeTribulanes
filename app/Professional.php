@@ -23,6 +23,15 @@ class Professional extends Model
     'count'
   ];
 
+  /**
+   *  buscar profesionales por nombre
+   */
+  public function scopeSearch_by_name($query, $name)
+  {
+    $query -> where(\DB::raw("concat(professional_name, ' ', professional_last_name_father, ' ',
+      professional_last_name_mother)"), 'ilike','%'.$name.'%');
+  }
+
   public function assingements()
   {
     return $this->hasMany('App\Assignement');

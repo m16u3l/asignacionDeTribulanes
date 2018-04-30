@@ -138,89 +138,108 @@
 
     <div class="container-fluid" style=" height: 41%; overflow-y: auto;">
       <div class="row" id="area-related-list">
-        <div class="col-md-12">
-          <h5>SELECCIONAR PROFESIONALES</h5>
-          <label class="h6 ml-2">Profesionales relacionados con el area</label>
-        </div>
-
-        @if ( empty($professionals[0]))
-        <div class="col-md-4">
-          <div class="card list-group-item list-group-item-action mb-0">
-            <h6>No hay ningun profesional pertinente al area</h6>
-          </div>
-        </div>
-        @else @foreach($professionals as $professional)
-        <div class="col-md-4 area-related-professional">
-          <div class="card list-group-item list-group-item-action mb-3">
-
-            <div class="col-12 text-justify">
-              <div class="row">
-                <div class="perfil col-12">
-                  <label class="h6 texto mb-0">Profesional:</label>
-                  <label class=" texto mb-0">{{$professional->professional_name}}  {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</label><br>
-                </div>
-                <div class="perfil col-12">
-                  <label class="h6 texto mb-0">Carga de perfiles:</label>
-                  <label class=" texto mb-0">{{$professional->count}} perfiles</label>
-                </div>
-                <div class="perfil col-12 mb-0">
-                  <label class="h6 texto">Areas de interes:</label>
-                  <label class=" texto">Ninguna</label>
+        <!-Buscador->
+          <div class="mt-4 col-lg-8 col body-bg">
+            <form class="navbar-form pull right" action="{{ route ('asignacion',[$profile->id]) }}" method="GET" role="search">
+              <div class="panel-body">
+                <div class="input-group input-group">
+                  <input type="text" class="form-control" name="name" placeholder="Nombre de profesional o area de interes..." aria-describedby="basic-addon2">
+                  <span class="input-group-append"><button type="submit" class="btn bg-theme-1 input-group-append">Buscar</button></span>
                 </div>
               </div>
-              <div class="col-12 text-center">
-                <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" name="profile_id" value="{{$profile->id}}">
-                  <input type="hidden" name="professional_id" value="{{$professional->id}}">
+            </form>
+          </div>
+        <!-Fin de buscador->
+          @if ( empty($allProfessionals[0]))
+          <div class="col-md-12">
+            <h5>No se encontró profesional/es</h5>
+          </div>
+          @else
+          <div class="col-md-12">
+            <h5>SELECCIONAR PROFESIONALES</h5>
+            <label class="h6 ml-2">Profesionales relacionados con el area</label>
+          </div>
 
-                  <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
+          @if ( empty($professionals[0]))
+          <div class="col-md-4">
+            <div class="card list-group-item list-group-item-action mb-0">
+              <h6>No hay ningun profesional pertinente al area</h6>
+            </div>
+          </div>
+          @else @foreach($professionals as $professional)
+          <div class="col-md-4 area-related-professional">
+            <div class="card list-group-item list-group-item-action mb-3">
 
-                </form>
+              <div class="col-12 text-justify">
+                <div class="row">
+                  <div class="perfil col-12">
+                    <label class="h6 texto mb-0">Profesional:</label>
+                    <label class=" texto mb-0">{{$professional->professional_name}}  {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</label><br>
+                  </div>
+                  <div class="perfil col-12">
+                    <label class="h6 texto mb-0">Carga de perfiles:</label>
+                    <label class=" texto mb-0">{{$professional->count}} perfiles</label>
+                  </div>
+                  <div class="perfil col-12 mb-0">
+                    <label class="h6 texto">Areas de interes:</label>
+                    <label class=" texto">Ninguna</label>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                    <input type="hidden" name="profile_id" value="{{$profile->id}}">
+                    <input type="hidden" name="professional_id" value="{{$professional->id}}">
+
+                    <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
+
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+          @endforeach @endif
         </div>
-        @endforeach @endif
-      </div>
-      <div class="row" id="not-related-list">
-        <div class="col-md-12">
-          <label class="h6 ml-2">Profesionales no relacionados con el area</label>
-        </div>
+        <div class="row" id="not-related-list">
+          <div class="col-md-12">
+            <label class="h6 ml-2">Profesionales no relacionados con el area</label>
+          </div>
 
-        @if ( empty($allProfessionals[0]))
-        <h6>No hay mas profesionales registrados</h6>
-        @else @foreach($allProfessionals as $allprofessional)
-        <div class="col-md-4 not-related-professional">
-          <div class="card list-group-item list-group-item-action mb-3">
+          @if ( empty($allProfessionals[0]))
+          <h6>No hay mas profesionales registrados</h6>
+          @else @foreach($allProfessionals as $allprofessional)
+          <div class="col-md-4 not-related-professional">
+            <div class="card list-group-item list-group-item-action mb-3">
 
-            <div class="col-12 text-justify">
-              <div class="row">
-                <div class="perfil col-12">
-                  <label class="h6 texto mb-0">Profesional:</label>
-                  <label class=" texto mb-0">{{$allprofessional->professional_name}}  {{$allprofessional->professional_last_name_father}} {{$allprofessional->professional_last_name_mother}}</label><br>
+              <div class="col-12 text-justify">
+                <div class="row">
+                  <div class="perfil col-12">
+                    <label class="h6 texto mb-0">Profesional:</label>
+                    <label class=" texto mb-0">{{$allprofessional->professional_name}}  {{$allprofessional->professional_last_name_father}} {{$allprofessional->professional_last_name_mother}}</label><br>
+                  </div>
+                  <div class="perfil col-12">
+                    <label class="h6 texto mb-0">Carga de perfiles:</label>
+                    <label class=" texto mb-0">{{$allprofessional->count}} perfiles</label>
+                  </div>
+                  <div class="perfil col-12 mb-0">
+                    <label class="h6 texto">Areas de interes:</label>
+                    <label class=" texto">Ninguna</label>
+                  </div>
                 </div>
-                <div class="perfil col-12">
-                  <label class="h6 texto mb-0">Carga de perfiles:</label>
-                  <label class=" texto mb-0">{{$allprofessional->count}} perfiles</label>
+                <div class="col-12 text-center">
+                  <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                    <input type="hidden" name="profile_id" value="{{$profile->id}}">
+                    <input type="hidden" name="professional_id" value="{{$allprofessional->id}}">
+                    <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
+                  </form>
                 </div>
-                <div class="perfil col-12 mb-0">
-                  <label class="h6 texto">Areas de interes:</label>
-                  <label class=" texto">Ninguna</label>
-                </div>
-              </div>
-              <div class="col-12 text-center">
-                <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" name="profile_id" value="{{$profile->id}}">
-                  <input type="hidden" name="professional_id" value="{{$allprofessional->id}}">
-                  <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
-                </form>
               </div>
             </div>
           </div>
-        </div>
-        @endforeach @endif
+          @endforeach 
+          @endif
+          @endif
       </div>
     </div>
   </section>
