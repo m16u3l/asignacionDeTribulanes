@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 class ProfessionalController extends Controller
 {
 
-    public function index($id)
+    public function index(Request $request, $id)
     {
       $url = '/register_tribunal';
       $profile = Profile::find($id);
@@ -56,8 +56,7 @@ class ProfessionalController extends Controller
             ->join('assignements','professionals.id', '=', 'assignements.professional_id')
             ->where('assignements.profile_id', '=', $profile->id)
             ->get();
-          $allProfessionals = DB::table('professionals')
-            ->whereNotIn('professionals.id', DB::table('professionals')
+          $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
                 ->select('professionals.id')
                 ->where('tutors.profile_id', '=', $profile->id))
@@ -69,6 +68,7 @@ class ProfessionalController extends Controller
                 ->join('assignements','professionals.id', '=', 'assignements.professional_id')
                 ->select('professionals.id')
                 ->where('assignements.profile_id', '=', $profile->id))
+            ->search_by_name($request->name)
             ->orderBy('count')
             ->get();
 
