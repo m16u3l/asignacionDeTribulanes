@@ -72,7 +72,7 @@ class ProfessionalController extends Controller
             ->orderBy('count')
             ->get();
 
-          return view('court_assignment.list_professionals', compact('url','tutor','student' ,'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
+          return view('professional.assign_professinal', compact('url','tutor','student' ,'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
     }
 
     public function store(Request $request)

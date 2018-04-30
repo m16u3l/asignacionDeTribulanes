@@ -13,6 +13,6 @@ class Student extends Model
   ];
   public function profiles()
   {
-    return $this->hasMany('App\StudentProfile');
+    return $this->belongsToMany('App\Profile','student_profiles');
   }
 }

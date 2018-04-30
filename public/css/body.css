@@ -46,3 +46,8 @@
 .bg-theme-5{
   background-color: #AACCC8;
 }
+.titleColor{
+  color:#2A3F54;
+  font-style: italic;
+  font-weight: bold;
+}

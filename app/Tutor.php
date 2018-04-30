@@ -11,13 +11,8 @@ class Tutor extends Model
     'profile_id', 'professional_id', 'letter'
   ];
 
-  public function professional()
-  {
-    return $this->belongsTo('App\Professional');
-  }
-
-  public function profile()
-  {
-    return $this->belongsTo('App\Profile');
-  }
+  public function profiles()
+      {
+        return $this->belongsTo('App\Profile');
+      }
 }

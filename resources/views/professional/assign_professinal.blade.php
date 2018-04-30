@@ -254,6 +254,5 @@
 @endsection
 
 @section('child_js')
-  <script type="text/javascript" src="{{url('asset/court_assignment/chose_professional.js')}}"></script>
-  <script src="/js/selected_professional.js"></script>
+  <script type="text/javascript" src="{{url('asset/profesional/selected_professional.js')}}"></script>
 @endsection

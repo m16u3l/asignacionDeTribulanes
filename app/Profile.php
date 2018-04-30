@@ -16,11 +16,29 @@ class Profile extends Model
   +    consulta para buscar perfiles por Titulo de perfil
   +    y tambien por nombre de Estudiante no sensibles a mayusculas y minusculas
   +  */
-  public function scopeSearch_by_title_or_student($query, $name)
+  public function scopeSearch_by_title_or_student($query, $name='')
   {
-    $query -> where('title', 'ilike','%'.$name.'%')
-      ->orWhere(\DB::raw("concat(student_name, ' ', student_last_name_father, ' ',
-      student_last_name_mother)"), 'ilike','%'.$name.'%');
+    if (trim($name) != '') {
+           $this->_searchName = $name;
+           $query -> where('title', 'ilike',"%$name%")
+               ->orWhereHas('students', function($query){
+                    $name = $this->_searchName;
+                  $query->where('student_name','ilike',"%$name%");
+               }
+             );
+       }
+  }
+  public function scopeLetters($query)
+  {
+    $query ->where('letter_professional', '=', 'true' )
+           ->whereHas('mastutors', function($query){
+             $query->where('letter','true' );
+           } 
+         );
+  }
+  public function mastutors()
+  {
+    return $this->hasMany('App\Tutor');
   }
 
   public function area()
@@ -30,17 +48,17 @@ class Profile extends Model
 
   public function assingements()
   {
-    return $this->hasMany('App\Assignement');
+    return $this->belongsToMany('App\Professional','assignements');
   }
 
   public function tutors()
   {
-    return $this->hasMany('App\Tutor');
+    return $this->belongsToMany('App\Professional','tutors');
   }
 
   public function students()
   {
-    return $this->hasMany('App\StudentProfile');
+    return $this->belongsToMany('App\Student','student_profiles');
   }
 
 }

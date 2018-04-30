@@ -23,18 +23,18 @@ class Professional extends Model
     'count'
   ];
 
-  public function assingements()
+  public function profiles_signed()
   {
-    return $this->hasMany('App\Assignement');
+    return $this->belongsToMany('App\Profile','assignements');
   }
 
   public function interests()
   {
-    return $this->hasMany('App\AreaInterest');
+    return $this->belongsToMany('App\Area','area_interests');
   }
 
-  public function profiles()
+  public function profiles_tutors()
   {
-    return $this->hasMany('App\Tutor');
+    return $this->belongsToMany('App\Profile','tutors');
   }
 }

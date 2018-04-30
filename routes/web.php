@@ -2,14 +2,15 @@
 /*
 +    Organizacion de rutas
 +*/
-Route::get('/profiles', [
+Route::get('/perfiles', [
     'as' => 'list_profiles',
     'uses' => "ProfileController@index"]);
-Route::get('/profiles/asignados', [
+
+Route::get('/perfiles/asignados', [
     'as' => 'list_profiles_asigned',
     'uses' => "ProfileController@list_profiles_signed"]);
 
-Route::get('/profiles/{id}', [
+Route::get('/perfiles/{id}', [
     'as' => 'asignacion',
     'uses' => "ProfessionalController@index"]);
 
@@ -17,10 +18,9 @@ Route::post('/register_tribunal', [
     'as' => 'register_tribunal',
     'uses' => "ProfessionalController@store"]);
 
-Route::get('/finalizar_tribunal/{id}', [
-    'as' => 'finalizar_tribunal',
+Route::post('/finalizar_perfil', [
+    'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
-
 
 /*
 + Rutas de Importacion

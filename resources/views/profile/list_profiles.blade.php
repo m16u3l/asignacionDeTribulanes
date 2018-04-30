@@ -4,6 +4,7 @@
 @endsection
 
 @section('child_css')
+<link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('content')
@@ -11,7 +12,7 @@
 
   <div class="container" id="profile_list">
     <div class="row">
-      <div class="offset-md-1 col-md-9">
+      <div class="offset-md-1 col-md-10">
         <!-Buscador->
         <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('list_profiles')}}" method="GET" role="search">
@@ -24,6 +25,13 @@
           </form>
         </div>
         <!-Fin de buscador->
+        <br>
+        <div class="panel-body">
+          {{$profiles->total()}} registros |
+            pagina {{ $profiles->currentPage() }}
+            de {{ $profiles->lastPage() }}
+        </div>
+        <br>
         @if ( empty($profiles[0]))
         <h5 class="h5 text-center">No se encontró perfiles</h5>
         @else @foreach($profiles as $profile)
@@ -33,23 +41,28 @@
             <div class="card-header clearfix">
               <div class="row">
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
-                  <h6 class="">{{$profile->title}}</h6>
+                  <h6 class="titleColor">{{$profile->title}}</h6>
 
-                  <h6 class="h6 d-inline">Tesista:</h6>
-                  <p class="mb-0 d-inline"> {{$profile->student_name}} {{$profile->student_last_name_father}} {{$profile->student_last_name_mother}}</p>
+                  <h6 class="h6 d-inline titleColor">Tesista:</h6>
+                  @foreach($profile->students as $student)
+                  <div class="">
+                    <p class="mb-0 d-inline"> {{$student->student_name}}
+                                              {{$student->student_last_name_father}}
+                                              {{$student->student_last_name_mother}}
+                    </p>
+                    <!--separar esto dale una forma mas bonita-->
+                    <p class="mb-0 d-inline"> {{$student->career}}
+
+                    </p>
+                    <br>
+                  </div>
+
+                  @endforeach
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
                 </div>
-                <!--div class="col-lg-1 col-6 text-center">
-                  <button v-on:"click.stop" type="button" class="edit-modal btn btn-info" data-toggle="modal" data-target="#myModal" data-title="{{$profile->title}}"
-                    data-student_name="{{$profile->student_name}}" data-student_last_name_father="{{$profile->student_last_name_father}}"
-                    data-student_last_name_mother="{{$profile->student_last_name_mother}}" data-professional_name="{{$profile->professional_name}}"
-                    data-professional_last_name_father="{{$profile->professional_last_name_father}}" data-professional_last_name_mother="{{$profile->professional_last_name_mother}}"
-                    data-title_modality="{{$profile->degree_modality}}" data-objective="{{$profile->objective}}" data-area="{{$profile->area->name or 'Sin area'}}"><i class="fa fa-info "></i>
 
-                  </button>
-                </div-->
               </div>
             </div>
 
@@ -58,23 +71,26 @@
                 <div class="col-lg-11">
                   <div class="row">
                     <div class="col-lg-6">
-                      <label class="h6 card-subtitle">Tutor(es):</label>
-                      <p class="card-text mb-2">{{$profile->professional_name}} {{$profile->professional_last_name_father}} {{$profile->professional_last_name_mother}}</p>
+                      <label class="h6 card-subtitle titleColor">Tutor(es):</label>
+                      @foreach($profile->tutors as $tutor)
+                    <p class="mb-0 d-inline"> {{$tutor->professional_name}}
+                                              {{$tutor->professional_last_name_father}}
+                                              {{$tutor->professional_last_name_mother}}
+                    </p>
+                    <br>
+                    @endforeach
                     </div>
                     <div class="col-lg-6">
-                      <label class="h6 card-subtitle">Area(s):</label>
-                      <p class="card-text mb-2">{{$profile->area_name}}</p>
+                      <label class="h6 card-subtitle titleColor">Area(s):</label>
+                      <p class="card-text mb-2">{{$profile->area->area_name}}</p>
                     </div>
+
                     <div class="col-lg-6">
-                      <label class="h6 card-subtitle">Carrera:</label>
-                      <p class="card-text">Informatica</p>
-                    </div>
-                    <div class="col-lg-6">
-                      <label class="h6 card-subtitle">Modalidad:</label>
+                      <label class="h6 card-subtitle titleColor">Modalidad:</label>
                       <p class="card-text mb-2  ">{{$profile->degree_modality}}</p>
                     </div>
                     <div class="col">
-                      <label class="h6 card-subtitle">Objetivo:</label>
+                      <label class="h6 card-subtitle titleColor">Objetivo:</label>
                       <p class="card-text">{{$profile->objective}}</p>
                     </div>
                   </div>
@@ -90,11 +106,17 @@
       </div>
     </div>
   </div>
-  {{$profiles->links()}}
-  @include('court_assignment.modal_show_profile')
+  <br>
+  <div class="row">
+    <div class="col-md-3 col-xs-1"></div>
+    <div class="col-md-6 col-xs-10 mipaginacion">
+            {!! $profiles->render() !!}
+    </div>
+    <div class="col-md-3 col-xs-1"></div>
+  </div>
+</div>
 @endsection
 
 @section('child_js')
-  <script type="text/javascript" src="{{ url('asset/court_assignment/list_profiles.js')}}"></script>
-  <script type="text/javascript" src="{{ url('js/search_bar.js')}}"></script>
+
 @endsection
