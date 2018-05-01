@@ -123,20 +123,34 @@ class ProfessionalController extends Controller
     {
       $file = Input::file('fileProfessionals');
       (new FastExcel)->import($file, function ($line) {
-        Professional::firstOrCreate(array(
-            'professional_name' => $line['NOMBRE '],
-            'professional_last_name_mother' => $line['APELLIDO MATERNO '],
-            'professional_last_name_father' => $line['APELLIDO PATERNO '],
-            'email' => $line['CORREO'],
-            'degree' => $line['TITULO DOCENTE'],
-            'workload' => $line['CARGA HORARIA'],
-            'phone' => $line['TELEFONO'],
-            'address' => $line['DIRECCION'],
-            'profile' => $line['PERFIL'],
-            'ci' => $line['CI'],
-            'cod_sis' => $line['COD SIS'],
-          ));
+        if (!$this->existsCi($line['CI'])) {
+          $professional = new Professional;
+          $professional->professional_name = $line['NOMBRE '];
+          $professional->professional_last_name_mother = $line['APELLIDO MATERNO '];
+          $professional->professional_last_name_father = $line['APELLIDO PATERNO '];
+          $professional->email = $line['CORREO'];
+          $professional->degree = $line['TITULO DOCENTE'];
+          $professional->workload = $line['CARGA HORARIA'];
+          $professional->phone = $line['TELEFONO'];
+          $professional->address = $line['DIRECCION'];
+          $professional->profile = $line['PERFIL'];
+          $professional->ci = $line['CI'];
+          $professional->cod_sis = $line['COD SIS'];
+          $professional->save();
+        }
+
       });
       return view('import.import_professionals');
+    }
+
+    public function existsCi($ci)
+    {
+      $exist = False;
+      $prof = Professional::where('ci', $ci)->first();
+      if(!is_null($prof))
+      {
+        $exits = True;
+      }
+      return $exist;
     }
 }
