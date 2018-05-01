@@ -138,7 +138,7 @@ return [
     'providers' => [
 
 
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -193,6 +193,9 @@ return [
     */
 
     'aliases' => [
+
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
         'BootstrapComponents' => Appstract\BootstrapComponents\BootstrapComponentsFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Excel;
 use App\Area;
 use App\Professional;
 use App\Assignement;
@@ -122,35 +123,27 @@ class ProfessionalController extends Controller
     public function importProfessionals(Request $request)
     {
       $file = Input::file('fileProfessionals');
-      (new FastExcel)->import($file, function ($line) {
-        if (!$this->existsCi($line['CI'])) {
-          $professional = new Professional;
-          $professional->professional_name = $line['NOMBRE '];
-          $professional->professional_last_name_mother = $line['APELLIDO MATERNO '];
-          $professional->professional_last_name_father = $line['APELLIDO PATERNO '];
-          $professional->email = $line['CORREO'];
-          $professional->degree = $line['TITULO DOCENTE'];
-          $professional->workload = $line['CARGA HORARIA'];
-          $professional->phone = $line['TELEFONO'];
-          $professional->address = $line['DIRECCION'];
-          $professional->profile = $line['PERFIL'];
-          $professional->ci = $line['CI'];
-          $professional->cod_sis = $line['COD SIS'];
-          $professional->save();
-        }
-
-      });
+      Excel::load($file, function($reader)
+        {
+          foreach ($reader->get() as $key => $value) {
+            $prof = Professional::where('ci', $value->ci)->first();
+            if(is_null($prof)) {
+              $professional = new Professional;
+              $professional->professional_name = $value->nombre;
+              $professional->professional_last_name_mother = $value->apellido_materno;
+              $professional->professional_last_name_father = $value->apellido_paterno;
+              $professional->email = $value->correo;
+              $professional->degree = $value->titulo_docente;
+              $professional->workload = $value->carga_horaria;
+              $professional->phone = $value->telefono;
+              $professional->address = $value->direccion;
+              $professional->profile = $value->perfil;
+              $professional->ci = $value->ci;
+              $professional->cod_sis = $value->cod_sis;
+              $professional->save();
+            }
+          }
+        });
       return view('import.import_professionals');
-    }
-
-    public function existsCi($ci)
-    {
-      $exist = False;
-      $prof = Professional::where('ci', $ci)->first();
-      if(!is_null($prof))
-      {
-        $exits = True;
-      }
-      return $exist;
     }
 }

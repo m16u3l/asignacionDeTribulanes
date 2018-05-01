@@ -18,7 +18,7 @@ class CreateProfessionalsTable extends Migration
           $table->string('professional_last_name_father');
           $table->string('workload');
           $table->string('phone');
-          $table->string('address');
+          $table->string('address')->nullable();
           $table->string('email');
           $table->string('image')->nullable();
           $table->string('profile')->nullable();
