@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
+use App\Student;
 use App\Area;
 use App\Assignement;
+use App\Professional;
 use App\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class ProfileController extends Controller
 {
@@ -76,4 +80,47 @@ class ProfileController extends Controller
 	{
 
 	}
+
+	public function uploadProfiles($value='')
+    {
+      return view('import.import_profiles');
+    }
+
+    public function importProfiles(Request $request)
+    {
+      $file = Input::file('fileProfiles');
+      	Excel::load($file, function($reader)
+        {
+
+       		$news = 0; 
+       	  foreach ($reader->get() as $key => $value) {
+
+       	  	$profile = new Profile;
+          	$profile->title = $value->titulo_proyecto_final;
+          	$profile->objective = $value->objetivo_general;
+          	$profile->degree_modality  = $value->modalidad_titulacion;
+          	$profile->save();
+          	$news++;
+
+
+
+          	$professional_tutor = Professional::where('professional_name', $value->nombre_tutor)
+          					->where('professional_last_name_father', $value->apellido_paterno_tutor)
+							//->where('professional_last_name_mother', $value->apellido_materno_tutor)
+							->first();
+
+			if (False) {
+			$student = new student;
+			$student->student_name = $value->nombre_postulante;
+			$student->student_last_name_father = $value->apellido_paterno_postulante;
+			$student->student_last_name_mother = $value->apellido_materno_postulante;
+			$student->career = $value->carrera;
+			$student->save();
+			
+			}
+          }
+          dd($news);
+        });
+      return view('import.import_profiles');
+    }
 }

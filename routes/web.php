@@ -33,3 +33,12 @@ Route::get('import_professionals',[
 Route::post('import_professionals',[
   'as'=>'import_professionals',
   'uses'=>'ProfessionalController@importProfessionals']);
+
+
+Route::get('import_profiles',[
+  'as'=>'import_profiles',
+  'uses'=>'ProfileController@uploadProfiles']);
+
+Route::post('import_profiles',[
+  'as'=>'import_profiles',
+  'uses'=>'ProfileController@importProfiles']);

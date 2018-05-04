@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-<title>Importar Area</title>
+<title>Importar Profesionales</title>
 @endsection
 
 @section('child_css')

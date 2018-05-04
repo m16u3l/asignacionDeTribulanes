@@ -53,7 +53,7 @@
 
           <a href="#menu3" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Carga de datos</span></a>
           <div class="collapse" id="menu3">
-            <a href="#" class="list-group-item" data-parent="#menu3">Perfiles</a>
+            <a href="{{ route ('import_profiles')}}" class="list-group-item" data-parent="#menu3">Perfiles</a>
 
             <a href="{{ route ('import_professionals')}}" class="list-group-item" data-parent="#menu3">Profesionales</a>
           </div>
