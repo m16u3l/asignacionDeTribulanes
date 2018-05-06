@@ -14,18 +14,27 @@ use Illuminate\Support\Facades\Input;
 
 class ProfileController extends Controller
 {
+	public function list_profile_finalized(Request $request)
+	{
+		$profiles = Profile::where('count','>=',3)
+												->where('profile_finalized',true)
+												->search_by_title_or_student($request->name)
+												->orderBy('title')
+												->paginate(5);
 
+		return view('profile.list_profile_finalized', compact('profiles'));
+	}
 	public function list_profiles_signed(Request $request)
 	{
 		$profiles = Profile::where('count','>=',3)
+												->where('profile_finalized',false)
 												->search_by_title_or_student($request->name)
 												->orderBy('title')
 							        	->paginate(5);
 
-		return view('profile.list_profiles_assigned', compact('profiles'));
+		return view('profile.list_profile_assigned', compact('profiles'));
 	}
-
-	public function index(Request $request)
+	public function list_profile(Request $request)
 	{
 		$profiles = Profile::where('count','<',3 )
 											->Letters()
@@ -33,9 +42,8 @@ class ProfileController extends Controller
 											->orderBy('title')
 											->paginate(5);
 
-		 return view('profile.list_profiles', compact('profiles'));
+		 return view('profile.list_profile', compact('profiles'));
 	}
-
 
 	public function finalizar_perfil(Request $request)
 	{
@@ -49,6 +57,11 @@ class ProfileController extends Controller
 				DB::table('professionals')->where('id', $professional->id)->decrement('count');
 	 		}
 			return redirect('perfiles/asignados');
+	}
+
+	public function index()
+	{
+
 	}
 
 	public function create()
@@ -92,7 +105,7 @@ class ProfileController extends Controller
       	Excel::load($file, function($reader)
         {
 
-       		$news = 0; 
+       		$news = 0;
        	  foreach ($reader->get() as $key => $value) {
 
        	  	$profile = new Profile;
@@ -116,7 +129,7 @@ class ProfileController extends Controller
 			$student->student_last_name_mother = $value->apellido_materno_postulante;
 			$student->career = $value->carrera;
 			$student->save();
-			
+
 			}
           }
           dd($news);

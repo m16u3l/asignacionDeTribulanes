@@ -3,12 +3,16 @@
 +    Organizacion de rutas
 +*/
 Route::get('/perfiles', [
-    'as' => 'list_profiles',
-    'uses' => "ProfileController@index"]);
+    'as' => 'list_profile',
+    'uses' => "ProfileController@list_profile"]);
 
 Route::get('/perfiles/asignados', [
-    'as' => 'list_profiles_asigned',
+    'as' => 'list_profile_asigned',
     'uses' => "ProfileController@list_profiles_signed"]);
+
+Route::get('/perfiles/finalizados', [
+    'as' => 'list_profile_finalized',
+    'uses' => "ProfileController@list_profile_finalized"]);
 
 Route::get('/perfiles/{id}', [
     'as' => 'asignacion',
@@ -26,7 +30,7 @@ Route::post('/finalizar_perfil', [
 + Rutas de Importacion
 +*/
 
-   
+
 Route::get('import_professionals',[
   'as'=>'import_professionals',
   'uses'=>'ProfessionalController@uploadProfessionals']);

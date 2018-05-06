@@ -143,7 +143,6 @@ class ProfessionalController extends Controller
         {
           foreach ($reader->get() as $key => $value) {
             $prof = Professional::where('ci', $value->ci)->first();
-            
             if(is_null($prof)) {
               if (!is_null($value->nombre) &&
                   !is_null($value->apellido_materno) &&

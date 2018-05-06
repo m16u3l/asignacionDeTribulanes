@@ -8,6 +8,10 @@
 
 @section('content')
 <div class="col-md-4 offset-md-3">
+<<<<<<< HEAD
+=======
+  <div id="alert" class="alert alert-info"></div>
+>>>>>>> 4fa64814c99b55405d11a0a65e656bb2af97ae8d
    {!! Form::open(array('class'=>'form', 'method'=>'post', 'enctype'=>'multipart/form-data')) !!}
       {{ csrf_field() }}
       @if ($errors->any())
@@ -22,7 +26,6 @@
 
       <h5 class="h5 text-center" for="fileProfessionals">Importar profesionales</h5>
       <p>Seleccione el archivo del cual desea importar datos</p>
-
     <input id="fileProfessionales" type="file" name="fileProfessionals">
 
     <input id="import" class="btn bg-theme-4 text-center my-2 " type="submit" value="Importar..." style="Color:white"  >
