@@ -15,7 +15,7 @@
       <div class="offset-md-1 col-md-10">
         <!-Buscador->
         <div class="mt-4 col-lg-8 col body-bg">
-          <form class="navbar-form pull right" action="{{ route ('list_profiles')}}" method="GET" role="search">
+          <form class="navbar-form pull right" action="{{ route ('list_profile')}}" method="GET" role="search">
             <div class="panel-body">
               <div class="input-group input-group">
                 <input type="text" class="form-control" name="name" placeholder="Titulo de perfil o tesista..." aria-describedby="basic-addon2">
