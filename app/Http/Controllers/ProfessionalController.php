@@ -119,38 +119,49 @@ class ProfessionalController extends Controller
 
     public function uploadProfessionals($value='')
     {
-      return view('import.import_professionals');
+      $messages = null;
+      return view('import.import_professionals', compact('messages'));
     }
+
 
     public function importProfessionals(Request $request)
     {
       $file = Input::file('fileProfessionals');
       $rules = array(
-            'fileProfessionals' => 'required|mimes:xlsx',
+         'fileProfessionals' => 'required|mimes:xlsx',
           );
-      $validator = Validator::make(Input::all(), $rules);
+      $messages = array(
+          'required' => 'ningun archivo xlsx seleccionado',
+          'mimes' => 'el archivo debe estar en formato .xlsx'
+      );
+
+      $validator = Validator::make(Input::all(), $rules, $messages);
       if ($validator->fails()) {
-          $messages = $validator->messages();
-          return view('import.import_professionals', compact('messages'));
+          return redirect('import_professionals')->withErrors($validator);
       } else if($validator->passes()) {
          Excel::load($file, function($reader)
         {
           foreach ($reader->get() as $key => $value) {
             $prof = Professional::where('ci', $value->ci)->first();
+            
             if(is_null($prof)) {
-              $professional = new Professional;
-              $professional->professional_name = $value->nombre;
-              $professional->professional_last_name_mother = $value->apellido_materno;
-              $professional->professional_last_name_father = $value->apellido_paterno;
-              $professional->email = $value->correo;
-              $professional->degree = $value->titulo_docente;
-              $professional->workload = $value->carga_horaria;
-              $professional->phone = $value->telefono;
-              $professional->address = $value->direccion;
-              $professional->profile = $value->perfil;
-              $professional->ci = $value->ci;
-              $professional->cod_sis = $value->cod_sis;
-              $professional->save();
+              if (!is_null($value->nombre) &&
+                  !is_null($value->apellido_materno) &&
+                  !is_null($value->apellido_paterno)) {
+                $professional = new Professional;
+                $professional->professional_name = $value->nombre;
+                $professional->professional_last_name_mother = $value->apellido_materno;
+                $professional->professional_last_name_father = $value->apellido_paterno;
+                $professional->email = $value->correo;
+                $professional->degree = $value->titulo_docente;
+                $professional->workload = $value->carga_horaria;
+                $professional->phone = $value->telefono;
+                $professional->address = $value->direccion;
+                $professional->profile = $value->perfil;
+                $professional->ci = $value->ci;
+                $professional->cod_sis = $value->cod_sis;
+                $professional->save();
+              }
             }
           }
         });
