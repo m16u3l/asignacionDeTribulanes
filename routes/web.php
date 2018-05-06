@@ -26,6 +26,7 @@ Route::post('/finalizar_perfil', [
 + Rutas de Importacion
 +*/
 
+   
 Route::get('import_professionals',[
   'as'=>'import_professionals',
   'uses'=>'ProfessionalController@uploadProfessionals']);
@@ -33,7 +34,6 @@ Route::get('import_professionals',[
 Route::post('import_professionals',[
   'as'=>'import_professionals',
   'uses'=>'ProfessionalController@importProfessionals']);
-
 
 Route::get('import_profiles',[
   'as'=>'import_profiles',

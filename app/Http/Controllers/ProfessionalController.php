@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Excel;
+use Validator;
+use Redirect;
 use App\Area;
 use App\Professional;
 use App\Assignement;
@@ -123,7 +125,15 @@ class ProfessionalController extends Controller
     public function importProfessionals(Request $request)
     {
       $file = Input::file('fileProfessionals');
-      Excel::load($file, function($reader)
+      $rules = array(
+            'fileProfessionals' => 'required|mimes:xlsx',
+          );
+      $validator = Validator::make(Input::all(), $rules);
+      if ($validator->fails()) {
+          $messages = $validator->messages();
+          return view('import.import_professionals', compact('messages'));
+      } else if($validator->passes()) {
+         Excel::load($file, function($reader)
         {
           foreach ($reader->get() as $key => $value) {
             $prof = Professional::where('ci', $value->ci)->first();
@@ -144,6 +154,7 @@ class ProfessionalController extends Controller
             }
           }
         });
+      }
       return view('import.import_professionals');
     }
 }

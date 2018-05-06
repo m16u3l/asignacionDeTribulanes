@@ -8,13 +8,14 @@
 
 @section('content')
 <div class="col-md-4 offset-md-3">
-  @if(count( $errors ) > 0)
+  @if($validator->fails())
             <div class="alert alert-warning" role="alert">
-               @foreach ($errors->all() as $error)
+               @foreach ($validator->all() as $error)
                   <div>{{ $error }}</div>
-              @endforeach
+               @endforeach
             </div>
   @endif </br> 
+
   {!! Form::open(array('class'=>'form', 'method'=>'post', 'enctype'=>'multipart/form-data')) !!}
       {{ csrf_field() }}
       <h5 class="h5 text-center" for="fileProfiles">Importar Perfiles</h5>
