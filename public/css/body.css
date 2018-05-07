@@ -12,6 +12,11 @@
   font-size: 40px;
   color: green;
 }
+
+.nav-link.active{
+  background-color: #4C7F79 !important;
+}
+
 .menos{
   font-size: 40px;
   color: red;
