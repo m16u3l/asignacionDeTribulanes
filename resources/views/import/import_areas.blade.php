@@ -1,0 +1,35 @@
+@extends('layouts.base')
+@section('head')
+<title>Importar Areas</title>
+@endsection
+
+@section('child_css')
+@endsection
+
+@section('content')
+<div class="col-md-4 offset-md-3">
+   {!! Form::open(array('class'=>'form', 'method'=>'post', 'enctype'=>'multipart/form-data')) !!}
+      {{ csrf_field() }}
+      @if ($errors->any())
+        <div class="alert alert-info">
+          <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <h5 class="h5 text-center" for="fileProfessionals">Importar Areas</h5>
+      <p>Seleccione el archivo del cual desea importar datos</p>
+    <input id="areasFile" type="file" name="areasFile">
+
+    <input id="import" class="btn bg-theme-4 text-center my-2 " type="submit" value="Importar" style="Color:white"  >
+    <p class="small">Nota: El archivo debe estar en formato .xlsx</p>
+   {!! Form::close() !!}
+</div>
+@endsection
+
+@section('child_js')
+<script type="text/javascript" src="{{asset('js/info_messages.js')}}"></script>
+@endsection
