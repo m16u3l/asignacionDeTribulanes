@@ -95,7 +95,7 @@
 
         <div class="col-md-4">
           <div class="card list-group-item list-group-item-action mb-2">
-            <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style="overflow: hidden;
+            <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style = "overflow: hidden;
                white-space: nowrap;">
               <label class="h6 texto mb-0">Profesional:</label>
               <label class=" texto mb-0">{{$professional_asignado->professional_name}} {{$professional_asignado->professional_last_name_father}}</label>
@@ -237,7 +237,7 @@
               </div>
             </div>
           </div>
-          @endforeach 
+          @endforeach
           @endif
           @endif
       </div>
