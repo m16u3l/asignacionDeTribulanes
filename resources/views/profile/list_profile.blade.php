@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
-                  <a href="{{ route ('asignacion_pertinentes',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
+                  <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
                 </div>
 
               </div>

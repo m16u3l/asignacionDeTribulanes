@@ -246,14 +246,14 @@
                             <label class=" texto">Ninguna</label>
                           </div>
                         </div>
-                        <!--div class="col-12 text-center">
+                        <div class="col-12 text-center">
                     <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                       <input type="hidden" name="profile_id" value="{{$profile->id}}">
                       <input type="hidden" name="professional_id" value="{{$allprofessional->id}}">
-                      <button type="submit" class="btn bg-theme-4" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
+                      <button type="submit" class="btn bg-theme-4 d-none register_prof" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
                     </form>
-                  </div-->
+                  </div>
                       </div>
                       <div class="col-2 pl-0 ">
                         <button class="btn bg-theme-4 ml-1" style="position: relative; top: 30%;">
@@ -287,7 +287,7 @@
           <div class="modal-body">
             <p>¿Esta seguro de que desea registrar los tribunales seleccionados? </p>
             <div class="modal-footer">
-              <button type="button" class="btn bg-theme-4" data-dismiss="modal" onClick="window.location.reload();">Registrar</button>
+              <button type="button" class="btn bg-theme-4 register-button" data-dismiss="modal" onClick="registerProf();">Registrar</button>
               <button type="button" class="btn bg-theme-5" data-dismiss="modal ">Cancelar</button>
             </div>
           </div>

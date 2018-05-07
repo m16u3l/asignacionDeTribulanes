@@ -58,16 +58,23 @@ function increaseSelectedProf() {
 }
 
 function registerProf() {
-  /*var listOfProf = $("#selected-professional-list").find(".register_prof");
-  for (val of listOfProf) {
-    $(val).click(function () {
-      var par=$(val).parent();
-      console.log(par);
-      /*var _tokenval.
-      var dataString = 'name=' + name + '&email=' + email + '&phone=' + phone;
-      //alert (dataString);return false;
-      
-      /*$.ajax({
+
+  var listOfProf = $("#selected-professional-list").find(".register_prof");
+  /*$(".register-button").click(function () {
+
+  });
+*/
+  
+  for (var val of listOfProf) {
+    var par = $(val).parent();
+    console.log(par);
+    
+  }
+
+  //var dataString = 'name=' + name + '&email=' + email + '&phone=' + phone;
+  //alert (dataString);return false;
+
+  /*$.ajax({
         type: "POST",
         url: "bin/process.php",
         data: dataString,
