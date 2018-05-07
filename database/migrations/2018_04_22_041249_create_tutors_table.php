@@ -13,7 +13,7 @@ class CreateTutorsTable extends Migration
       $table->integer('profile_id');
       $table->integer('professional_id');
 
-      $table->boolean('letter')->default(false);
+      $table->boolean('letter')->default(true);
 
       $table->rememberToken();
       $table->timestamps();

@@ -28,7 +28,7 @@ class CreateProfilesTable extends Migration
       $table->boolean('profile_sended')->default(false);
       $table->boolean('profile_assigened')->default(false);
 
-      $table->boolean('letter_professional')->default(false);
+      $table->boolean('letter_professional')->default(true);
 
       $table->integer('area_id')->nullable( )->unsigned();
       $table->foreign('area_id')->references('id')->on('areas');
