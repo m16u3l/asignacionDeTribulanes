@@ -20,7 +20,7 @@ class ProfessionalController extends Controller
     public function professional_list(Request $request){
         $professionals = Professional::orderBy('professional_name')
                     ->search_by_name($request->name)
-					->paginate(10);
+                    ->paginate(10);
 		return view('professional.professional_list', compact('professionals'));
 	}
 
