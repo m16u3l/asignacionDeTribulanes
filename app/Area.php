@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
   protected $table = "areas";
-  protected $fillable = ['area_name', 'area_id'];
-
+  protected $fillable = ['area_name', 
+                         'area_codigo',
+                         'area_descripcion',
+                         'area_id'];
 
   public function profiles()
   {
