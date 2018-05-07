@@ -136,6 +136,9 @@ class ProfessionalController extends Controller
       $validator = Validator::make(Input::all(), $rules, $messages);
       if ($validator->fails()) {
           return redirect('import_professionals')->withErrors($validator);
+      } else if(!$this->valid_document($file)) {
+
+        return redirect('import_professionals')->with('status', 'Documento invalido');
       } else if($validator->passes()) {
          Excel::load($file, function($reader)
         {
@@ -163,6 +166,35 @@ class ProfessionalController extends Controller
           }
         });
       }
-      return view('import.import_professionals');
+      return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
     }
+
+    public function valid_document($file)
+    { 
+      $valid = False;
+      Excel::load($file, function($file) use (&$valid){
+          $rs = $file->get();
+          $row = $rs[0];
+          $headers = $row->keys();
+          if( $headers[0] == 'nombre' &&
+              $headers[1] == 'apellido_paterno' &&
+              $headers[2] == 'apellido_materno' &&
+              $headers[3] == 'correo' &&
+              $headers[4] == 'titulo_docente' &&
+              $headers[5] == 'carga_horaria' &&
+              $headers[6] == 'nombre_cuenta' &&
+              $headers[7] == 'telefono' &&
+              $headers[8] == 'direccion' &&
+              $headers[9] == 'perfil' &&
+              $headers[10] == 'contrasena_cuenta' &&
+              $headers[11] == 'ci' &&
+              $headers[12] == 'cod_sis') {
+
+             $valid = True;
+
+          }
+
+       });
+      return $valid;
+     }
 }

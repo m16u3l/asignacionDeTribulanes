@@ -106,35 +106,49 @@ class ProfileController extends Controller
       $file = Input::file('fileProfiles');
       	Excel::load($file, function($reader)
         {
-
-       		$news = 0;
        	  foreach ($reader->get() as $key => $value) {
 
-       	  	$profile = new Profile;
-          	$profile->title = $value->titulo_proyecto_final;
-          	$profile->objective = $value->objetivo_general;
-          	$profile->degree_modality  = $value->modalidad_titulacion;
-          	$profile->save();
-          	$news++;
+       	  	$profile = Profile::where('title', $value->titulo_proyecto_final)
+       	  				->where('objective', $value->objetivo_general)
+       	  				->where('degree_modality', $value->modalidad_titulacion)
+       	  				->first();
 
+       	  	if (is_null($profile)) {
+       	  	 	$profile = new Profile;
+          		$profile->title = $value->titulo_proyecto_final;
+          		$profile->objective = $value->objetivo_general;
+          		$profile->degree_modality  = $value->modalidad_titulacion;
+          		$profile->save();
+       	  	 } 
+
+       	  	
+       	  	$student = Student::where('student_name', $value->nombre_postulante)
+       	  				->where('student_last_name_father', $value->apellido_paterno_postulante)
+       	  				->where('student_last_name_mother', $value->apellido_materno_postulante)
+       	  				->where('career', $value->carrera)
+       	  				->first();
+
+       	  	if (is_null($student)) {
+       	  		$student = new student;
+				$student->student_name = $value->nombre_postulante;
+				$student->student_last_name_father = $value->apellido_paterno_postulante;
+				$student->student_last_name_mother = $value->apellido_materno_postulante;
+				$student->career = $value->carrera;
+				$student->save();
+       	  	}
+
+			$student->profiles()->attach($profile->id);
 
 
           	$professional_tutor = Professional::where('professional_name', $value->nombre_tutor)
           					->where('professional_last_name_father', $value->apellido_paterno_tutor)
 							//->where('professional_last_name_mother', $value->apellido_materno_tutor)
 							->first();
+			if(!is_null($professional_tutor)) {
 
-			if (False) {
-			$student = new student;
-			$student->student_name = $value->nombre_postulante;
-			$student->student_last_name_father = $value->apellido_paterno_postulante;
-			$student->student_last_name_mother = $value->apellido_materno_postulante;
-			$student->career = $value->carrera;
-			$student->save();
-
+				$professional_tutor->profiles_tutors()->attach($profile->id);	
 			}
           }
-          dd($news);
         });
       return view('import.import_profiles');
     }
