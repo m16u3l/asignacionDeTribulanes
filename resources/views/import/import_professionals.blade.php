@@ -8,7 +8,6 @@
 
 @section('content')
 <div class="col-md-4 offset-md-3">
-  <div id="alert" class="alert alert-info"></div>
    {!! Form::open(array('class'=>'form', 'method'=>'post', 'enctype'=>'multipart/form-data')) !!}
       {{ csrf_field() }}
       @if ($errors->any())
