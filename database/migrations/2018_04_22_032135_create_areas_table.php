@@ -11,7 +11,9 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('area_name', 60);
+          $table->integer('area_codigo');
+          $table->string('area_name', 100);
+          $table->text('area_descripcion')->nullable();
           $table->rememberToken();
           $table->timestamps();
 

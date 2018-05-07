@@ -126,7 +126,7 @@ class ProfessionalController extends Controller
           return redirect('import_professionals')->withErrors($validator);
       } else if(!$this->valid_document($file)) {
 
-        return redirect('import_professionals')->with('status', 'Documento invalido');
+        return redirect('import_professionals')->with('bad_status', 'Documento invalido');
       } else if($validator->passes()) {
          Excel::load($file, function($reader)
         {

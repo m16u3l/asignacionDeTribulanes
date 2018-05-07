@@ -30,7 +30,7 @@ class CreateProfilesTable extends Migration
 
       $table->boolean('letter_professional')->default(false);
 
-      $table->integer('area_id')->nullable()->unsigned();
+      $table->integer('area_id')->nullable( )->unsigned();
       $table->foreign('area_id')->references('id')->on('areas');
     });
   }

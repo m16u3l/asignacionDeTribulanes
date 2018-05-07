@@ -21,6 +21,12 @@
         </div>
       @endif
 
+    @if (session('bad_status'))
+        <div class="alert alert-danger">
+            <li>{{ session('bad_status') }}</li>
+        </div>
+    @endif
+
     @if (session('status'))
       <div class="alert alert-success">
         <li>{{ session('status') }}</li>

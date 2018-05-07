@@ -104,6 +104,9 @@ class ProfileController extends Controller
 
     public function importProfiles(Request $request)
     {
+       $news = 0;
+       $fail = 0;
+       $salto = chr(13).chr(10);
        $file = Input::file('fileProfiles');
        $rules = array(
          'fileProfiles' => 'required|mimes:xlsx',
@@ -119,14 +122,14 @@ class ProfileController extends Controller
 
       } else if(!$this->valid_document($file)) {
 
-        return redirect('import_profiles')->with('status', 'Documento invalido');
+        return redirect('import_profiles')->with('bad_status', 'Documento invalido');
 
       } else if($validator->passes()) {
 
-      	Excel::load($file, function($reader)
+      	Excel::load($file, function($reader) use (&$news, &$fail)
         {
        	  foreach ($reader->get() as $key => $value) {
-       	  	dd($value);
+
        	  	$profile = Profile::where('title', $value->titulo_proyecto_final)
        	  				->where('objective', $value->objetivo_general)
        	  				->where('degree_modality', $value->modalidad_titulacion)
@@ -138,8 +141,10 @@ class ProfileController extends Controller
           		$profile->objective = $value->objetivo_general;
           		$profile->degree_modality  = $value->modalidad_titulacion;
           		$profile->save();
-       	  	 } 
-
+          		$news++;
+       	  	 } else {
+       	  	 	$fail++;
+       	  	 }
        	  	
        	  	$student = Student::where('student_name', $value->nombre_postulante)
        	  				->where('student_last_name_father', $value->apellido_paterno_postulante)
@@ -167,9 +172,16 @@ class ProfileController extends Controller
 
 				$professional_tutor->profiles_tutors()->attach($profile->id);	
 			}
+
+			$area = Area::where('area_name', $value->area)->first();
+
+			if(!is_null($area)) {
+
+			}
+
           }
         });
-      	return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.');
+      	return redirect('import_profiles')->with('status', "Los cambios se realizaron con exito: '<br/>'".$news. "  datos agregados '<br/>'".$fail." datos incorrectos" );
     	}
     }
 
@@ -179,6 +191,7 @@ class ProfileController extends Controller
     	Excel::load($file, function($reader) use (&$valid) {
     	  $rs = $reader->get();
           $row = $rs[0];
+          $headers = $row->keys();
           if( $headers[0] == 'titulo_proyecto_final' &&
               $headers[1] == 'nombre_tutor' &&
               $headers[2] == 'apellido_paterno_tutor' &&
@@ -195,5 +208,7 @@ class ProfileController extends Controller
 
           }
     	});
+
+    	return $valid;
     }
 }

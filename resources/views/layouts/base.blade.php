@@ -54,6 +54,8 @@
             <a href="{{ route ('import_profiles')}}" class="list-group-item" data-parent="#menu3">Perfiles</a>
 
             <a href="{{ route ('import_professionals')}}" class="list-group-item" data-parent="#menu3">Profesionales</a>
+
+            <a href="{{ route ('import_areas')}}" class="list-group-item" data-parent="#menu3">Areas</a>
           </div>
         </div>
       </div>

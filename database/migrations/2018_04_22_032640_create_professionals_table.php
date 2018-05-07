@@ -10,8 +10,8 @@ class CreateProfessionalsTable extends Migration
     {
         Schema::create('professionals', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('cod_sis')->default("000000");
-          $table->string('ci')->default("00000");
+          $table->string('cod_sis')->default("000000")->nullable();
+          $table->string('ci')->default("00000")->nullable();
           $table->string('degree');
           $table->string('professional_name');
           $table->string('professional_last_name_mother');
