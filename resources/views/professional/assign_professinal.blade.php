@@ -8,70 +8,102 @@
   <section id="profile-info">
     <div class="container">
       <div class="row">
-        <div class="col-lg-10">
+
+        <div class="col-lg-9">
           <div class="card mt-3">
 
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col">
-                  <h4 class="h4 text-center">{{$profile->title}}</h4>
-
-
+                <div class="col-lg-10" data-toggle="collapse" href="#{{$profile->title}}">
+                  <div class="col">
+                    <h4 class="h4 text-center titleColor">{{$profile->title}}</h4>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body collapse" id="{{$profile->title}}">
               <div class="row">
                 <div class="col-lg-11">
                   <div class="row">
-                    <div class="col-lg-4">
-                      <label class="h6 card-subtitle">Tutor(es):</label>
-                      <p class="card-text mb-2">
-                        {{$tutor->professional_name}} {{$tutor->professional_last_name_father}} {{$tutor->professional_last_name_mother}}</p>
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Tutor(es):</label>
+                        </div>
+                        <div class="col-lg-9">
+                          @foreach($profile->tutors as $tutor)
+                          <p class="mb-0 d-inline"> {{$tutor->professional_name}}
+                                                    {{$tutor->professional_last_name_father}}
+                                                    {{$tutor->professional_last_name_mother}}
+                          </p>
+                          <br>
+                          @endforeach
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Area(s):</label>
+                        </div>
+                        <div class="col-lg-9">
+                          <p class="mb-0 d-inline">{{$profile->area->area_name}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Modalidad:</label>
+                        </div>
+                        <div class="col-lg-9">
+                          <p class="card-text mb-2">{{$profile->degree_modality}}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-lg-4">
-                      <label class="h6 card-subtitle">Area(s):</label>
-                      <p class="card-text mb-2">{{$area->area_name or 'Sin area'}}</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <label class="h6 card-subtitle">Carrera:</label>
-                      <p class="card-text mb-2">Informatica</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <label class="h6 card-subtitle">Modalidad:</label>
-                      <p class="card-text mb-2  ">{{$profile->degree_modality}}</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <h6 class="h6 d-inline">Tesista:</h6>
-                      <p class="mb-0 d-inline">
-                        {{$student->student_name}} {{$student->student_last_name_father}} {{$student->student_last_name_mother}}
-                      </p>
+                    <div class="col-lg-6">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label class="h6 titleColor">tribunal(es):</label>
+                        </div>
+                        <div class="col-lg-8">
+                            @foreach($profile->students as $student)
+                            <p class="mb-0 d-inline"> {{$student->student_name}}
+                                                      {{$student->student_last_name_father}}
+                                                      {{$student->student_last_name_mother}}
+                            </p>
+                          <br>
+                          @endforeach
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
 
           </div>
         </div>
-        <div class="col-lg-2 ml-0 d-none">
+
+        <div class="col-lg-3 ml-0 ">
           <div class="card mt-3">
             <div class="card-header">
-              <h6 class="h6 text-center">PROFESIONALES NECESARIOS:</h6>
+              <div class="col-lg-12" data-toggle="collapse" href="#{{$profile->title}}">
+                <div class="col">
+                  <h6 class="h6 text-center">PROFESIONALES NECESARIOS</h6>
+                </div>
+              </div>
             </div>
-            <div class="card-body text-center h-17">
-              <p for="" class="h5 d-block mb-4 " id="professional-number-label">0/3</p>
-              <button class="btn bg-theme-4" onclick="increaseMaxProf()"><i class="fa fa-plus"></i></button>
-              <button class="btn bg-theme-4" onclick="decreaseMaxProf()"><i class="fa fa-minus"></i></button>
+            <div class="card-body collapse" id="{{$profile->title}}">
+              <div class="card-body collapse text-center h-17" id="{{$profile->title}}">
+                <p class="h5" id="professional-number-label">0/3</p>
+                <button class="btn bg-theme-4" onclick="increaseMaxProf()"><i class="fa fa-plus"></i></button>
+                <button class="btn bg-theme-4" onclick="decreaseMaxProf()"><i class="fa fa-minus"></i></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
   <section id="selected-professional">
     <div class="container-fluid">
