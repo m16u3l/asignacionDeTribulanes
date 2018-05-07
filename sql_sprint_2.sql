@@ -1,12 +1,12 @@
-insert into areas (id,area_name) values(1,'Sistemas de Información');
-insert into areas (id,area_name) values(2,'Bases de Datos');
-insert into areas (id,area_name) values(3,'Procesamiento de Imagenes');
-insert into areas (id,area_name) values(4,'Computación Gráfica');
-insert into areas (id,area_name) values(5,'Ingeniería de Software');
-insert into areas (id,area_name) values(6,'Especificación y Dise&ntilde;o de Software');
-insert into areas (id,area_name) values(7,'Sistemas Multimedios e Hipermedios');
-insert into areas (id,area_name) values(8,'Sistemas de Información');
-insert into areas (id,area_name) values(9,'Sistemas de Información') ;
+insert into areas (id,area_codigo,area_name) values(1,1,'Sistemas de Información');
+insert into areas (id,area_codigo,area_name) values(2,2,'Bases de Datos');
+insert into areas (id,area_codigo,area_name) values(3,3,'Procesamiento de Imagenes');
+insert into areas (id,area_codigo,area_name) values(4,4,'Computación Gráfica');
+insert into areas (id,area_codigo,area_name) values(5,5,'Ingeniería de Software');
+insert into areas (id,area_codigo,area_name) values(6,6,'Especificación y Dise&ntilde;o de Software');
+insert into areas (id,area_codigo,area_name) values(7,7,'Sistemas Multimedios e Hipermedios');
+insert into areas (id,area_codigo,area_name) values(8,8,'Sistemas de Información');
+insert into areas (id,area_codigo,area_name) values(9,9,'Sistemas de Información') ;
 
 insert into students (id,student_name,student_last_name_father,student_last_name_mother,career) values (1,'Fabiola','Cuchallo','Flores','Licenciatura en Ingenieria Informática');
 insert into students (id,student_name,student_last_name_father,student_last_name_mother,career) values (2,'Monica Liz','Ustariz','Vasquez','Licenciatura en Ingenieria Informática');

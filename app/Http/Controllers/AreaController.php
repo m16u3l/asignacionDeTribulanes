@@ -51,6 +51,7 @@ class AreaController extends Controller
               $area->area_descripcion = $value->descripcion;
               //$area->area_id = $value->codigo_subarea;
               $area->save();
+              
             }
           }
         }
