@@ -31,7 +31,9 @@
             de {{ $profiles->lastPage() }}
         </div>
         <br>
-
+        @if ( empty($profiles[0]))
+        <h5 class="h5 text-center">No hay perfiles con tribunal asignado</h5>
+        @else 
         @foreach($profiles as $profile)
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
@@ -140,6 +142,7 @@
         </div>
 
         @endforeach
+        @endif
       </div>
     </div>
   </div>
