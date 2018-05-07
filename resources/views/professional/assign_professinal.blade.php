@@ -248,9 +248,9 @@
                         </div>
                         <div class="col-12 text-center">
                     <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                      <input type="hidden" name="profile_id" value="{{$profile->id}}">
-                      <input type="hidden" name="professional_id" value="{{$allprofessional->id}}">
+                      <input class="token" type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                      <input class="profile_id" type="hidden" name="profile_id" value="{{$profile->id}}">
+                      <input class="professional_id" type="hidden" name="professional_id" value="{{$allprofessional->id}}">
                       <button type="submit" class="btn bg-theme-4 d-none register_prof" onclick="increaseSelectedProf()"><i class="fa fa-plus-circle"></i></button>
                     </form>
                   </div>

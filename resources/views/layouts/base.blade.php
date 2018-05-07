@@ -3,8 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   @yield('head')
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> @yield('head')
   <meta name="description" content="Sistema de Asignacion de Tribunales UMSS">
   <meta name="BOY S-Code" content="">
 
@@ -13,9 +12,7 @@
   <link rel="stylesheet" href="{{ url ('libraries/bootstrap/css/bootstrap.css')}}">
   <link rel="stylesheet" href="{{ url('css/body.css')}}">
   <link rel="stylesheet" href="/css/fer_imagen.css">
-  <link rel="stylesheet" href="/css/navbar.css">
-
-  @yield('child_css')
+  <link rel="stylesheet" href="/css/navbar.css"> @yield('child_css')
 
 
 
@@ -23,7 +20,7 @@
 
 <body class="body">
 
-<!--header-bar-->
+  <!--header-bar-->
   <header class="bg-theme-1">
     <nav class="text-white">
       <div class="navbar">
@@ -37,13 +34,13 @@
       </div>
     </nav>
   </header>
-<!--end header-bar-->
+  <!--end header-bar-->
 
 
   <div class="container-fluid">
     <div class="row">
       <!--sidebar-->
-      <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="heigth: 100vh" >
+      <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="heigth: 100vh">
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
           <div class="collapse" id="menu1">
@@ -62,7 +59,7 @@
       </div>
       <!--end sidebar-->
 
-        @yield('content')
+      @yield('content')
 
 
     </div>
@@ -79,7 +76,7 @@
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>

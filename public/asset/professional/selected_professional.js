@@ -64,32 +64,33 @@ function registerProf() {
 
   });
 */
-  
+
   for (var val of listOfProf) {
     var par = $(val).parent();
-    console.log(par);
+    var token = $($(par).children()[0]).attr("value");
+    var profileId = $($(par).children()[1]).attr("value");
+    var proffesionalId = $($(par).children()[2]).attr("value");
+    var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
+    console.log(dataString);
+    register(dataString);
     
   }
 
-  //var dataString = 'name=' + name + '&email=' + email + '&phone=' + phone;
   //alert (dataString);return false;
 
-  /*$.ajax({
-        type: "POST",
-        url: "bin/process.php",
-        data: dataString,
-        success: function () {
-          $('#contact_form').html("<div id='message'></div>");
-          $('#message').html("<h2>Contact Form Submitted!</h2>")
-            .append("<p>We will be in touch soon.</p>")
-            .hide()
-            .fadeIn(1500, function () {
-              $('#message').append("<img id='checkmark' src='images/check.png' />");
-            });
-        }
-      });
-      return false;
-    });
-  }*/
 
+
+
+
+}
+
+function register (postData) {
+  $.ajax({
+    type: "POST",
+    url: "/registrar_tribunal",
+    data: postData,
+    success: function(){
+    }
+  });
+  return true;
 }
