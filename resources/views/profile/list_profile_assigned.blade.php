@@ -39,21 +39,30 @@
               <div class="row">
                 <div class="col-lg-10" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="titleColor">{{$profile->title}}</h6>
-
-                  <h6 class="h6 d-inline titleColor">Tesista:</h6>
-                  @foreach($profile->students as $student)
-                  <p class="mb-0 d-inline"> {{$student->student_name}}
-                                            {{$student->student_last_name_father}}
-                                            {{$student->student_last_name_mother}}
-                  </p>
-                  <!--separar esto dale una forma mas bonita-->
-                  <p class="mb-0 d-inline"> {{$student->career}}
-                  </p>
-                  <br>
-                  @endforeach
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="h6 titleColor">Tesista:</label>
+                    </div>
+                    <div class="col-lg-12">
+                      @foreach($profile->students as $student)
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <p class="mb-0 d-inline"> {{$student->student_name}}
+                                                    {{$student->student_last_name_father}}
+                                                    {{$student->student_last_name_mother}}
+                          </p>
+                        </div>
+                        <div class="col-lg-6">
+                          <p class="mb-0 d-inline"> {{$student->career}}
+                          </p>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
-                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-danger remove-row" data-toggle="modal" data-target="#finalize_profile_modal"
+                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
                        data-finalize_profile="{{ $profile->id }}"
     	          	><i class="fa fa-check"></i></a>
 
@@ -120,7 +129,7 @@
                     <div class="col-lg-12">
                       <label class="h6 card-subtitle titleColor">Objetivo:</label>
                       <br>
-                      <p class="mb-0 d-inline">el principal objetivo de este perfil es non hacer nada en especifico porque todo es una verga</p>
+                      <p class="mb-0 d-inline">{{$profile->objective}}</p>
                     </div>
                   </div>
                 </div>
