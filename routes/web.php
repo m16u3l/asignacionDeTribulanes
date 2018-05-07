@@ -46,3 +46,11 @@ Route::get('import_profiles',[
 Route::post('import_profiles',[
   'as'=>'import_profiles',
   'uses'=>'ProfileController@importProfiles']);
+
+Route::get('import_areas',[
+    'as' => 'import_areas',
+    'uses' => 'AreaController@upload_areas']);
+
+Route::post('import_areas',[
+    'as' => 'import_areas',
+    'uses' => 'AreaController@import_areas']);
