@@ -14,14 +14,10 @@ Route::get('/perfiles/finalizados', [
     'as' => 'list_profile_finalized',
     'uses' => "ProfileController@list_profile_finalized"]);
 
-Route::get('/perfiles/pertinentes/{id}', [
-    'as' => 'asignacion_pertinentes',
-    'uses' => "ProfessionalController@list_professionals_pertinentes"]);
-
-Route::get('/perfiles/todos/{id}', [
-    'as' => 'asignacion_todos',
-    'uses' => "ProfessionalController@list_all_professionals"]);
-
+Route::get('/perfiles/{id}', [
+    'as' => 'asignacion',
+    'uses' => "ProfessionalController@index"]);
+    
 Route::post('/registrar_tribunal', [
     'as' => 'register_court',
     'uses' => "ProfessionalController@store"]);
@@ -34,19 +30,18 @@ Route::post('/finalizar_perfil', [
 + Rutas de Importacion
 +*/
 
+Route::get('import_professionals', [
+    'as' => 'import_professionals',
+    'uses' => 'ProfessionalController@uploadProfessionals']);
 
-Route::get('import_professionals',[
-  'as'=>'import_professionals',
-  'uses'=>'ProfessionalController@uploadProfessionals']);
+Route::post('import_professionals', [
+    'as' => 'import_professionals',
+    'uses' => 'ProfessionalController@importProfessionals']);
 
-Route::post('import_professionals',[
-  'as'=>'import_professionals',
-  'uses'=>'ProfessionalController@importProfessionals']);
+Route::get('import_profiles', [
+    'as' => 'import_profiles',
+    'uses' => 'ProfileController@uploadProfiles']);
 
-Route::get('import_profiles',[
-  'as'=>'import_profiles',
-  'uses'=>'ProfileController@uploadProfiles']);
-
-Route::post('import_profiles',[
-  'as'=>'import_profiles',
-  'uses'=>'ProfileController@importProfiles']);
+Route::post('import_profiles', [
+    'as' => 'import_profiles',
+    'uses' => 'ProfileController@importProfiles']);

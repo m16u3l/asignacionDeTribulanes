@@ -17,37 +17,8 @@ use Illuminate\Support\Facades\Input;
 
 class ProfessionalController extends Controller
 {
-  public function list_all_professionals(Request $request, $id)
+    public function index(Request $request, $id)
   {
-    $url = '/registrar_tribunal';
-    $profile = Profile::find($id);
-    $area = Area::find($profile->area_id);
-
-      $professionals_asignados = DB::table('professionals')
-          ->join('assignements','professionals.id', '=', 'assignements.professional_id')
-          ->where('assignements.profile_id', '=', $profile->id)
-          ->get();
-
-        $professionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-              ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-              ->select('professionals.id')
-              ->where('tutors.profile_id', '=', $profile->id))
-          ->whereNotIn('professionals.id', DB::table('professionals')
-              ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-              ->select('professionals.id')
-              ->where('area_interests.area_id', '=', $area->id))
-          ->whereNotIn('professionals.id', DB::table('professionals')
-              ->join('assignements','professionals.id', '=', 'assignements.professional_id')
-              ->select('professionals.id')
-              ->where('assignements.profile_id', '=', $profile->id))
-          ->search_by_name($request->name)
-          ->orderBy('count')
-          ->get();
-
-        return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados'));
-  }
-    public function list_professionals_pertinentes(Request $request, $id)
-    {
       $url = '/registrar_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
@@ -73,7 +44,24 @@ class ProfessionalController extends Controller
             ->where('assignements.profile_id', '=', $profile->id)
             ->get();
 
-          return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados'));
+            $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                            ->select('professionals.id')
+                            ->where('tutors.profile_id', '=', $profile->id))
+                        ->whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+                            ->select('professionals.id')
+                            ->where('area_interests.area_id', '=', $area->id))
+                        ->whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('assignements','professionals.id', '=', 'assignements.professional_id')
+                            ->select('professionals.id')
+                            ->where('assignements.profile_id', '=', $profile->id))
+                        ->search_by_name($request->name)
+                        ->orderBy('count')
+                        ->get();
+            
+                      return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados','allProfessionals'));
+            
     }
 
     public function store(Request $request)
