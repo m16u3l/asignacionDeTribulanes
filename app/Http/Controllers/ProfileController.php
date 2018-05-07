@@ -179,8 +179,6 @@ class ProfileController extends Controller
     	Excel::load($file, function($reader) use (&$valid) {
     	  $rs = $reader->get();
           $row = $rs[0];
-          $headers = $row->keys();
-          dd($headers[0]);
           if( $headers[0] == 'titulo_proyecto_final' &&
               $headers[1] == 'nombre_tutor' &&
               $headers[2] == 'apellido_paterno_tutor' &&
