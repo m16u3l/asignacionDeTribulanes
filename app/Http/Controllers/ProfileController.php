@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Input;
 
 class ProfileController extends Controller
 {
+	public function profiles_list(Request $request){
+		$profiles = Profile::orderBy('title')
+					->search_by_title_or_student($request->name)
+					->paginate(10);
+		return view('profile.profile_list', compact('profiles'));
+	}
+
 	public function list_profile_finalized(Request $request)
 	{
 		$profiles = Profile::where('count','>=',3)
