@@ -37,7 +37,7 @@
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-10" data-toggle="collapse" href="#{{$profile->title}}">
+                <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="titleColor">{{$profile->title}}</h6>
                   <div class="row">
                     <div class="col-lg-12">
@@ -62,6 +62,7 @@
                   </div>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
+                  <br>
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
                        data-finalize_profile="{{ $profile->id }}"
     	          	><i class="fa fa-check"></i></a>

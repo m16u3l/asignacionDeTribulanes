@@ -43,23 +43,30 @@
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="titleColor">{{$profile->title}}</h6>
 
-                  <h6 class="h6 d-inline titleColor">Tesista:</h6>
-                  @foreach($profile->students as $student)
-                  <div class="">
-                    <p class="mb-0 d-inline"> {{$student->student_name}}
-                                              {{$student->student_last_name_father}}
-                                              {{$student->student_last_name_mother}}
-                    </p>
-                    <!--separar esto dale una forma mas bonita-->
-                    <p class="mb-0 d-inline"> {{$student->career}}
-
-                    </p>
-                    <br>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="h6 titleColor">Tesista:</label>
+                    </div>
+                    <div class="col-lg-12">
+                      @foreach($profile->students as $student)
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <p class="mb-0 d-inline"> {{$student->student_name}}
+                                                    {{$student->student_last_name_father}}
+                                                    {{$student->student_last_name_mother}}
+                          </p>
+                        </div>
+                        <div class="col-lg-6">
+                          <p class="mb-0 d-inline"> {{$student->career}}
+                          </p>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
                   </div>
-
-                  @endforeach
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
+                  <br>
                   <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
                 </div>
 
@@ -71,27 +78,47 @@
                 <div class="col-lg-11">
                   <div class="row">
                     <div class="col-lg-6">
-                      <label class="h6 card-subtitle titleColor">Tutor(es):</label>
-                      @foreach($profile->tutors as $tutor)
-                    <p class="mb-0 d-inline"> {{$tutor->professional_name}}
-                                              {{$tutor->professional_last_name_father}}
-                                              {{$tutor->professional_last_name_mother}}
-                    </p>
-                    <br>
-                    @endforeach
-                    </div>
-                    <div class="col-lg-6">
-                      <label class="h6 card-subtitle titleColor">Area(s):</label>
-                      <p class="card-text mb-2">{{$profile->area->area_name}}</p>
+                
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Area(s):</label>
+                        </div>
+                        <div class="col-lg-9">
+                          <p class="mb-0 d-inline">{{$profile->area->area_name}}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Modalidad:</label>
+                        </div>
+                        <div class="col-lg-9">
+                          <p class="card-text mb-2">{{$profile->degree_modality}}</p>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="col-lg-6">
-                      <label class="h6 card-subtitle titleColor">Modalidad:</label>
-                      <p class="card-text mb-2  ">{{$profile->degree_modality}}</p>
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">Tutor(es):</label>
+                        </div>
+                        <div class="col-lg-9">
+                          @foreach($profile->tutors as $tutor)
+                          <p class="mb-0 d-inline"> {{$tutor->professional_name}}
+                                                    {{$tutor->professional_last_name_father}}
+                                                    {{$tutor->professional_last_name_mother}}
+                          </p>
+                          <br>
+                          @endforeach
+                        </div>
+                      </div>
                     </div>
-                    <div class="col">
+
+                    <div class="col-lg-12">
                       <label class="h6 card-subtitle titleColor">Objetivo:</label>
-                      <p class="card-text">{{$profile->objective}}</p>
+                      <br>
+                      <p class="mb-0 d-inline">{{$profile->objective}}</p>
                     </div>
                   </div>
                 </div>

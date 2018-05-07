@@ -24,7 +24,7 @@
 
             <div class="card-body collapse" id="{{$profile->title}}">
               <div class="row">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="row">
@@ -62,16 +62,15 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="row">
-                        <div class="col-lg-4">
-                          <label class="h6 titleColor">tribunal(es):</label>
+                        <div class="col-lg-3">
+                          <label class="h6 titleColor">tribunales:</label>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-9">
                             @foreach($profile->students as $student)
-                            <p class="mb-0 d-inline"> {{$student->student_name}}
+                            <p class="card-text mb-2"> {{$student->student_name}}
                                                       {{$student->student_last_name_father}}
                                                       {{$student->student_last_name_mother}}
                             </p>
-                          <br>
                           @endforeach
                         </div>
                       </div>
@@ -129,7 +128,7 @@
           <div class="card list-group-item list-group-item-action mb-2">
             <div class="card-header" data-toggle="collapse" href="#{{$professional_asignado->id}}" style = "overflow: hidden;
                white-space: nowrap;">
-              <label class="h6 texto mb-0">Profesional:</label>
+              <label class="h6 texto mb-0">Profesional:</label><br>
               <label class=" texto mb-0">{{$professional_asignado->professional_name}} {{$professional_asignado->professional_last_name_father}}</label>
             </div>
 
@@ -138,18 +137,13 @@
                 <label class="h6 texto mb-0">Carga de perfiles:</label>
                 <label class=" texto mb-0">{{$professional_asignado->count}} perfiles</label>
               </div>
-              <div class="perfil col-12 mb-0">
-                <label class="h6 texto">Areas de interes:</label>
-                <label class=" texto">Ninguna</label>
-              </div>
+
               <div class="col-12 text-center">
                 <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" name="profile_id" value="{{$profile->id}}">
                   <input type="hidden" name="professional_id" value="{{$professional_asignado->id}}  ">
-
                   <button type="submit" class="btn bg-theme-4" ><i class="fa fa-minus-circle"></i></button>
-
                 </form>
               </div>
             </div>
@@ -302,6 +296,7 @@
       </div>
     </div>
   </div>
+</div>
 @endsection
 
 @section('child_js')

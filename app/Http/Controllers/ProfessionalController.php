@@ -23,21 +23,6 @@ class ProfessionalController extends Controller
       $url = '/registrar_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
-      $student = DB::table('profiles')
-        ->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
-        ->select('students.*')
-        ->where('student_profiles.profile_id','=',$profile->area_id)
-        ->join('students', 'student_profiles.student_id', '=', 'students.id')
-        ->get()
-        ->first();
-
-        $tutor = DB::table('profiles')
-          ->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
-          ->select('professionals.*')
-          ->where('tutors.profile_id','=',$profile->area_id)
-          ->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
-          ->get()
-          ->first();
 
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
@@ -76,7 +61,7 @@ class ProfessionalController extends Controller
             ->orderBy('count')
             ->get();
 
-          return view('professional.assign_professinal', compact('url','tutor','student' ,'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
+          return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados','allProfessionals'));
     }
 
     public function store(Request $request)
