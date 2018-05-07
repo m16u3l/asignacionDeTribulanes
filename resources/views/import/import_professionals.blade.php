@@ -8,14 +8,10 @@
 
 @section('content')
 <div class="col-md-4 offset-md-3">
-<<<<<<< HEAD
-=======
-  <div id="alert" class="alert alert-info"></div>
->>>>>>> 4fa64814c99b55405d11a0a65e656bb2af97ae8d
    {!! Form::open(array('class'=>'form', 'method'=>'post', 'enctype'=>'multipart/form-data')) !!}
       {{ csrf_field() }}
       @if ($errors->any())
-        <div class="alert alert-info">
+        <div class="alert alert-danger">
           <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -23,6 +19,12 @@
           </ul>
         </div>
       @endif
+
+    @if (session('status'))
+      <div class="alert alert-success">
+        <li>{{ session('status') }}</li>
+    </div>
+    @endif
 
       <h5 class="h5 text-center" for="fileProfessionals">Importar profesionales</h5>
       <p>Seleccione el archivo del cual desea importar datos</p>

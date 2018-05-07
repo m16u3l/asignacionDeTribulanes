@@ -119,7 +119,6 @@ class ProfessionalController extends Controller
 
     public function uploadProfessionals($value='')
     {
-      $messages = null;
       return view('import.import_professionals', compact('messages'));
     }
 
@@ -131,40 +130,80 @@ class ProfessionalController extends Controller
          'fileProfessionals' => 'required|mimes:xlsx',
           );
       $messages = array(
-          'required' => 'ningun archivo xlsx seleccionado',
-          'mimes' => 'el archivo debe estar en formato .xlsx'
+          'required' => 'Ningun archivo xlsx seleccionado',
+          'mimes' => 'El formato no es compatible'
       );
-
       $validator = Validator::make(Input::all(), $rules, $messages);
+
       if ($validator->fails()) {
+
           return redirect('import_professionals')->withErrors($validator);
-      } else if($validator->passes()) {
+
+      } else if(!$this->valid_document($file)) {
+
+          return redirect('import_professionals')->with('status', 'Documento invalido');
+
+      } else if($validator->passes()) { 
+
          Excel::load($file, function($reader)
-        {
-          foreach ($reader->get() as $key => $value) {
-            $prof = Professional::where('ci', $value->ci)->first();
-            if(is_null($prof)) {
-              if (!is_null($value->nombre) &&
-                  !is_null($value->apellido_materno) &&
-                  !is_null($value->apellido_paterno)) {
-                $professional = new Professional;
-                $professional->professional_name = $value->nombre;
-                $professional->professional_last_name_mother = $value->apellido_materno;
-                $professional->professional_last_name_father = $value->apellido_paterno;
-                $professional->email = $value->correo;
-                $professional->degree = $value->titulo_docente;
-                $professional->workload = $value->carga_horaria;
-                $professional->phone = $value->telefono;
-                $professional->address = $value->direccion;
-                $professional->profile = $value->perfil;
-                $professional->ci = $value->ci;
-                $professional->cod_sis = $value->cod_sis;
-                $professional->save();
-              }
-            }
-          }
-        });
+          { 
+              foreach ($reader->get() as $key => $value) {
+                if(!is_null($value->nombre) &&
+                   !is_null($value->apellido_materno) &&
+                   !is_null($value->apellido_paterno) &&
+                   !is_null($value->carga_horaria) &&
+                   !is_null($value->titulo_docente)){
+
+                     $prof = Professional::where('ci', $value->ci)->first();
+                  if(is_null($prof)) {
+                      $professional = new Professional;
+                      $professional->professional_name = $value->nombre;
+                      $professional->professional_last_name_mother = $value->apellido_materno;
+                      $professional->professional_last_name_father = $value->apellido_paterno;
+                      $professional->email = $value->correo;
+                      $professional->degree = $value->titulo_docente;
+                      $professional->workload = $value->carga_horaria;
+                      $professional->phone = $value->telefono;
+                      $professional->address = $value->direccion;
+                      $professional->profile = $value->perfil;
+                      $professional->ci = $value->ci;
+                      $professional->cod_sis = $value->cod_sis;
+                      $professional->save();
+                  }
+                }
+              }   
+         });
+             return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
+        } 
+        
       }
-      return view('import.import_professionals');
+
+    public function valid_document($file)
+    { 
+      $valid = False;
+      Excel::load($file, function($file) use (&$valid){
+          $rs = $file->get();
+          $row = $rs[0];
+          $headers = $row->keys();
+          if( $headers[0] == 'nombre' &&
+              $headers[1] == 'apellido_paterno' &&
+              $headers[2] == 'apellido_materno' &&
+              $headers[3] == 'correo' &&
+              $headers[4] == 'titulo_docente' &&
+              $headers[5] == 'carga_horaria' &&
+              $headers[6] == 'nombre_cuenta' &&
+              $headers[7] == 'telefono' &&
+              $headers[8] == 'direccion' &&
+              $headers[9] == 'perfil' &&
+              $headers[10] == 'contrasena_cuenta' &&
+              $headers[11] == 'ci' &&
+              $headers[12] == 'cod_sis') {
+
+             $valid = True;
+
+          }
+
+       });
+      return $valid;
     }
 }

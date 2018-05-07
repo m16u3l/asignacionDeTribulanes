@@ -24,7 +24,6 @@ class CreateProfessionalsTable extends Migration
           $table->string('profile')->nullable();
 
           $table->integer('count')->default(0);
-
           $table->rememberToken();
           $table->timestamps();
         });
