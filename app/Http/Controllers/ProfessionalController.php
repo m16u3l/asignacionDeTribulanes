@@ -20,7 +20,7 @@ class ProfessionalController extends Controller
 
     public function index(Request $request, $id)
     {
-      $url = '/register_tribunal';
+      $url = '/registrar_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
       $student = DB::table('profiles')
@@ -80,7 +80,7 @@ class ProfessionalController extends Controller
 
     public function store(Request $request)
     {
-			$url = 'profiles/';
+			$url = 'perfiles/';
 			$profile_id = $request->profile_id;
 			$professional_id = $request->professional_id;
 

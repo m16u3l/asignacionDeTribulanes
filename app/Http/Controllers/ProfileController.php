@@ -48,9 +48,11 @@ class ProfileController extends Controller
 	public function finalizar_perfil(Request $request)
 	{
 	  	$profile = Profile::find($request->profile_id);
+      $now = new \DateTime();
 
 			$profile1 = Profile::find($request->profile_id);
 			$profile1->profile_finalized=true;
+			$profile1->finalized_date=$now->format('d-m-Y');
 			$profile1->save();
 
 			foreach ($profile->assingements as &$professional) {
