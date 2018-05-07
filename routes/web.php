@@ -53,3 +53,16 @@ Route::get('import_areas',[
 Route::post('import_areas',[
     'as' => 'import_areas',
     'uses' => 'AreaController@import_areas']);
+
+//listas de importaciones...
+Route::get('/lista_perfiles', [
+    'as' => 'lista_perfiles',
+    'uses' => "ProfileController@profiles_list"]);
+
+Route::get('/lista_areas', [
+    'as' => 'lista_areas',
+    'uses' => "AreaController@areas_list"]);
+
+Route::get('/lista_profesionales', [
+    'as' => 'lista_profesionales',
+    'uses' => "ProfessionalController@professional_list"]);

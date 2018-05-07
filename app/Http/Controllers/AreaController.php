@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Input;
 
 class AreaController extends Controller
 {
+  public function areas_list(Request $request){
+		$areas = Area::orderBy('area_name')
+					->paginate(10);
+		return view('area.areas_list', compact('areas'));
+	}
+
   public function upload_areas($value='')
   {
     $messages = null;
