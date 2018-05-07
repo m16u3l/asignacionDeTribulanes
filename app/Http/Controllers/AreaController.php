@@ -36,7 +36,7 @@ class AreaController extends Controller
         return redirect('import_areas')->withErrors($validator);
     } else if(!$this->valid_document($file)) {
 
-      return redirect('import_areas')->with('status', 'Documento invalido');
+      return redirect('import_areas')->with('bad_status', 'Documento invalido');
     } else if($validator->passes()) {
        Excel::load($file, function($reader)
       {
