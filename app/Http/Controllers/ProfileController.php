@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Excel;
+use Validator;
 use App\Student;
 use App\Area;
 use App\Assignement;
@@ -103,11 +104,29 @@ class ProfileController extends Controller
 
     public function importProfiles(Request $request)
     {
-      $file = Input::file('fileProfiles');
+       $file = Input::file('fileProfiles');
+       $rules = array(
+         'fileProfiles' => 'required|mimes:xlsx',
+          );
+       $messages = array(
+          'required' => 'ningun archivo xlsx seleccionado',
+          'mimes' => 'el archivo debe estar en formato .xlsx'
+       );
+       $validator = Validator::make(Input::all(), $rules, $messages);
+      if ($validator->fails()) {
+
+          return redirect('import_profiles')->withErrors($validator);
+
+      } else if(!$this->valid_document($file)) {
+
+        return redirect('import_profiles')->with('status', 'Documento invalido');
+
+      } else if($validator->passes()) {
+
       	Excel::load($file, function($reader)
         {
        	  foreach ($reader->get() as $key => $value) {
-
+       	  	dd($value);
        	  	$profile = Profile::where('title', $value->titulo_proyecto_final)
        	  				->where('objective', $value->objetivo_general)
        	  				->where('degree_modality', $value->modalidad_titulacion)
@@ -150,6 +169,33 @@ class ProfileController extends Controller
 			}
           }
         });
-      return view('import.import_profiles');
+      	return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.');
+    	}
+    }
+
+    public function valid_document($file) 
+    {
+    	$valid = False;
+    	Excel::load($file, function($reader) use (&$valid) {
+    	  $rs = $reader->get();
+          $row = $rs[0];
+          $headers = $row->keys();
+          dd($headers[0]);
+          if( $headers[0] == 'titulo_proyecto_final' &&
+              $headers[1] == 'nombre_tutor' &&
+              $headers[2] == 'apellido_paterno_tutor' &&
+              $headers[3] == 'apellido_materno_tutor' &&
+              $headers[4] == 'nombre_postulante' &&
+              $headers[5] == 'apellido_paterno_postulante' &&
+              $headers[6] == 'apellido_materno_postulante' &&
+              $headers[7] == 'objetivo_general' &&
+              $headers[8] == 'area' &&
+              $headers[9] == 'modalidad_titulacion' &&
+              $headers[10] =='carrera') {
+
+             $valid = True;
+
+          }
+    	});
     }
 }
