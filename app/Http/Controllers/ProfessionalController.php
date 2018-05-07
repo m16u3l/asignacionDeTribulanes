@@ -17,27 +17,11 @@ use Illuminate\Support\Facades\Input;
 
 class ProfessionalController extends Controller
 {
-
     public function index(Request $request, $id)
-    {
-      $url = '/register_tribunal';
+  {
+      $url = '/registrar_tribunal';
       $profile = Profile::find($id);
       $area = Area::find($profile->area_id);
-      $student = DB::table('profiles')
-        ->join('student_profiles', 'profiles.id', '=', 'student_profiles.profile_id')
-        ->select('students.*')
-        ->where('student_profiles.profile_id','=',$profile->area_id)
-        ->join('students', 'student_profiles.student_id', '=', 'students.id')
-        ->get()
-        ->first();
-
-        $tutor = DB::table('profiles')
-          ->join('tutors', 'profiles.id', '=', 'tutors.profile_id')
-          ->select('professionals.*')
-          ->where('tutors.profile_id','=',$profile->area_id)
-          ->join('professionals', 'tutors.professional_id', '=', 'professionals.id')
-          ->get()
-          ->first();
 
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
@@ -59,28 +43,30 @@ class ProfessionalController extends Controller
             ->join('assignements','professionals.id', '=', 'assignements.professional_id')
             ->where('assignements.profile_id', '=', $profile->id)
             ->get();
-          $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                ->select('professionals.id')
-                ->where('tutors.profile_id', '=', $profile->id))
-            ->whereNotIn('professionals.id', DB::table('professionals')
-                ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-                ->select('professionals.id')
-                ->where('area_interests.area_id', '=', $area->id))
-            ->whereNotIn('professionals.id', DB::table('professionals')
-                ->join('assignements','professionals.id', '=', 'assignements.professional_id')
-                ->select('professionals.id')
-                ->where('assignements.profile_id', '=', $profile->id))
-            ->search_by_name($request->name)
-            ->orderBy('count')
-            ->get();
 
-          return view('professional.assign_professinal', compact('url','tutor','student' ,'profile', 'area', 'professionals', 'professionals_asignados','allProfessionals'));
+            $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                            ->select('professionals.id')
+                            ->where('tutors.profile_id', '=', $profile->id))
+                        ->whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+                            ->select('professionals.id')
+                            ->where('area_interests.area_id', '=', $area->id))
+                        ->whereNotIn('professionals.id', DB::table('professionals')
+                            ->join('assignements','professionals.id', '=', 'assignements.professional_id')
+                            ->select('professionals.id')
+                            ->where('assignements.profile_id', '=', $profile->id))
+                        ->search_by_name($request->name)
+                        ->orderBy('count')
+                        ->get();
+            
+                      return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados','allProfessionals'));
+            
     }
 
     public function store(Request $request)
     {
-			$url = 'profiles/';
+			$url = 'perfiles/';
 			$profile_id = $request->profile_id;
 			$professional_id = $request->professional_id;
 
@@ -138,6 +124,9 @@ class ProfessionalController extends Controller
       $validator = Validator::make(Input::all(), $rules, $messages);
       if ($validator->fails()) {
           return redirect('import_professionals')->withErrors($validator);
+      } else if(!$this->valid_document($file)) {
+
+        return redirect('import_professionals')->with('status', 'Documento invalido');
       } else if($validator->passes()) {
          Excel::load($file, function($reader)
         {
@@ -165,6 +154,35 @@ class ProfessionalController extends Controller
           }
         });
       }
-      return view('import.import_professionals');
+      return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
     }
+
+    public function valid_document($file)
+    { 
+      $valid = False;
+      Excel::load($file, function($file) use (&$valid){
+          $rs = $file->get();
+          $row = $rs[0];
+          $headers = $row->keys();
+          if( $headers[0] == 'nombre' &&
+              $headers[1] == 'apellido_paterno' &&
+              $headers[2] == 'apellido_materno' &&
+              $headers[3] == 'correo' &&
+              $headers[4] == 'titulo_docente' &&
+              $headers[5] == 'carga_horaria' &&
+              $headers[6] == 'nombre_cuenta' &&
+              $headers[7] == 'telefono' &&
+              $headers[8] == 'direccion' &&
+              $headers[9] == 'perfil' &&
+              $headers[10] == 'contrasena_cuenta' &&
+              $headers[11] == 'ci' &&
+              $headers[12] == 'cod_sis') {
+
+             $valid = True;
+
+          }
+
+       });
+      return $valid;
+     }
 }

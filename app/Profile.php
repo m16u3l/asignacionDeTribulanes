@@ -23,7 +23,8 @@ class Profile extends Model
            $query -> where('title', 'ilike',"%$name%")
                ->orWhereHas('students', function($query){
                     $name = $this->_searchName;
-                  $query->where('student_name','ilike',"%$name%");
+                  $query->where(\DB::raw("concat(student_name, ' ', student_last_name_father, ' ',
+                  student_last_name_mother)"),'ilike',"%$name%");
                }
              );
        }
@@ -33,7 +34,7 @@ class Profile extends Model
     $query ->where('letter_professional', '=', 'true' )
            ->whereHas('mastutors', function($query){
              $query->where('letter','true' );
-           } 
+           }
          );
   }
   public function mastutors()
