@@ -14,9 +14,13 @@ Route::get('/perfiles/finalizados', [
     'as' => 'list_profile_finalized',
     'uses' => "ProfileController@list_profile_finalized"]);
 
-Route::get('/perfiles/{id}', [
-    'as' => 'asignacion',
-    'uses' => "ProfessionalController@index"]);
+Route::get('/perfiles/pertinentes/{id}', [
+    'as' => 'asignacion_pertinentes',
+    'uses' => "ProfessionalController@list_professionals_pertinentes"]);
+
+Route::get('/perfiles/todos/{id}', [
+    'as' => 'asignacion_todos',
+    'uses' => "ProfessionalController@list_all_professionals"]);
 
 Route::post('/registrar_tribunal', [
     'as' => 'register_court',
