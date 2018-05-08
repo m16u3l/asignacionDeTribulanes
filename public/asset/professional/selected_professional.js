@@ -11,11 +11,16 @@ function addProfessional(professional) {
   if ($(professional).parent().attr("id") == "selected-professional-list") {
     $(professional).addClass("col-md-6");
     if ($(professional).hasClass("area-related-professional")) {
+      $(professional).addClass("related-element");
       $("#area-related-list").append(professional);
     } else {
+      $(professional).addClass("not-related-element");
       $("#not-related-list").append(professional);
     }
     selectedProf--;
+    if (selectedProf == 0) {
+      $("#no-selection-message").removeClass("d-none");
+    }
     console.log("wii");
   } else {
 
@@ -25,7 +30,7 @@ function addProfessional(professional) {
       }
       selectedProf++;
       $("#selected-professional-list").append(professional);
-      $(professional).removeClass("col-md-6");
+      $(professional).removeClass("col-md-6 related-element not-related-element");
       console.log("wii");
     } else {
       alert("Ha seleccionado/asignado suficientes profesionales.");
@@ -98,4 +103,59 @@ function register(postData) {
     success: function () {}
   });
   return true;
+}
+
+function paginationNotRelated(page) {
+  var pag = parseInt($(page).attr("page"));
+  $($($(page).parent()).children()).removeClass("active");
+  $(page).addClass("active");
+  
+  $(".not-related-element").addClass("d-none");
+  for (var i = 0; i < 8; i++) {
+    
+    $($("#not-related-list").children()[pag * 8 + i]).removeClass("d-none");
+  }
+
+}
+
+function paginationRelated(page) {
+  var pag = parseInt($(page).attr("page"));
+  $($($(page).parent()).children()).removeClass("active");
+  $(page).addClass("active");
+  console.log(pag);
+  $(".related-element").addClass("d-none");
+  for (var i = 0; i < 8; i++) {
+    
+    $($("#area-related-list").children()[pag * 8 + i]).removeClass("d-none");
+  }
+
+}
+
+
+window.onload = function () {
+  $(".not-related-element").addClass("d-none");
+  $(".related-element").addClass("d-none");
+
+  for (var i = 0; i < 8; i++) {
+    $($("#not-related-list").children()[i]).removeClass("d-none");
+  }
+  for (var i = 0; i < 8; i++) {
+    $($("#area-related-list").children()[i]).removeClass("d-none");
+  }
+
+  var notNeccesaryButtons = $("#not-related-list").children().length / 8;
+  for (var i = 0; i < notNeccesaryButtons; i++) {
+    var button = "<li class='page-item' page=" + i + " onclick='paginationNotRelated(this)'> <a class='page-link bg-theme-4'>" + (i + 1) + "</a></li>";
+    $("#not-related-pagination").append($(button))
+  }
+  $($("#not-related-pagination").children()[0]).addClass("active");
+  var neccesaryButtons = $("#area-related-list").children().length / 8;
+  for (var i = 0; i < neccesaryButtons; i++) {
+    var button = "<li class='page-item' page=" + i + " onclick='paginationNotRelated(this)'> <a class='page-link bg-theme-4'>" + (i + 1) + "</a></li>";
+    $("#related-pagination").append($(button))
+
+  }
+  $($("#related-pagination").children()[0]).addClass("active");
+
+
 }

@@ -37,10 +37,10 @@
   <!--end header-bar-->
 
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="min-height:92vh">
     <div class="row">
       <!--sidebar-->
-      <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="heigth: 100vh">
+      <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="min-height:92vh;">
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
           <div class="collapse" id="menu1">
@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  <footer class="footer fixed-bottom">
+  <footer class="footer fixed-bottom d-none">
     <div class="container">
       <span class="text-muted">BOY S-Code™</span>
     </div>

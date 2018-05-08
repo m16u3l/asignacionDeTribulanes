@@ -1,13 +1,12 @@
-@extends('layouts.base')
-
+@extends('layouts.base') 
 @section('head')
 <title> Perfiles con tribunales asignados - Asignacion de tribunales UMSS</title>
 @endsection
-
+ 
 @section('child_css')
 <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
-
+ 
 @section('content')
 <div class="col">
   <div class="container" id="profile_list">
@@ -26,34 +25,27 @@
         <br>
 
         <div class="panel-body">
-          {{$profiles->total()}} registros |
-            pagina {{ $profiles->currentPage() }}
-            de {{ $profiles->lastPage() }}
+          {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
         </div>
-        <br>
-
-        @foreach($profiles as $profile)
+        <br> @foreach($profiles as $profile)
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
                 <div class="col-lg-12" data-toggle="collapse" href="#{{$profile->title}}">
-                  <h6 class="titleColor">{{$profile->title}}</h6>
+                  <h6 class="h6">{{$profile->title}}</h6>
 
                   <div class="row">
-                    <div class="col-lg-12">
-                      <label class="h6 titleColor">Tesista:</label>
-                    </div>
                     <div class="col-lg-12">
                       @foreach($profile->students as $student)
                       <div class="row">
                         <div class="col-lg-6">
-                          <p class="mb-0 d-inline"> {{$student->student_name}}
-                                                    {{$student->student_last_name_father}}
-                                                    {{$student->student_last_name_mother}}
+                          <label class="h6 d-inline">Tesista:</label>
+                          <p class="mb-0 d-inline"> {{$student->student_name}} {{$student->student_last_name_father}} {{$student->student_last_name_mother}}
                           </p>
                         </div>
                         <div class="col-lg-6">
+                          <label class="h6 d-inline">Carrera:</label>
                           <p class="mb-0 d-inline"> {{$student->career}}
                           </p>
                         </div>
@@ -74,22 +66,19 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6 titleColor">Tutor(es):</label>
+                          <label class="h6">Tutor(es):</label>
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->tutors as $tutor)
-                          <p class="mb-0 d-inline"> {{$tutor->professional_name}}
-                                                    {{$tutor->professional_last_name_father}}
-                                                    {{$tutor->professional_last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$tutor->professional_name}} {{$tutor->professional_last_name_father}} {{$tutor->professional_last_name_mother}}
                           </p>
-                          <br>
-                          @endforeach
+                          <br> @endforeach
                         </div>
                       </div>
 
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6 titleColor">Area(s):</label>
+                          <label class="h6">Area(s):</label>
                         </div>
                         <div class="col-lg-9">
                           <p class="mb-0 d-inline">{{$profile->area->area_name}}</p>
@@ -98,7 +87,7 @@
 
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6 titleColor">Modalidad:</label>
+                          <label class="h6 ">Modalidad:</label>
                         </div>
                         <div class="col-lg-9">
                           <p class="card-text mb-2">{{$profile->degree_modality}}</p>
@@ -109,22 +98,19 @@
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6 titleColor">tribunal(es):</label>
+                          <label class="h6">Tribunal(es):</label>
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->assingements as $assingement)
-                          <p class="mb-0 d-inline"> {{$assingement->professional_name}}
-                                                    {{$assingement->professional_last_name_father}}
-                                                    {{$assingement->professional_last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$assingement->professional_name}} {{$assingement->professional_last_name_father}} {{$assingement->professional_last_name_mother}}
                           </p>
-                          <br>
-                          @endforeach
+                          <br> @endforeach
                         </div>
                       </div>
                     </div>
 
                     <div class="col-lg-12">
-                      <label class="h6 card-subtitle titleColor">Objetivo:</label>
+                      <label class="h6 card-subtitle">Objetivo:</label>
                       <br>
                       <p class="mb-0 d-inline">{{$profile->objective}}</p>
                     </div>
@@ -143,16 +129,14 @@
   <div class="row">
     <div class="col-md-4 col-xs-1"></div>
     <div class="col-md-5 col-xs-10 mipaginacion">
-            {!! $profiles->render() !!}
+      {!! $profiles->render() !!}
     </div>
     <div class="col-md-3 col-xs-1"></div>
   </div>
 </div>
-
-@include('profile.modal_finalize_profile')
-
+  @include('profile.modal_finalize_profile')
 @endsection
-
+ 
 @section('child_js')
 <script type="text/javascript" src="{{ url('asset/profile/assigned_profile.js')}}"></script>
 @endsection
