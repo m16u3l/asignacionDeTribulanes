@@ -121,6 +121,7 @@
             </li>
 
           </ul>
+          <!--
           <!-Buscador->
           <div class="col-md-8 col text-center">
             <form class="navbar-form pull right" action="{{ route ('asignacion',[$profile->id]) }}" method="GET" role="search">
@@ -133,7 +134,7 @@
             </form>
           </div>
           <!-Fin de buscador->
-
+        -->
           @if ( empty($allProfessionals[0]))
           <div class="col-md-12">
             <h6>No se encontró profesionales</h6>
@@ -151,6 +152,13 @@
               </div>
               @else
               <div class="row" id="area-related-list">
+                  <div class="col-md-8">
+                      <input type="text" id="mySearch">
+                      <button class="btn bg-theme-4" onclick="searchBar();">
+                        Buscar
+                      </button>
+                    </div>
+                    
                 @foreach($professionals as $professional)
                 <div class="col-md-6 area-related-professional related-element" onclick="addProfessional(this)">
                   <div class="card list-group-item list-group-item-action mb-3">
@@ -159,7 +167,7 @@
                         <div class="row">
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Profesional:</label>
-                            <label class=" texto mb-0">{{$professional->professional_name}}  {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</label><br>
+                            <label class="texto mb-0 name-professional">{{$professional->professional_name}}  {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</label><br>
                           </div>
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Carga de perfiles:</label>
@@ -197,6 +205,13 @@
 
               @else
               <div class="row" id="not-related-list">
+                  <div class="col-md-8">
+                      <input type="text" id="notRelatedMyInput">
+                      <button class="btn bg-theme-4" onclick="notRelatedSearchBar();">
+                        Buscar
+                      </button>
+                    </div>
+           
                 @foreach($allProfessionals as $allprofessional)
                 <div class="col-md-6 not-related-professional not-related-element" onclick="addProfessional(this)">
                   <div class="card list-group-item list-group-item-action mb-3">
@@ -205,7 +220,7 @@
                         <div class="row">
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Profesional:</label>
-                            <label class=" texto mb-0">{{$allprofessional->professional_name}}  {{$allprofessional->professional_last_name_father}} {{$allprofessional->professional_last_name_mother}}</label><br>
+                            <label class=" texto mb-0 name-professional">{{$allprofessional->professional_name}}  {{$allprofessional->professional_last_name_father}} {{$allprofessional->professional_last_name_mother}}</label><br>
                           </div>
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Carga de perfiles:</label>

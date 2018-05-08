@@ -109,10 +109,10 @@ function paginationNotRelated(page) {
   var pag = parseInt($(page).attr("page"));
   $($($(page).parent()).children()).removeClass("active");
   $(page).addClass("active");
-  
+
   $(".not-related-element").addClass("d-none");
   for (var i = 0; i < 8; i++) {
-    
+
     $($("#not-related-list").children()[pag * 8 + i]).removeClass("d-none");
   }
 
@@ -125,7 +125,7 @@ function paginationRelated(page) {
   console.log(pag);
   $(".related-element").addClass("d-none");
   for (var i = 0; i < 8; i++) {
-    
+
     $($("#area-related-list").children()[pag * 8 + i]).removeClass("d-none");
   }
 
@@ -137,10 +137,10 @@ window.onload = function () {
   $(".related-element").addClass("d-none");
 
   for (var i = 0; i < 8; i++) {
-    $($("#not-related-list").children()[i]).removeClass("d-none");
+    $($("#not-related-list").children()[i+1]).removeClass("d-none");
   }
   for (var i = 0; i < 8; i++) {
-    $($("#area-related-list").children()[i]).removeClass("d-none");
+    $($("#area-related-list").children()[i+1]).removeClass("d-none");
   }
 
   var notNeccesaryButtons = $("#not-related-list").children().length / 8;
@@ -157,5 +157,58 @@ window.onload = function () {
   }
   $($("#related-pagination").children()[0]).addClass("active");
 
+  var li = $(".related-element").find(".name-professional");
+  for (value of li) {
+    console.log(value.innerHTML);
+  }
+}
 
+function searchBar() {
+  var input = document.getElementById("mySearch");
+  var filter = input.value.toUpperCase();
+  var li = $(".related-element").find(".name-professional");
+
+  for (i = 0; i < li.length; i++) {
+    var h5 = li[i];
+
+    if (h5) {
+      if (h5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        $(li[i]).parent().parent().parent().parent().parent().parent().removeClass("d-none");
+      } else {
+        $(li[i]).parent().parent().parent().parent().parent().parent().addClass("d-none");
+      }
+    }
+  }
+  if (filter == "") {
+    $(".related-element").addClass("d-none");
+    for (var i = 0; i < 8; i++) {
+      $($("#area-related-list").children()[i+1]).removeClass("d-none");
+    }
+  }
+}
+
+function notRelatedSearchBar() {
+  var input = document.getElementById("notRelatedMyInput");
+  var filter = input.value.toUpperCase();
+  var li = $(".not-related-element").find(".name-professional");
+
+  for (i = 0; i < li.length; i++) {
+    var h5 = li[i];
+
+    if (h5) {
+      if (h5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        $(li[i]).parent().parent().parent().parent().parent().parent().removeClass("d-none");
+        console.log(li[i]);
+      } else {
+        $(li[i]).parent().parent().parent().parent().parent().parent().addClass("d-none");
+      }
+    }
+
+  }
+  if (filter == "") {
+    $(".not-related-element").addClass("d-none");
+    for (var i = 0; i < 8; i++) {
+      $($("#not-related-list").children()[i+1]).removeClass("d-none");
+    }
+  }
 }
