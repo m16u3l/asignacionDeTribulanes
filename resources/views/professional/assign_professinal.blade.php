@@ -5,6 +5,8 @@
 
 @section('child_css')
 <link href="{{ url('css/menu_professional.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
+
 @endsection
 
 @section('content')
@@ -125,7 +127,11 @@
           @else
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
-            
+            <div class="panel-body">
+          {{$professionals->total()}} registros |
+            pagina {{ $professionals->currentPage() }}
+            de {{ $professionals->lastPage() }}
+        </div>
 
               @if ( empty($professionals[0]))
               <div class="col-md-6">
@@ -168,9 +174,20 @@
                 
               </div> @endif
               
+              <div class="row">
+    <div class="col-md-3 col-xs-1"></div>
+    <div class="col-md-6 col-xs-10 mipaginacion">
+            {!! $professionals->links() !!}
+    </div>
+    <div class="col-md-3 col-xs-1"></div>
+  </div>
             </div>
             <div id="not-related" class="container tab-pane fade">
-           
+            <div class="panel-body">
+          {{$allProfessionals->total()}} registros |
+            pagina {{ $allProfessionals->currentPage() }}
+            de {{ $allProfessionals->lastPage() }}
+        </div>
               @if ( empty($allProfessionals[0]))
               <h6>No hay mas profesionales registrados</h6>
 
@@ -209,7 +226,16 @@
                
 
               </div> @endif @endif
-              
+              <div class="row">
+    <div class="col-md-3 col-xs-1"></div>
+    <div class="col-md-6 col-xs-10 mipaginacion">
+            {!! $allProfessionals->links() !!}
+    </div>
+    <div class="col-md-3 col-xs-1"></div>
+  </div>
+            </div>
+          </div>
+
 
         </section>
       </div>
