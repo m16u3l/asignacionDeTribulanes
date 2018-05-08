@@ -2,6 +2,8 @@ var totalProf = 3;
 var selectedProf = 0;
 var maxProf = 5;
 var minProf = 3;
+var assignedProf = $("#assigned-professional-list").children("div").length;
+
 
 function addProfessional(professional) {
   var added = document.createElement("div");
@@ -17,7 +19,7 @@ function addProfessional(professional) {
     console.log("wii");
   } else {
 
-    if (selectedProf < totalProf) {
+    if (selectedProf + assignedProf < totalProf) {
       if (selectedProf == 0) {
         $("#no-selection-message").addClass("d-none");
       }
@@ -25,6 +27,8 @@ function addProfessional(professional) {
       $("#selected-professional-list").append(professional);
       $(professional).removeClass("col-md-6");
       console.log("wii");
+    } else {
+      alert("Ha seleccionado/asignado suficientes profesionales.");
     }
   }
 }
@@ -58,39 +62,40 @@ function increaseSelectedProf() {
 }
 
 function registerProf() {
+  {
+    if (selectedProf + assignedProf == totalProf) {
+      var listOfProf = $("#selected-professional-list").find(".register_prof");
+      for (var val of listOfProf) {
+        var par = $(val).parent();
+        var token = $($(par).children()[0]).attr("value");
+        var profileId = $($(par).children()[1]).attr("value");
+        var proffesionalId = $($(par).children()[2]).attr("value");
+        var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
+        console.log(dataString);
+        register(dataString);
 
-  var listOfProf = $("#selected-professional-list").find(".register_prof");
-  /*$(".register-button").click(function () {
+      }
 
-  });
-*/
-
-  for (var val of listOfProf) {
-    var par = $(val).parent();
-    var token = $($(par).children()[0]).attr("value");
-    var profileId = $($(par).children()[1]).attr("value");
-    var proffesionalId = $($(par).children()[2]).attr("value");
-    var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
-    console.log(dataString);
-    register(dataString);
-    
+      //alert (dataString);return false;
+      setTimeout(function () {
+        location.reload();
+      }, 500);
+    } else {
+      if (assignedProf >= totalProf) {
+        alert("El perfil ya tiene profesionales asignados.");
+      } else {
+        alert("Por favor seleccione la cantidad requerida de profesionales.");
+      }
+    }
   }
-
-  //alert (dataString);return false;
-
-
-
-
-
 }
 
-function register (postData) {
+function register(postData) {
   $.ajax({
     type: "POST",
     url: "/registrar_tribunal",
     data: postData,
-    success: function(){
-    }
+    success: function () {}
   });
   return true;
 }
