@@ -171,14 +171,15 @@
                   </div>
                 </div>
                 @endforeach
-                <div class="row">
+                
+              </div> @endif
+              <div class="row">
     <div class="col-md-3 col-xs-1"></div>
     <div class="col-md-6 col-xs-10 mipaginacion">
             {!! $professionals->render() !!}
     </div>
     <div class="col-md-3 col-xs-1"></div>
   </div>
-              </div> @endif
             </div>
             <div id="not-related" class="container tab-pane fade">
             <div class="panel-body">
@@ -221,15 +222,16 @@
                   </div>
                 </div>
                 @endforeach
-                <div class="row">
+               
+
+              </div> @endif @endif
+              <div class="row">
     <div class="col-md-3 col-xs-1"></div>
     <div class="col-md-6 col-xs-10 mipaginacion">
             {!! $allProfessionals->render() !!}
     </div>
     <div class="col-md-3 col-xs-1"></div>
   </div>
-
-              </div> @endif @endif
             </div>
           </div>
 
