@@ -44,7 +44,7 @@ class ProfessionalController extends Controller
             ->select('professionals.id')
             ->where('assignements.profile_id', '=', $profile->id))
         ->orderBy('count')
-        ->get();
+        ->paginate(10);
 
             $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
                             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
@@ -60,7 +60,7 @@ class ProfessionalController extends Controller
                             ->where('assignements.profile_id', '=', $profile->id))
                         ->search_by_name($request->name)
                         ->orderBy('count')
-                        ->get();
+                        ->paginate(10);
 
         return view('professional.assign_professinal', compact('url','profile', 'professionals','allProfessionals'));
 
