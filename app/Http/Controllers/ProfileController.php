@@ -111,8 +111,6 @@ class ProfileController extends Controller
 
     public function importProfiles(Request $request)
     {
-       $news = 0;
-       $fail = 0;
        $salto = chr(13).chr(10);
        $file = Input::file('fileProfiles');
        $rules = array(
@@ -133,7 +131,7 @@ class ProfileController extends Controller
 
       } else if($validator->passes()) {
 
-      	Excel::load($file, function($reader) use (&$news, &$fail)
+      	Excel::load($file, function($reader)
         {
        	  foreach ($reader->get() as $key => $value) {
 
