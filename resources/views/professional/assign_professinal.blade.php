@@ -169,11 +169,7 @@
                           </form>
                         </div>
                       </div>
-                      <div class="col-2 pl-0 ">
-                        <button class="btn bg-theme-4 ml-1" style="position: relative; top: 30%;">
-                        <i class="fa fa-plus-circle"></i>
-                        </button>
-                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -211,11 +207,7 @@
                           </form>
                         </div>
                       </div>
-                      <div class="col-2 pl-0 ">
-                        <button class="btn bg-theme-4 ml-1" style="position: relative; top: 30%;">
-                        <i class="fa fa-plus-circle"></i>
-                        </button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
