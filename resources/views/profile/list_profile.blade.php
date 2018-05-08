@@ -33,7 +33,7 @@
         </div>
         <br>
         @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No se encontró perfiles</h5>
+        <h5 class="h5 text-center">no hay perfiles que requieran tribunales</h5>
         @else @foreach($profiles as $profile)
 
         <div class="card list-group-item-action element-bg mb-1">

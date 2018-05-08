@@ -78,7 +78,7 @@ function registerProf() {
 
       //alert (dataString);return false;
       setTimeout(function () {
-        location.reload();
+        location.href = '/perfiles';
       }, 500);
     } else {
       if (assignedProf >= totalProf) {

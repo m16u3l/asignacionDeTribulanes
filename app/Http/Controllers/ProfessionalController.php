@@ -46,11 +46,6 @@ class ProfessionalController extends Controller
         ->orderBy('count')
         ->get();
 
-        $professionals_asignados = DB::table('professionals')
-            ->join('assignements','professionals.id', '=', 'assignements.professional_id')
-            ->where('assignements.profile_id', '=', $profile->id)
-            ->get();
-
             $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
                             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
                             ->select('professionals.id')
@@ -66,9 +61,9 @@ class ProfessionalController extends Controller
                         ->search_by_name($request->name)
                         ->orderBy('count')
                         ->get();
-            
-                      return view('professional.assign_professinal', compact('url','profile', 'professionals', 'professionals_asignados','allProfessionals'));
-            
+
+        return view('professional.assign_professinal', compact('url','profile', 'professionals','allProfessionals'));
+
     }
 
     public function store(Request $request)
@@ -86,7 +81,7 @@ class ProfessionalController extends Controller
 			DB::table('profiles')->where('id', $profile_id)->increment('count');
 			DB::table('professionals')->where('id', $professional_id)->increment('count');
 
-			return redirect($url . $profile_id);
+			return redirect($url);
 
     }
 
@@ -165,7 +160,7 @@ class ProfessionalController extends Controller
     }
 
     public function valid_document($file)
-    { 
+    {
       $valid = False;
       Excel::load($file, function($file) use (&$valid){
           $rs = $file->get();
