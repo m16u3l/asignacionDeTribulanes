@@ -142,7 +142,8 @@
           @else
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
-
+              
+              
 
               @if ( empty($professionals[0]))
               <div class="col-md-6">
@@ -152,13 +153,17 @@
               </div>
               @else
               <div class="row" id="area-related-list">
-                  <div class="col-md-8">
-                      <input type="text" id="mySearch">
-                      <button class="btn bg-theme-4" onclick="searchBar();">
+                <div class="col-md-8">
+                  <input type="text" id="mySearch">
+                  <button class="btn bg-theme-4" onclick="searchBar();">
                         Buscar
                       </button>
+                </div>
+                <div class="col-md-6 d-none" id="related-not-found">
+                    <div class="card list-group-item list-group-item-action mb-0">
+                      <h6>No se encontraron coincidencias</h6>
                     </div>
-                    
+                  </div>
                 @foreach($professionals as $professional)
                 <div class="col-md-6 area-related-professional related-element" onclick="addProfessional(this)">
                   <div class="card list-group-item list-group-item-action mb-3">
@@ -205,13 +210,17 @@
 
               @else
               <div class="row" id="not-related-list">
-                  <div class="col-md-8">
-                      <input type="text" id="notRelatedMyInput">
-                      <button class="btn bg-theme-4" onclick="notRelatedSearchBar();">
+                <div class="col-md-8">
+                  <input type="text" id="notRelatedMyInput">
+                  <button class="btn bg-theme-4" onclick="notRelatedSearchBar();">
                         Buscar
                       </button>
+                </div>
+                <div class="col-md-6 d-none" id="not-related-not-found">
+                    <div class="card list-group-item list-group-item-action mb-0">
+                      <h6>No se encontraron coincidencias</h6>
                     </div>
-           
+                  </div>
                 @foreach($allProfessionals as $allprofessional)
                 <div class="col-md-6 not-related-professional not-related-element" onclick="addProfessional(this)">
                   <div class="card list-group-item list-group-item-action mb-3">

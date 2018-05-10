@@ -137,10 +137,10 @@ window.onload = function () {
   $(".related-element").addClass("d-none");
 
   for (var i = 0; i < 8; i++) {
-    $($("#not-related-list").children()[i+1]).removeClass("d-none");
+    $($("#not-related-list").children()[i+2]).removeClass("d-none");
   }
   for (var i = 0; i < 8; i++) {
-    $($("#area-related-list").children()[i+1]).removeClass("d-none");
+    $($("#area-related-list").children()[i+2]).removeClass("d-none");
   }
 
   var notNeccesaryButtons = $("#not-related-list").children().length / 8;
@@ -167,48 +167,69 @@ function searchBar() {
   var input = document.getElementById("mySearch");
   var filter = input.value.toUpperCase();
   var li = $(".related-element").find(".name-professional");
-
+  var found = false;
   for (i = 0; i < li.length; i++) {
     var h5 = li[i];
 
     if (h5) {
       if (h5.innerHTML.toUpperCase().indexOf(filter) > -1) {
         $(li[i]).parent().parent().parent().parent().parent().parent().removeClass("d-none");
+        found = true;
       } else {
         $(li[i]).parent().parent().parent().parent().parent().parent().addClass("d-none");
       }
     }
   }
+  if(found){
+    $("#related-not-found").addClass("d-none");
+  } else {
+    $("#related-not-found").removeClass("d-none");
+  }
   if (filter == "") {
     $(".related-element").addClass("d-none");
     for (var i = 0; i < 8; i++) {
-      $($("#area-related-list").children()[i+1]).removeClass("d-none");
+      $($("#area-related-list").children()[i+2]).removeClass("d-none");
     }
+    $("#related-pagination").removeClass("d-none");
+  }else {
+    $("#related-pagination").addClass("d-none");
   }
+  
 }
 
 function notRelatedSearchBar() {
   var input = document.getElementById("notRelatedMyInput");
   var filter = input.value.toUpperCase();
   var li = $(".not-related-element").find(".name-professional");
-
+  var found = false;
   for (i = 0; i < li.length; i++) {
     var h5 = li[i];
 
     if (h5) {
       if (h5.innerHTML.toUpperCase().indexOf(filter) > -1) {
         $(li[i]).parent().parent().parent().parent().parent().parent().removeClass("d-none");
-        console.log(li[i]);
+        found = true;
+        
       } else {
         $(li[i]).parent().parent().parent().parent().parent().parent().addClass("d-none");
       }
     }
-
   }
+
+  if(found){
+    $("#not-related-not-found").addClass("d-none");
+  } else {
+    $("#not-related-not-found").removeClass("d-none");
+  }
+
+
   if (filter == "") {
     $(".not-related-element").addClass("d-none");
     for (var i = 0; i < 8; i++) {
-      $($("#not-related-list").children()[i+1]).removeClass("d-none");
+      $($("#not-related-list").children()[i+2]).removeClass("d-none");
     }
+    $("#not-related-pagination").removeClass("d-none");
+  } else {
+    $("#not-related-pagination").addClass("d-none");
   }
 }
