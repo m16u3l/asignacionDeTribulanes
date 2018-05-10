@@ -70,6 +70,7 @@ class ProfessionalController extends Controller
 
     public function store(Request $request)
     {
+      $now = new \DateTime();
 			$url = 'perfiles/';
 			$profile_id = $request->profile_id;
 			$professional_id = $request->professional_id;
@@ -77,7 +78,8 @@ class ProfessionalController extends Controller
 			$assignement = new Assignement;
 			$assignement->profile_id = $profile_id;
 			$assignement->professional_id = $professional_id;
-			$assignement->assigned = '2008-12-2';
+
+			$assignement->assigned = $now->format('d-m-Y');
 			$assignement->save();
 
 			DB::table('profiles')->where('id', $profile_id)->increment('count');
