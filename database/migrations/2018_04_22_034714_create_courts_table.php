@@ -8,23 +8,23 @@ class CreateAssignementsTable extends Migration
 {
   public function up()
   {
-    Schema::create('assignements', function (Blueprint $table) {
+    Schema::create('courts', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('profile_id');
       $table->integer('professional_id');
-      $table->dateTime('assigned');
+      $table->date('assigned');
+
+      $table->foreign('profile_id')->references('id')->on('profiles');
+      $table->foreign('professional_id')->references('id')->on('professionals');
 
       $table->rememberToken();
       $table->timestamps();
-      
-      $table->foreign('profile_id')->references('id')->on('profiles');
-      $table->foreign('professional_id')->references('id')->on('professionals');
     });
   }
 
 
   public function down()
   {
-    Schema::dropIfExists('assignements');
+    Schema::dropIfExists('courts');
   }
 }

@@ -15,11 +15,11 @@ class CreateTutorsTable extends Migration
 
       $table->boolean('letter')->default(true);
 
-      $table->rememberToken();
-      $table->timestamps();
-
       $table->foreign('profile_id')->references('id')->on('profiles');
       $table->foreign('professional_id')->references('id')->on('professionals');
+
+      $table->rememberToken();
+      $table->timestamps();
     });
   }
 

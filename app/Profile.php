@@ -8,9 +8,8 @@ class Profile extends Model
 {
   protected $table = "profiles";
   protected $fillable = [
-    'title', 'objective', 'finalized_date', 'period', 'degree_modality', 'count',
-    'profile_state', 'profile_state', 'profile_finalized',
-    'profile_sended', 'profile_assigened', 'letter_professional' , 'area_id'
+    'title', 'objective', 'count', 'letter' ,
+    'state_id', 'modality_id', 'academic_term_id'
   ];
   /*
   +    consulta para buscar perfiles por Titulo de perfil
@@ -37,19 +36,35 @@ class Profile extends Model
            }
          );
   }
-  public function mastutors()
+
+  public function academic_term()
   {
-    return $this->hasMany('App\Tutor');
+    return $this->belongsTo('App\AcademicTerm');
   }
 
-  public function area()
+  public function modality()
   {
-    return $this->belongsTo('App\Area');
+    return $this->belongsTo('App\Modality');
   }
 
-  public function assingements()
+  public function state()
   {
-    return $this->belongsToMany('App\Professional','assignements');
+    return $this->belongsTo('App\State');
+  }
+
+  public function date()
+  {
+    return $this->hasMany('App\Date');
+  }
+
+  public function areas()
+  {
+    return $this->belongsToMany('App\Area','sub_areas');
+  }
+
+  public function courts()
+  {
+    return $this->belongsToMany('App\Professional','courts');
   }
 
   public function tutors()
@@ -60,6 +75,16 @@ class Profile extends Model
   public function students()
   {
     return $this->belongsToMany('App\Student','student_profiles');
+  }
+
+  public function type_changes()
+  {
+    return $this->belongsToMany('App\TypeChange','change_binnacles');
+  }
+
+  public function change_courts()
+  {
+    return $this->belongsToMany('App\Professional','change_binnacles');
   }
 
 }

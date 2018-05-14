@@ -14,11 +14,11 @@ class CreateAreaInterestsTable extends Migration
       $table->integer('area_id');
       $table->integer('professional_id');
 
-      $table->rememberToken();
-      $table->timestamps();
-
       $table->foreign('area_id')->references('id')->on('areas');
       $table->foreign('professional_id')->references('id')->on('professionals');
+
+      $table->rememberToken();
+      $table->timestamps();
     });
   }
 

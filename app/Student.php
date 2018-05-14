@@ -8,7 +8,7 @@ class Student extends Model
 {
   protected $table = "students";
   protected $fillable = [
-    'student_name', 'student_last_name_mother', 'student_last_name_father',
+    'name', 'last_name_mother', 'last_name_father',
     'career'
   ];
   public function profiles()

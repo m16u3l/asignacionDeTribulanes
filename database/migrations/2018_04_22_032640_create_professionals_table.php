@@ -12,18 +12,15 @@ class CreateProfessionalsTable extends Migration
           $table->increments('id');
           $table->string('cod_sis')->default("000000")->nullable();
           $table->string('ci')->default("00000")->nullable();
-          $table->string('degree');
-          $table->string('professional_name');
-          $table->string('professional_last_name_mother');
-          $table->string('professional_last_name_father');
+          $table->string('name');
+          $table->string('last_name_mother');
+          $table->string('last_name_father');
           $table->string('workload');
-          $table->string('phone');
-          $table->string('address')->nullable();
-          $table->string('email');
-          $table->string('image')->nullable();
-          $table->string('profile')->nullable();
-
           $table->integer('count')->default(0);
+          $table->integer('degree_id');
+
+          $table->foreign('degree_id')->references('id')->on('degrees');
+
           $table->rememberToken();
           $table->timestamps();
         });

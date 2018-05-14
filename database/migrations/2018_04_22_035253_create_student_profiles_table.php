@@ -13,11 +13,11 @@ class CreateStudentProfilesTable extends Migration
       $table->integer('student_id');
       $table->integer('profile_id');
 
-      $table->rememberToken();
-      $table->timestamps();
-
       $table->foreign('student_id')->references('id')->on('students');
       $table->foreign('profile_id')->references('id')->on('profiles');
+
+      $table->rememberToken();
+      $table->timestamps();
     });
   }
 

@@ -14,24 +14,20 @@ class CreateProfilesTable extends Migration
       $table->increments('id');
       $table->string('title');
       $table->text('objective')->nullable();
-      $table->date('finalized_date')->nullable();
-      $table->integer('period')->default(1);
-      $table->string('degree_modality', 60)->nullable(true);
-
-      $table->rememberToken();
-      $table->timestamps();
+      $table->boolean('letter')->default(true);
+      $table->integer('state_id');
+      $table->integer('modality_id');
+      $table->integer('academic_term_id');
 
       // internal Control
       $table->integer('count')->default(0);
-      $table->boolean('profile_state')->default(false);
-      $table->boolean('profile_finalized')->default(false);
-      $table->boolean('profile_sended')->default(false);
-      $table->boolean('profile_assigened')->default(false);
 
-      $table->boolean('letter_professional')->default(true);
+      $table->foreign('state_id')->references('id')->on('states');
+      $table->foreign('modality_id')->references('id')->on('modalities');
+      $table->foreign('academic_term_id')->references('id')->on('academic_terms');
 
-      $table->integer('area_id')->nullable( )->unsigned();
-      $table->foreign('area_id')->references('id')->on('areas');
+      $table->rememberToken();
+      $table->timestamps();
     });
   }
 

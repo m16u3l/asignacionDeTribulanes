@@ -7,23 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
   protected $table = "areas";
-  protected $fillable = ['area_name', 
-                         'area_codigo',
-                         'area_descripcion',
+  protected $fillable = ['name',
+                         'codigo',
+                         'descripcion',
                          'area_id'];
 
-  public function profiles()
+  public function professionals()
   {
-    return $this->hasMany('App\Profile');
-  }
-
-  public function areas_interests()
-  {
-    return $this->hasMany('App\AreaInterest');
+    return $this->belongsToMany('App\Professional','area_interests');
   }
 
   public function sub_areas()
   {
     return $this->hasMany('App\Area');
+  }
+
+  public function profiles()
+  {
+    return $this->belongsToMany('App\Profile','sub_areas');
   }
 }

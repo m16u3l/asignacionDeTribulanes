@@ -10,17 +10,12 @@ class Professional extends Model
   protected $fillable = [
     'cod_sis',
     'ci',
-    'degree',
-    'professional_name',
-    'professional_last_name_mother',
-    'professional_last_name_father',
+    'name',
+    'last_name_mother',
+    'last_name_father',
     'workload',
-    'phone',
-    'address',
-    'email',
-    'image',
-    'profile',
-    'count'
+    'count',
+    'degree_id'
   ];
 
   /**
@@ -32,9 +27,17 @@ class Professional extends Model
       professional_last_name_mother)"), 'ilike','%'.$name.'%');
   }
 
-  public function assingements()
+  public function degree()
   {
-    return $this->belongsToMany('App\Profile','assignements');
+    return $this->belongsTo('App\Degree');
+  }
+  public function contacts()
+  {
+    return $this->hasMany('App\Contact');
+  }
+  public function profiles_courts()
+  {
+    return $this->belongsToMany('App\Profile','courts');
   }
 
   public function interests()
@@ -45,5 +48,15 @@ class Professional extends Model
   public function profiles_tutors()
   {
     return $this->belongsToMany('App\Profile','tutors');
+  }
+
+  public function type_changes()
+  {
+    return $this->belongsToMany('App\TypeChange','change_binnacles');
+  }
+
+  public function change_profiles()
+  {
+    return $this->belongsToMany('App\Profile','change_binnacles');
   }
 }
