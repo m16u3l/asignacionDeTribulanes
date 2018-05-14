@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssignementsTable extends Migration
+class CreateCourtsTable extends Migration
 {
   public function up()
   {
