@@ -144,11 +144,7 @@
           </div>
           <!-Fin de buscador->
         -->
-          @if ( empty($allProfessionals[0]))
-          <div class="col-md-12">
-            <h6>No se encontró profesionales</h6>
-          </div>
-          @else
+        
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
 
@@ -207,13 +203,14 @@
                 @endforeach
 
               </div> @endif
+
               <div class="col-md-12">
                 <ul id="related-pagination" class="pagination">
 
                 </ul>
               </div>
-
             </div>
+
             <div id="not-related" class="container tab-pane fade">
 
               @if ( empty($allProfessionals[0]))
@@ -272,7 +269,7 @@
                 <ul id="not-related-pagination" class="pagination">
 
                 </ul>
-              </div> @endif
+              </div>
             </div>
           </div>
 

@@ -48,6 +48,7 @@ class ProfessionalController extends Controller
             ->where('courts.profile_id', '=', $profile->id))
         ->orderBy('count')
         ->get();
+
         //->paginate(10);
 
             $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
