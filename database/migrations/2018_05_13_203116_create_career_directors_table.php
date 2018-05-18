@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubAreasTable extends Migration
+class CreateCareerDirectorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateSubAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_areas', function (Blueprint $table) {
+        Schema::create('career_directors', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('area_id');
-            $table->integer('profile_id');
-
-            $table->foreign('area_id')->references('id')->on('areas');
-            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->integer('professional_id');
+            $table->boolean('active')->default(true);
+            $table->date('date_ini')->nullable();
+            $table->date('date_fin')->nullable();
+            $table->foreign('professional_id')->references('id')->on('professionals');
 
             $table->rememberToken();
             $table->timestamps();
@@ -33,6 +33,6 @@ class CreateSubAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_areas');
+        Schema::dropIfExists('career_directors');
     }
 }

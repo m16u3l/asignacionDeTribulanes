@@ -1,12 +1,12 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title> Perfiles con tribunales asignados - Asignacion de tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
 <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
- 
+
 @section('content')
 <div class="col">
   <div class="container" id="profile_list">
@@ -42,7 +42,9 @@
                       <div class="row">
                         <div class="col-lg-6">
                           <label class="h6 d-inline">Tesista:</label>
-                          <p class="mb-0 d-inline"> {{$student->student_name}} {{$student->student_last_name_father}} {{$student->student_last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$student->name}}
+                                                    {{$student->last_name_father}}
+                                                    {{$student->last_name_mother}}
                           </p>
                         </div>
                         <div class="col-lg-6">
@@ -75,9 +77,12 @@
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->tutors as $tutor)
-                          <p class="mb-0 d-inline"> {{$tutor->professional_name}} {{$tutor->professional_last_name_father}} {{$tutor->professional_last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$tutor->name}}
+                                                    {{$tutor->last_name_father}}
+                                                    {{$tutor->last_name_mother}}
                           </p>
-                          <br> @endforeach
+                          <br>
+                           @endforeach
                         </div>
                       </div>
 
@@ -86,7 +91,12 @@
                           <label class="h6">Area(s):</label>
                         </div>
                         <div class="col-lg-9">
-                          <p class="mb-0 d-inline">{{$profile->area->area_name}}</p>
+
+                          @foreach($profile->areas as $area)
+                          <p class="mb-0 d-inline"> {{$area->name}}
+                          </p>
+                          <br>
+                           @endforeach
                         </div>
                       </div>
 
@@ -95,7 +105,8 @@
                           <label class="h6">Modalidad:</label>
                         </div>
                         <div class="col-lg-9">
-                          <p class="card-text mb-2">{{$profile->degree_modality}}</p>
+                          <p class="card-text mb-2">{{$profile->modality->name}}</p>
+
                         </div>
                       </div>
                     </div>
@@ -106,8 +117,10 @@
                           <label class="h6">Tribunal:</label>
                         </div>
                         <div class="col-lg-9">
-                          @foreach($profile->assingements as $assingement)
-                          <p class="mb-0 d-inline"> {{$assingement->professional_name}} {{$assingement->professional_last_name_father}} {{$assingement->professional_last_name_mother}}
+                          @foreach($profile->courts as $courts)
+                          <p class="mb-0 d-inline"> {{$courts->name}}
+                                                    {{$courts->last_name_father}}
+                                                    {{$courts->last_name_mother}}
                           </p>
                           <br> @endforeach
                         </div>
@@ -141,7 +154,7 @@
 </div>
   @include('profile.modal_finalize_profile')
 @endsection
- 
+
 @section('child_js')
 <script type="text/javascript" src="{{ url('asset/profile/assigned_profile.js')}}"></script>
 @endsection

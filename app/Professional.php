@@ -57,6 +57,6 @@ class Professional extends Model
 
   public function change_profiles()
   {
-    return $this->belongsToMany('App\Profile','change_binnacles');
+    return $this->belongsToMany('App\Profile','rejection_requests');
   }
 }

@@ -9,6 +9,8 @@ use App\Area;
 use App\Assignement;
 use App\Professional;
 use App\Profile;
+use App\Date;
+use App\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -24,8 +26,9 @@ class ProfileController extends Controller
 
 	public function list_profile_finalized(Request $request)
 	{
+		$state = State::where('name','finalized')->first();
 		$profiles = Profile::where('count','>=',3)
-												->where('profile_finalized',true)
+												->where('state_id',$state->id)
 												->search_by_title_or_student($request->name)
 												->orderBy('title')
 												->paginate(5);
@@ -34,8 +37,9 @@ class ProfileController extends Controller
 	}
 	public function list_profiles_signed(Request $request)
 	{
+		$state = State::where('name','assigned')->first();
 		$profiles = Profile::where('count','>=',3)
-												->where('profile_finalized',false)
+												->where('state_id',$state->id)
 												->search_by_title_or_student($request->name)
 												->orderBy('title')
 							        	->paginate(5);
@@ -58,12 +62,17 @@ class ProfileController extends Controller
 	  	$profile = Profile::find($request->profile_id);
       $now = new \DateTime();
 
+			$state = State::where('name','finalized')->first();
+
 			$profile1 = Profile::find($request->profile_id);
-			$profile1->profile_finalized=true;
-			$profile1->finalized_date=$now->format('d-m-Y');
+      $profile1->state_id=$state->id;
 			$profile1->save();
 
-			foreach ($profile->assingements as &$professional) {
+			$dates = Date::where('profile_id','=',$profile->id)->first();
+      $dates->finalized = $now->format('d-m-Y');
+      $dates->save();
+
+			foreach ($profile->courts as &$professional) {
 				DB::table('professionals')->where('id', $professional->id)->decrement('count');
 	 		}
 			return redirect('perfiles/asignados');
@@ -161,10 +170,10 @@ class ProfileController extends Controller
                 $profile->objective = $value->objetivo_general;
                 $profile->degree_modality  = $value->modalidad_titulacion;
                 $profile->area_id = $area->id;
-                $profile->save();    
+                $profile->save();
 
                 $professional_tutor->profiles_tutors()->attach($profile->id);
-              
+
               }
 
               if (is_null($student)) {
@@ -184,7 +193,7 @@ class ProfileController extends Controller
     	}
     }
 
-    public function valid_document($file) 
+    public function valid_document($file)
     {
     	$valid = False;
     	Excel::load($file, function($reader) use (&$valid) {

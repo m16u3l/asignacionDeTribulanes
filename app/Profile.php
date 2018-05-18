@@ -22,19 +22,19 @@ class Profile extends Model
            $query -> where('title', 'ilike',"%$name%")
                ->orWhereHas('students', function($query){
                     $name = $this->_searchName;
-                  $query->where(\DB::raw("concat(student_name, ' ', student_last_name_father, ' ',
-                  student_last_name_mother)"),'ilike',"%$name%");
+                  $query->where(\DB::raw("concat(name, ' ', last_name_father, ' ',
+                  last_name_mother)"),'ilike',"%$name%");
                }
              );
        }
   }
   public function scopeLetters($query)
   {
-    $query ->where('letter_professional', '=', 'true' )
-           ->whereHas('mastutors', function($query){
+    $query ->where('letter', '=', 'true' );
+          /* ->whereHas('mastutors', function($query){
              $query->where('letter','true' );
            }
-         );
+         );*/
   }
 
   public function academic_term()
@@ -59,7 +59,7 @@ class Profile extends Model
 
   public function areas()
   {
-    return $this->belongsToMany('App\Area','sub_areas');
+    return $this->belongsToMany('App\Area','area_perfiles');
   }
 
   public function courts()
@@ -84,7 +84,7 @@ class Profile extends Model
 
   public function change_courts()
   {
-    return $this->belongsToMany('App\Professional','change_binnacles');
+    return $this->belongsToMany('App\Professional','rejection_requests');
   }
 
 }

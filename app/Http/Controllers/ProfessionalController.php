@@ -8,8 +8,10 @@ use Validator;
 use Redirect;
 use App\Area;
 use App\Professional;
-use App\Assignement;
+use App\Court;
 use App\Profile;
+use App\State;
+use App\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -28,7 +30,8 @@ class ProfessionalController extends Controller
   {
       $url = '/registrar_tribunal';
       $profile = Profile::find($id);
-      $area = Area::find($profile->area_id);
+
+      $area = $profile->areas->first();
 
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
@@ -40,9 +43,9 @@ class ProfessionalController extends Controller
             ->select('professionals.id')
             ->where('tutors.profile_id', '=', $profile->id))
         ->whereNotIn('professionals.id', DB::table('professionals')
-            ->join('assignements','professionals.id', '=', 'assignements.professional_id')
+            ->join('courts','professionals.id', '=', 'courts.professional_id')
             ->select('professionals.id')
-            ->where('assignements.profile_id', '=', $profile->id))
+            ->where('courts.profile_id', '=', $profile->id))
         ->orderBy('count')
         ->get();
         //->paginate(10);
@@ -56,10 +59,10 @@ class ProfessionalController extends Controller
                             ->select('professionals.id')
                             ->where('area_interests.area_id', '=', $area->id))
                         ->whereNotIn('professionals.id', DB::table('professionals')
-                            ->join('assignements','professionals.id', '=', 'assignements.professional_id')
+                            ->join('courts','professionals.id', '=', 'courts.professional_id')
                             ->select('professionals.id')
-                            ->where('assignements.profile_id', '=', $profile->id))
-                        ->search_by_name($request->name)
+                            ->where('courts.profile_id', '=', $profile->id))
+
                         ->orderBy('count')
                         ->get();
                         //->paginate(10);
@@ -70,17 +73,28 @@ class ProfessionalController extends Controller
 
     public function store(Request $request)
     {
+
       $now = new \DateTime();
 			$url = 'perfiles/';
 			$profile_id = $request->profile_id;
 			$professional_id = $request->professional_id;
 
-			$assignement = new Assignement;
-			$assignement->profile_id = $profile_id;
-			$assignement->professional_id = $professional_id;
+      $state = State::where('name','assigned')->first();
 
-			$assignement->assigned = $now->format('d-m-Y');
-			$assignement->save();
+      $profile=Profile::find($request->profile_id);
+      $profile->state_id=$state->id;
+      $profile->save();
+
+      $dates = Date::where('profile_id','=',$profile_id)->first();
+      $dates->assigned = $now->format('d-m-Y');
+      $dates->save();
+
+			$court = new Court;
+			$court->profile_id = $profile_id;
+			$court->professional_id = $professional_id;
+
+			$court->assigned = $now->format('d-m-Y');
+			$court->save();
 
 			DB::table('profiles')->where('id', $profile_id)->increment('count');
 			DB::table('professionals')->where('id', $professional_id)->increment('count');

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Assignement extends Model
+class Court extends Model
 {
   protected $table = "courts";
   protected $fillable = [

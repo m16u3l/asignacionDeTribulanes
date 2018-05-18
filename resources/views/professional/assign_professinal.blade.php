@@ -1,12 +1,12 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
 <link href="{{ url('css/menu_professional.css')}}" rel="stylesheet" type="text/css">
 @endsection
- 
+
 @section('content')
 <div class="col" onload="addPages();">
   <section id="profile-info">
@@ -30,26 +30,35 @@
                 <div class="col-lg-11">
                   <div class="row">
                     <div class="col-lg-4">
-                      <label class="h6 card-subtitle">Tutor(es):</label> @foreach($profile->tutors as $tutor)
-                      <p class="mb-2 card-text"> {{$tutor->professional_name}} {{$tutor->professional_last_name_father}} {{$tutor->professional_last_name_mother}}
+                      <label class="h6 card-subtitle">Tutor(es):</label>
+                      @foreach($profile->tutors as $tutor)
+                      <p class="mb-2 card-text"> {{$tutor->name}}
+                                                 {{$tutor->last_name_father}}
+                                                 {{$tutor->last_name_mother}}
                       </p>
                       @endforeach
                     </div>
                     <div class="col-lg-4">
                       <label class="h6 card-subtitle">Area(s):</label>
-                      <p class="card-text mb-2">{{$profile->area->area_name or 'Sin area'}}</p>
+
+                      @foreach($profile->areas as $area)
+                      <p class="mb-2 card-text"> {{$area->name}}
+                      </p>
+                      @endforeach
                     </div>
 
                     <div class="col-lg-4">
                       <label class="h6 card-subtitle">Modalidad:</label>
-                      <p class="card-text mb-2  ">{{$profile->degree_modality}}</p>
+                      <p class="card-text mb-2  ">{{$profile->modality->name}}</p>
                     </div>
 
                     <div class="col-lg-4">
                       <h6 class="h6 d-inline">Tesista:</h6>
 
                       @foreach($profile->students as $student)
-                      <p class="card-text mb-2"> {{$student->student_name}} {{$student->student_last_name_father}} {{$student->student_last_name_mother}}
+                      <p class="card-text mb-2"> {{$student->name}}
+                                                 {{$student->last_name_father}}
+                                                 {{$student->last_name_mother}}
                       </p>
                       @endforeach
                     </div>
@@ -142,8 +151,8 @@
           @else
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
-              
-              
+
+
 
               @if ( empty($professionals[0]))
               <div class="col-md-6">
@@ -172,7 +181,9 @@
                         <div class="row">
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Profesional:</label>
-                            <label class="texto mb-0 name-professional">{{$professional->professional_name}}  {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</label><br>
+                            <label class="texto mb-0 name-professional">{{$professional->name}}
+                                                                        {{$professional->last_name_father}}
+                                                                        {{$professional->last_name_mother}}</label><br>
                           </div>
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Carga de perfiles:</label>
@@ -229,7 +240,11 @@
                         <div class="row">
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Profesional:</label>
-                            <label class=" texto mb-0 name-professional">{{$allprofessional->professional_name}}  {{$allprofessional->professional_last_name_father}} {{$allprofessional->professional_last_name_mother}}</label><br>
+                            <label class=" texto mb-0 name-professional">
+                              {{$allprofessional->name}}
+                              {{$allprofessional->last_name_father}}
+                              {{$allprofessional->last_name_mother}}
+                            </label><br>
                           </div>
                           <div class="perfil col-12">
                             <label class="h6 texto mb-0">Carga de perfiles:</label>
@@ -291,7 +306,7 @@
   </div>
   </div>
 @endsection
- 
+
 @section('child_js')
   <script type="text/javascript" src="{{url('asset/professional/selected_professional.js')}}"></script>
 @endsection

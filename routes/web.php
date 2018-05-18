@@ -17,7 +17,7 @@ Route::get('/perfiles/finalizados', [
 Route::get('/perfiles/{id}', [
     'as' => 'asignacion',
     'uses' => "ProfessionalController@index"]);
-    
+
 Route::post('/registrar_tribunal', [
     'as' => 'register_court',
     'uses' => "ProfessionalController@store"]);

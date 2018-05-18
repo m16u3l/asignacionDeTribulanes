@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeChangesTable extends Migration
+class CreateAreaPerfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateTypeChangesTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_changes', function (Blueprint $table) {
+        Schema::create('area_perfiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('name');
-            
+            $table->integer('area_id');
+            $table->integer('profile_id');
+
+            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('profile_id')->references('id')->on('profiles');
+
             $table->rememberToken();
             $table->timestamps();
         });
@@ -29,6 +33,6 @@ class CreateTypeChangesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_changes');
+        Schema::dropIfExists('area_perfiles');
     }
 }

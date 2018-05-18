@@ -24,6 +24,6 @@ class Area extends Model
 
   public function profiles()
   {
-    return $this->belongsToMany('App\Profile','sub_areas');
+    return $this->belongsToMany('App\Profile','area_perfiles');
   }
 }
