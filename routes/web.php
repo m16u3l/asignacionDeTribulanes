@@ -1,7 +1,7 @@
 <?php
 /*
-+    Organizacion de rutas
-+*/
+    rutas de asignacion de tribunales
+*/
 Route::get('/perfiles', [
     'as' => 'list_profile',
     'uses' => "ProfileController@list_profile"]);
@@ -26,6 +26,12 @@ Route::post('/finalizar_perfil', [
     'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
 
+/*
+ Rutas de solicitud de renuncia
+*/
+Route::get('/solicitud/{id}', [
+    'as' => 'solicitud_rununcia',
+    'uses' => "ProfileController@solicitud_rununcia"]);
 /*
 + Rutas de Importacion
 +*/

@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Input;
 
 class ProfileController extends Controller
 {
+	public function solicitud_rununcia($id){
+		$profile = Profile::find($id);
+
+		return view('profile.solicitud_rununcia', compact('profile'));
+	}
+
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
 					->search_by_title_or_student($request->name)
@@ -29,22 +35,33 @@ class ProfileController extends Controller
 	public function list_profile_finalized(Request $request)
 	{
 		$state = State::where('name','finalized')->first();
-		$profiles = Profile::where('count','>=',3)
-												->where('state_id',$state->id)
-												->search_by_title_or_student($request->name)
-												->orderBy('title')
-												->paginate(5);
-
+		if($state!=null){
+			$profiles = Profile::where('count','>=',3)
+													->where('state_id',$state->id)
+													->search_by_title_or_student($request->name)
+													->orderBy('title')
+													->paginate(5);
+		}else{
+			$profiles = Profile::where('count','>=',3)
+													->paginate(5);
+		}
 		return view('profile.list_profile_finalized', compact('profiles'));
 	}
+
 	public function list_profiles_signed(Request $request)
 	{
 		$state = State::where('name','assigned')->first();
-		$profiles = Profile::where('count','>=',3)
-												->where('state_id',$state->id)
-												->search_by_title_or_student($request->name)
-												->orderBy('title')
-							        	->paginate(5);
+		if($state!=null){
+			$profiles = Profile::where('count','>=',3)
+													->where('state_id',$state->id)
+													->search_by_title_or_student($request->name)
+													->orderBy('title')
+								        	->paginate(5);
+		}else{
+			$profiles = Profile::where('count','>=',3)
+								        	->paginate(5);
+		}
+
 
 		return view('profile.list_profile_assigned', compact('profiles'));
 	}
@@ -149,7 +166,7 @@ class ProfileController extends Controller
             $modality = Modality::where('name', $value->modalidad_titulacion)->first();
             $now = new \DateTime();
 
-            if(is_null($modality)) { 
+            if(is_null($modality)) {
               $modality = new Modality();
               $modality->name = $value->modalidad_titulacion;
               $modality->description = "";
@@ -204,7 +221,7 @@ class ProfileController extends Controller
                   $state->name = 'abandoned';
                   $state->save();
 
-                }                                          
+                }
 
 //                $academic_term = new AcademicTerm();
 //                $academic_term->date_ini = $now->format('d-m-Y');
