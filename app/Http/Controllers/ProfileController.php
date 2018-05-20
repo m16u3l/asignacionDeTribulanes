@@ -178,12 +178,33 @@ class ProfileController extends Controller
 
               if(is_null($profile)) {
 
-                $state = State::where('name', 'Iniciado')->first();
+                $state = State::where('name', 'initiated')->first();
 
                 if(is_null($state)) {
                   $state = new State();
-                  $state->name = "Iniciado";
+                  $state->name = 'initiated';
                   $state->save();
+
+                  $state = new State();
+                  $state->name = 'approved';
+                  $state->save();
+
+                  $state = new State();
+                  $state->name = 'assigned';
+                  $state->save();
+
+                  $state = new State();
+                  $state->name = 'finalized';
+                  $state->save();
+
+                  $state = new State();
+                  $state->name = 'defended';
+                  $state->save();
+
+                  $state = new State();
+                  $state->name = 'abandoned';
+                  $state->save();
+
                 }                                          
 
 //                $academic_term = new AcademicTerm();
