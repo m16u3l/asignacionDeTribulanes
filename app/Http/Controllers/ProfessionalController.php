@@ -7,6 +7,8 @@ use Excel;
 use Validator;
 use Redirect;
 use App\Area;
+use App\Contact;
+use App\Degree;
 use App\Professional;
 use App\Court;
 use App\Profile;
@@ -20,7 +22,7 @@ use Illuminate\Support\Facades\Input;
 class ProfessionalController extends Controller
 {
     public function professional_list(Request $request){
-        $professionals = Professional::orderBy('professional_name')
+        $professionals = Professional::orderBy('name')
                     ->search_by_name($request->name)
                     ->paginate(10);
 		return view('professional.professional_list', compact('professionals'));
@@ -124,14 +126,14 @@ class ProfessionalController extends Controller
         //
     }
 
-    public function uploadProfessionals($value='')
+    public function upload_professionals($value='')
     {
       $messages = null;
       return view('import.import_professionals', compact('messages'));
     }
 
 
-    public function importProfessionals(Request $request)
+    public function import_professionals(Request $request)
     {
       $file = Input::file('fileProfessionals');
       $rules = array(
@@ -145,9 +147,11 @@ class ProfessionalController extends Controller
       $validator = Validator::make(Input::all(), $rules, $messages);
       if ($validator->fails()) {
           return redirect('import_professionals')->withErrors($validator);
+
       } else if(!$this->valid_document($file)) {
 
         return redirect('import_professionals')->with('bad_status', 'Documento invalido');
+
       } else if($validator->passes()) {
          Excel::load($file, function($reader)
         {
@@ -157,19 +161,32 @@ class ProfessionalController extends Controller
               if (!is_null($value->nombre) &&
                   !is_null($value->apellido_materno) &&
                   !is_null($value->apellido_paterno)) {
+
+                $degree = Degree::where('acronym', $value->titulo_docente)->first();
+
+                if(is_null($degree)) {
+                  $degree = new Degree;
+                  $degree->acronym = $value->titulo_docente;
+                  $degree->save();
+                }
+
                 $professional = new Professional;
-                $professional->professional_name = $value->nombre;
-                $professional->professional_last_name_mother = $value->apellido_materno;
-                $professional->professional_last_name_father = $value->apellido_paterno;
-                $professional->email = $value->correo;
-                $professional->degree = $value->titulo_docente;
-                $professional->workload = $value->carga_horaria;
-                $professional->phone = $value->telefono;
-                $professional->address = $value->direccion;
-                $professional->profile = $value->perfil;
+                $professional->name = $value->nombre;
+                $professional->last_name_mother = $value->apellido_materno;
+                $professional->last_name_father = $value->apellido_paterno;
                 $professional->ci = $value->ci;
                 $professional->cod_sis = $value->cod_sis;
+                $professional->workload = $value->carga_horaria;
+                $professional->degree_id = $degree->id;
                 $professional->save();
+
+                $contact = new Contact;
+                $contact->email = $value->correo;
+                $contact->phone = $value->telefono;
+                $contact->address = $value->direccion;
+                $contact->profile = $value->perfil;
+                $contact->professional_id  = $professional->id;
+                $contact->save();
               }
             }
           }

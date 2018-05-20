@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
       $table->boolean('letter')->default(true);
       $table->integer('state_id');
       $table->integer('modality_id');
-      $table->integer('academic_term_id');
+      $table->integer('academic_term_id')->nullable();
 
       // internal Control
       $table->integer('count')->default(0);

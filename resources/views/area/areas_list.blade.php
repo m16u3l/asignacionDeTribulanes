@@ -28,8 +28,8 @@
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-11" data-toggle="collapse" href="#{{$area->area_name}}">
-                  <h6 class="titleColor">{{$area->area_name}}</h6>
+                <div class="col-lg-11" data-toggle="collapse" href="#{{$area->name}}">
+                  <h6 class="titleColor">{{$area->name}}</h6>
                 </div>
 
               </div>

@@ -32,19 +32,19 @@ Route::post('/finalizar_perfil', [
 
 Route::get('import_professionals', [
     'as' => 'import_professionals',
-    'uses' => 'ProfessionalController@uploadProfessionals']);
+    'uses' => 'ProfessionalController@upload_professionals']);
 
 Route::post('import_professionals', [
     'as' => 'import_professionals',
-    'uses' => 'ProfessionalController@importProfessionals']);
+    'uses' => 'ProfessionalController@import_professionals']);
 
 Route::get('import_profiles', [
     'as' => 'import_profiles',
-    'uses' => 'ProfileController@uploadProfiles']);
+    'uses' => 'ProfileController@upload_profiles']);
 
 Route::post('import_profiles',[
   'as'=>'import_profiles',
-  'uses'=>'ProfileController@importProfiles']);
+  'uses'=>'ProfileController@import_profiles']);
 
 Route::get('import_areas',[
     'as' => 'import_areas',

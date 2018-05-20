@@ -6,7 +6,9 @@ use Excel;
 use Validator;
 use App\Student;
 use App\Area;
+use App\AcademicTerm;
 use App\Assignement;
+use App\Modality;
 use App\Professional;
 use App\Profile;
 use App\Date;
@@ -113,12 +115,12 @@ class ProfileController extends Controller
 
 	}
 
-	public function uploadProfiles($value='')
+	public function upload_profiles($value='')
     {
       return view('import.import_profiles');
     }
 
-    public function importProfiles(Request $request)
+    public function import_profiles(Request $request)
     {
        $salto = chr(13).chr(10);
        $file = Input::file('fileProfiles');
@@ -127,7 +129,7 @@ class ProfileController extends Controller
           );
        $messages = array(
           'required' => 'ningun archivo xlsx seleccionado',
-          'mimes' => 'el archivo debe estar en formato .xlsx'
+          'mimes' => 'el archivo debe estar en formato .xlsx',
        );
        $validator = Validator::make(Input::all(), $rules, $messages);
       if ($validator->fails()) {
@@ -136,7 +138,7 @@ class ProfileController extends Controller
 
       } else if(!$this->valid_document($file)) {
 
-        return redirect('import_profiles')->with('bad_status', 'Documento invalido');
+          return redirect('import_profiles')->with('bad_status', 'Documento invalido');
 
       } else if($validator->passes()) {
 
@@ -144,43 +146,79 @@ class ProfileController extends Controller
         {
        	  foreach ($reader->get() as $key => $value) {
 
+            $modality = Modality::where('name', $value->modalidad_titulacion)->first();
+
+            if(is_null($modality)) { 
+              $modality = new Modality();
+              $modality->name = $value->modalidad_titulacion;
+              $modality->description = "";
+              $modality->save();
+            }
+
             $profile = Profile::where('title', $value->titulo_proyecto_final)
                   ->where('objective', $value->objetivo_general)
-                  ->where('degree_modality', $value->modalidad_titulacion)
                   ->first();
 
-            $student = Student::where('student_name', $value->nombre_postulante)
-                  ->where('student_last_name_father', $value->apellido_paterno_postulante)
-                  ->where('student_last_name_mother', $value->apellido_materno_postulante)
+            $student = Student::where('name', $value->nombre_postulante)
+                  ->where('last_name_father', $value->apellido_paterno_postulante)
+                  ->where('last_name_mother', $value->apellido_materno_postulante)
                   ->where('career', $value->carrera)
                   ->first();
 
-            $professional_tutor = Professional::where('professional_name', $value->nombre_tutor)
-                    ->where('professional_last_name_father', $value->apellido_paterno_tutor)
-              //->where('professional_last_name_mother', $value->apellido_materno_tutor)
-              ->first();
+            $professional_tutor = Professional::where('name', $value->nombre_tutor)
+                    ->where('last_name_father', $value->apellido_paterno_tutor)
+                  //->where('last_name_mother', $value->apellido_materno_tutor)
+                    ->first();
 
-            $area = Area::where('area_name', $value->area)->first();
+            $area = Area::where('name', $value->area)->first();
 
             if(!is_null($professional_tutor)) {
 
+              $now = new \DateTime();
+
               if(is_null($profile)) {
-                $profile = new Profile;
+
+                $state = State::where('name', 'Iniciado')->first();
+
+                if(is_null($state)) {
+                  $state = new State();
+                  $state->name = "Iniciado";
+                  $state->save();
+                }                                          
+
+//                $academic_term = new AcademicTerm();
+//                $academic_term->date_ini = $now->format('d-m-Y');
+//                $academic_term->date_fin = $now->format('d-m-Y');
+//                $academic_term->period = 1;
+//                $academic_term->save();
+
+
+                $profile = new Profile();
                 $profile->title = $value->titulo_proyecto_final;
                 $profile->objective = $value->objetivo_general;
-                $profile->degree_modality  = $value->modalidad_titulacion;
-                $profile->area_id = $area->id;
+                $profile->modality_id  = $modality->id;
+                $profile->state_id = $state->id;
+//                $profile->academic_term_id = $academic_term->id;
+                //$profile->area_id = $area->id;
                 $profile->save();
+
+
+                $area->profiles()->attach($profile->id);
+
+
+                $date = new Date();
+                $date->initiated = $now->format('d-m-Y');
+                $date->profile_id = $profile->id;
 
                 $professional_tutor->profiles_tutors()->attach($profile->id);
 
               }
 
               if (is_null($student)) {
-                $student = new Student;
-                $student->student_name = $value->nombre_postulante;
-                $student->student_last_name_father = $value->apellido_paterno_postulante;
-                $student->student_last_name_mother = $value->apellido_materno_postulante;
+                $student = new Student();
+                $student->name = $value->nombre_postulante;
+                $student->last_name_father = $value->apellido_paterno_postulante;
+                $student->last_name_mother = $value->apellido_materno_postulante;
                 $student->career = $value->carrera;
                 $student->save();
 
