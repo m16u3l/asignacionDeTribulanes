@@ -147,6 +147,7 @@ class ProfileController extends Controller
        	  foreach ($reader->get() as $key => $value) {
 
             $modality = Modality::where('name', $value->modalidad_titulacion)->first();
+            $now = new \DateTime();
 
             if(is_null($modality)) { 
               $modality = new Modality();
@@ -173,8 +174,6 @@ class ProfileController extends Controller
             $area = Area::where('name', $value->area)->first();
 
             if(!is_null($professional_tutor)) {
-
-              $now = new \DateTime();
 
               if(is_null($profile)) {
 
@@ -227,9 +226,14 @@ class ProfileController extends Controller
                 $area->profiles()->attach($profile->id);
 
 
+                if (!is_null($student)) {
+                  $student->profiles()->attach($profile->id);
+                }
+
                 $date = new Date();
-                $date->initiated = $now->format('d-m-Y');
+                $date->initiated = $now;
                 $date->profile_id = $profile->id;
+                $date->save();
 
                 $professional_tutor->profiles_tutors()->attach($profile->id);
 
