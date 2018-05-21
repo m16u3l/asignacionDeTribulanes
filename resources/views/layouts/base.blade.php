@@ -63,6 +63,7 @@
             <a href="{{ route ('lista_perfiles')}}" class="list-group-item" data-parent="#menu4">Lista de Perfiles</a>
             <a href="{{ route ('lista_areas')}}" class="list-group-item" data-parent="#menu4">Lista de Areas</a>
             <a href="{{ route ('lista_profesionales')}}" class="list-group-item" data-parent="#menu4">Lista de Profesionales</a>
+            <a href="{{ route ('create_professional')}}" class="list-group-item" data-parent="#menu4">Registrar Profesionales</a>
           </div>
         </div>
       </div>

@@ -9,11 +9,11 @@
 
 @section('content')
 <div class="col">
-
   <div class="container" id="professional_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
-      <h3>Lista de profesionales</h3>
+        <h3>Lista de profesionales</h3>
+  
         <!-Buscador->
         <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('lista_profesionales')}}" method="GET" role="search">
@@ -26,6 +26,7 @@
           </form>
         </div>
         <!-Fin de buscador->
+  
         <br>
         <div class="panel-body">
           {{$professionals->total()}} registros |

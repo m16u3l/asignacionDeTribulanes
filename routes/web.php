@@ -66,3 +66,27 @@ Route::get('/lista_areas', [
 Route::get('/lista_profesionales', [
     'as' => 'lista_profesionales',
     'uses' => "ProfessionalController@professional_list"]);
+
+Route::get('/crear_profesional', [
+  'as' => 'create_professional',
+  'uses' => 'ProfessionalController@form_register']);
+
+
+Route::post('/crear_profesional', [
+  'as' => 'create_professional',
+  'uses' => 'ProfessionalController@create'
+]);
+
+Route::get('/actualizar_profesional/{id}', [
+  'ad' => 'update_professional',
+  'uses' => 'ProfessionalController@form_update'
+]);
+Route::post('/actualizar_profesional/{id}', [
+  'ad' => 'update_professional',
+  'uses' => 'ProfessionalController@update'
+]);
+
+Route::get('/', [
+  'ad' => 'algo',
+  'uses' => 'ProfessionalController@show'
+]);
