@@ -53,6 +53,23 @@
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$professional->name}}">
                   <h6 class="titleColor">{{$professional->name}} {{$professional->last_name_father}} {{$professional->last_name_mother}}</h6>
                 </div>
+                <div class="col-lg-1 col-12 text-center row-sm-center">
+                  <a href="#" class="btn btn-rounded btn-success modal_update_professional" data-toggle="modal" data-target="#update_professinal_modal"
+                    data-id="{{ $professional->id }}"
+                    data-name="{{ $professional->name }}"
+                    data-last_name_father="{{ $professional->last_name_father }}"
+                    data-last_name_mother="{{ $professional->last_name_mother }}"
+                    data-ci="{{ $professional->ci }}"
+                    data-cod_sis="{{ $professional->cod_sis }}"
+                    data-email="{{ $professional->contact->email }}"
+                    data-phone="{{ $professional->contact->phone }}"
+                    data-address="{{ $professional->contact->address }}"
+                    data-workload="{{ $professional->workload }}"
+                    data-degree_id="{{ $professional->degree_id }}"
+
+
+                  ><i class="fa fa-edit"></i></a>
+                </div>
               </div>
             </div>
 
@@ -81,11 +98,13 @@
 </div>
 
 @include('professional.modal_register_professional')
+@include('professional.modal_update_professional')
 
 
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{ url('asset/professional/update_professional.js')}}"></script>
 <script type="text/javascript" src="{{ url('asset/professional/register_professional.js')}}"></script>
 <script type="text/javascript" src="{{url('js/validation_andres.js')}}"></script>
 <script type="text/javascript" src="{{url('js/sweetalert.js')}}"></script>

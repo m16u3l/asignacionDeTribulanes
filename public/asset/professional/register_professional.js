@@ -23,7 +23,7 @@ form = $("#register");
         swal("Registro exitoso!","se registro a" + response.name, "success");
         $('.swal2-confirm').on('click', function (event2) {
       event2.preventDefault();
-      window.location.href = response.url;
+      location.reload();
         })
     }
     else{

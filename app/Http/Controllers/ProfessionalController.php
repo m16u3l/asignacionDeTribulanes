@@ -124,11 +124,6 @@ class ProfessionalController extends Controller
     return redirect($url);
   }
 
-  // Andres
-  public function form_register(){
-    $all_degrees = Degree::all();
-    return view('professional.create_professional', compact('all_degrees'));
-  }
 
   public function create(Request $request){
     try {
@@ -150,12 +145,7 @@ class ProfessionalController extends Controller
       //$contact->profile = $value->perfil;
       $contact->professional_id  = $new_professional->id;
       $contact->save();
-     
-      $response = array(
-        "url" => ('/actualizar_profesional/' . (string)$new_professional->id),
-        "name" => $request->name,
-        "status" => true
-      );
+      $response = array("name"=>$request->name, "status"=>true);
 
     }
     catch (QueryException $e){
@@ -164,18 +154,11 @@ class ProfessionalController extends Controller
     return response()->json($response);
   }
 
-  public function form_update($id){
-    $professional_update = Professional::where('id', $id)->get()->first();
-    $all_degrees = Degree::all();
-    return view('professional.update_professional', compact(
-      'professional_update',
-      'all_degrees'
-    ));
-  }
 
-  public function update(Request $request, $id){
+
+  public function update(Request $request){
     try{
-      $professional_update = Professional::where('id', $id)->get()->first();
+      $professional_update = Professional::find($request->id);
       $professional_update->ci = $request->ci;
       $professional_update->cod_sis = $request->cod_sis;
       $professional_update->name = $request->name;
@@ -184,6 +167,16 @@ class ProfessionalController extends Controller
       $professional_update->workload = $request->workload;
       $professional_update->degree_id = $request->degree;
       $professional_update->save();
+
+      $contact = Contact::where('professional_id', $request->id)->first();
+      
+      $contact->email = $request->email;
+      $contact->phone = $request->phone;
+      $contact->address = $request->address;
+      //$contact->profile = $value->perfil;
+      $contact->professional_id  = $professional_update->id;
+      $contact->save();
+
       $response = array("name"=>$request->name, "status"=>true);
     }
     catch (QueryException $e){
