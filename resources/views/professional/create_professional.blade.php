@@ -45,7 +45,11 @@
 	<div class="row">
 	  <div class="offset-lg-2 col-lg-4">
 	    <label for="">Titulo</label>
-	    <input class="form-control" name="degree" id="degree" type="text" value=""/>
+	    <select class="form-control" id="dregree" name="degree">
+	    @foreach ($all_degrees as $degree)
+	      <option value="{{$degree->id}}">{{$degree->acronym}}</option>
+	    @endforeach
+	    </select>
 	  </div>
 	  <div class="col-lg-4">
 	    <label for="">Carga Horaria</label>

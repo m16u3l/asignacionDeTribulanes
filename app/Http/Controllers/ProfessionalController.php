@@ -6,6 +6,8 @@ use Exception;
 use Excel;
 use Validator;
 use Redirect;
+
+// Models
 use App\Area;
 use App\Contact;
 use App\Degree;
@@ -15,6 +17,8 @@ use App\Profile;
 use App\State;
 use App\Date;
 use App\RejectionRequest;
+// libs
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -120,7 +124,8 @@ class ProfessionalController extends Controller
 
   // Andres
   public function form_register(){
-    return view('professional.create_professional');
+    $all_degrees = Degree::all();
+    return view('professional.create_professional', compact('all_degrees'));
   }
   
   public function create(Request $request){
@@ -149,7 +154,11 @@ class ProfessionalController extends Controller
 
   public function form_update($id){
     $professional_update = Professional::where('id', $id)->get()->first();
-    return view('professional.update_professional', compact('professional_update'));
+    $all_degrees = Degree::all();
+    return view('professional.update_professional', compact(
+      'professional_update',
+      'all_degrees'
+    ));
   }
 
   public function update(Request $request, $id){

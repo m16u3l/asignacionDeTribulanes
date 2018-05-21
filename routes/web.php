@@ -88,15 +88,10 @@ Route::post('/registrar_profesional', [
 ]);
 
 Route::get('/actualizar_profesional/{id}', [
-  'ad' => 'update_professional',
+  'as' => 'update_professional',
   'uses' => 'ProfessionalController@form_update'
 ]);
 Route::post('/actualizar_profesional/{id}', [
-  'ad' => 'update_professional',
+  'as' => 'update_professional',
   'uses' => 'ProfessionalController@update'
-]);
-
-Route::get('/', [
-  'ad' => 'algo',
-  'uses' => 'ProfessionalController@show'
 ]);

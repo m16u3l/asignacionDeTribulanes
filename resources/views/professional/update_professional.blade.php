@@ -45,7 +45,11 @@
 	<div class="row">
 	  <div class="offset-lg-2 col-lg-4">
 	    <label for="">Titulo</label>
-	    <input class="form-control" name="degree" id="degree" type="text" value=""/>
+	    <select class="form-control" id="dregree" name="degree">
+	      @foreach ($all_degrees as $degree)
+		<option value="{{$degree->id}}">{{$degree->acronym}}</option>
+	      @endforeach
+	    </select>
 	  </div>
 	  <div class="col-lg-4">
 	    <label for="">Carga Horaria</label>
@@ -75,7 +79,7 @@
        $("#last_name_mother").val('{{$professional_update->last_name_mother}}');
        $("#ci").val("{{$professional_update->ci or "0"}}");
        $("#cod_sis").val("{{$professional_update->cod_sis or "0"}}");
-       $("#degree").val('{{$professional_update->degree->id}}');
+       $("#degree").val('{{$professional_update->degree->id}}').trigger("change");
        $("#workload").val("{{$professional_update->workload}}");
    });
   </script>
