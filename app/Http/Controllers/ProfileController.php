@@ -79,6 +79,7 @@ class ProfileController extends Controller
 	public function finalizar_perfil(Request $request)
 	{
 	  	$profile = Profile::find($request->profile_id);
+
       $now = new \DateTime();
 
 			$state = State::where('name','finalized')->first();
@@ -89,6 +90,7 @@ class ProfileController extends Controller
 
 			$dates = Date::where('profile_id','=',$profile->id)->first();
       $dates->finalized = $now;
+			$dates->defended = $request->date_defended;
       $dates->save();
 
 			foreach ($profile->courts as &$professional) {

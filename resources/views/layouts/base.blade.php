@@ -40,6 +40,8 @@
   <div class="container-fluid" style="min-height:92vh">
     <div class="row">
       <!--sidebar-->
+
+    
       <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="min-height:92vh;">
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
