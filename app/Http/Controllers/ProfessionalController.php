@@ -28,57 +28,10 @@ class ProfessionalController extends Controller
     $professionals = Professional::orderBy('name')
                    ->search_by_name($request->name)
                    ->paginate(10);
-
 		return view('professional.professional_list', compact('professionals'));
 	}
 
   public function index(Request $request, $id)
-  {
-    $url = '/registrar_tribunal';
-    $profile = Profile::find($id);
-
-    $area = $profile->areas->first();
-
-    $professionals = DB::table('professionals')
-                   ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
-                   ->select('professionals.*')
-                   ->where('area_interests.area_id', '=', $area->id)
-
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                ->select('professionals.id')
-                                ->where('tutors.profile_id', '=', $profile->id))
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                ->select('professionals.id')
-                                ->where('courts.profile_id', '=', $profile->id))
-                   ->orderBy('count')
-                   ->get();
-
-    //->paginate(10);
-
-    $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-                                                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                                 ->select('professionals.id')
-                                                 ->where('tutors.profile_id', '=', $profile->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('area_interests.area_id', '=', $area->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('courts.profile_id', '=', $profile->id))
-
-                      ->orderBy('count')
-                      ->get();
-    //->paginate(10);
-
-    return view('professional.assign_professinal', compact('url','profile', 'professionals','allProfessionals'));
-
-  }
-
-  public function store(Request $request)
   {
     $url = '/registrar_tribunal';
     $profile = Profile::find($id);
@@ -89,7 +42,6 @@ class ProfessionalController extends Controller
            ->where('courts.profile_id', '=', $profile->id)
            ->orderBy('count')
            ->get();
-
     $professionals = DB::table('professionals')
                    ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
                    ->select('professionals.*')
@@ -104,7 +56,6 @@ class ProfessionalController extends Controller
                                 ->where('courts.profile_id', '=', $profile->id))
                    ->orderBy('count')
                    ->get();
-
     $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
                                                  ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
                                                  ->select('professionals.id')
@@ -119,10 +70,9 @@ class ProfessionalController extends Controller
                                    ->where('courts.profile_id', '=', $profile->id))
                       ->orderBy('count')
                       ->get();
-
     return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
-
   }
+
   public function store_rejection_request(Request $request)
   {
     $profile_id = $request->profile_id;
@@ -132,54 +82,40 @@ class ProfessionalController extends Controller
     $now = new \DateTime();
     $profile = Profile::find($profile_id);
     $profile->courts()->detach($professional_id);
-
     $state = State::where('name','approved')->first();
     $profile->state_id=$state->id;
     $profile->save();
-
     DB::table('profiles')->where('id', $profile_id)->decrement('count');
-
     $rejection_request = new RejectionRequest;
     $rejection_request->description=$description;
     $rejection_request->professional_id=$professional_id;
     $rejection_request->profile_id=$profile_id;
-
     $rejection_request->date=$now;
     $rejection_request->save();
-
     return redirect('/perfiles/'. $profile_id);
-
   }
+
   public function store(Request $request)
   {
-
     $now = new \DateTime();
     $url = 'perfiles/';
     $profile_id = $request->profile_id;
     $professional_id = $request->professional_id;
-
     $state = State::where('name','assigned')->first();
-
     $profile=Profile::find($request->profile_id);
     $profile->state_id=$state->id;
     $profile->save();
-
     $dates = Date::where('profile_id','=',$profile_id)->first();
-    $dates->assigned = $now->format('d-m-Y');
+    $dates->assigned = $now;
     $dates->save();
-
     $court = new Court;
     $court->profile_id = $profile_id;
     $court->professional_id = $professional_id;
-
-    $court->assigned = $now->format('d-m-Y');
+    $court->assigned = $now;
     $court->save();
-
     DB::table('profiles')->where('id', $profile_id)->increment('count');
     DB::table('professionals')->where('id', $professional_id)->increment('count');
-
     return redirect($url);
-
   }
 
   // Andres
@@ -310,37 +246,38 @@ class ProfessionalController extends Controller
           }
         }
       }
-        });
+
+      );
+    }
+    return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
   }
-  return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
-}
 
-public function valid_document($file)
- {
-   $valid = False;
-   Excel::load($file, function($file) use (&$valid){
-     $rs = $file->get();
-     $row = $rs[0];
-     $headers = $row->keys();
-     if( $headers[0] == 'nombre' &&
-         $headers[1] == 'apellido_paterno' &&
-         $headers[2] == 'apellido_materno' &&
-         $headers[3] == 'correo' &&
-         $headers[4] == 'titulo_docente' &&
-         $headers[5] == 'carga_horaria' &&
-         $headers[6] == 'nombre_cuenta' &&
-         $headers[7] == 'telefono' &&
-         $headers[8] == 'direccion' &&
-         $headers[9] == 'perfil' &&
-         $headers[10] == 'contrasena_cuenta' &&
-         $headers[11] == 'ci' &&
-         $headers[12] == 'cod_sis') {
+  public function valid_document($file)
+  {
+    $valid = False;
+    Excel::load($file, function($file) use (&$valid){
+      $rs = $file->get();
+      $row = $rs[0];
+      $headers = $row->keys();
+      if( $headers[0] == 'nombre' &&
+          $headers[1] == 'apellido_paterno' &&
+          $headers[2] == 'apellido_materno' &&
+          $headers[3] == 'correo' &&
+          $headers[4] == 'titulo_docente' &&
+          $headers[5] == 'carga_horaria' &&
+          $headers[6] == 'nombre_cuenta' &&
+          $headers[7] == 'telefono' &&
+          $headers[8] == 'direccion' &&
+          $headers[9] == 'perfil' &&
+          $headers[10] == 'contrasena_cuenta' &&
+          $headers[11] == 'ci' &&
+          $headers[12] == 'cod_sis') {
 
-       $valid = True;
+        $valid = True;
 
-     }
+      }
 
-   });
-   return $valid;
- }
+    });
+    return $valid;
+  }
 }

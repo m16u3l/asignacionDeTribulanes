@@ -77,12 +77,12 @@ Route::get('/lista_profesionales', [
     'as' => 'lista_profesionales',
     'uses' => "ProfessionalController@professional_list"]);
 
-Route::get('/crear_profesional', [
+Route::get('/registrar_profesional', [
   'as' => 'create_professional',
   'uses' => 'ProfessionalController@form_register']);
 
 
-Route::post('/crear_profesional', [
+Route::post('/registrar_profesional', [
   'as' => 'create_professional',
   'uses' => 'ProfessionalController@create'
 ]);
