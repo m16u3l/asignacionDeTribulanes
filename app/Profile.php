@@ -8,7 +8,7 @@ class Profile extends Model
 {
   protected $table = "profiles";
   protected $fillable = [
-    'title', 'objective', 'count', 'letter' ,
+    'title', 'objective', 'count', 'letter_teacher', 'letter_modality',
     'state_id', 'modality_id', 'academic_term_id'
   ];
   /*

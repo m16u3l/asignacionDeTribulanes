@@ -28,7 +28,7 @@ class ProfileController extends Controller
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
 					->search_by_title_or_student($request->name)
-					->paginate(10);
+					->paginate(5);
 		return view('profile.profile_list', compact('profiles'));
 	}
 
@@ -64,15 +64,11 @@ class ProfileController extends Controller
 
 	public function list_profile(Request $request)
 	{
-		$state = State::where('name','approved')->first();
-		if($state!=null){
-		$profiles = Profile::where('state_id',$state->id)
+		$profiles = Profile::where('count','<',3 )
+											->Letters()
 											->search_by_title_or_student($request->name)
 											->orderBy('title')
 											->paginate(5);
-	}else{
-		$profiles = Profile::paginate(5);
-  }
 		 return view('profile.list_profile', compact('profiles'));
 	}
 
@@ -104,8 +100,12 @@ class ProfileController extends Controller
 
 	}
 
-  public function letter_validate(){
+  public function letter_validate(Request $request){
+    //dd($request->id);
+    $profiles = Profile::find($request->id);
+    $profiles->title = $request->title;
 
+    return response ()->json($profiles);
   }
 
 	public function create()

@@ -13,11 +13,9 @@
   <div class="container" id="profile_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
-        <br>
-        <h3>Lista de perfiles</h3>
         <!-Buscador->
         <div class="mt-4 col-lg-8 col body-bg">
-          <form class="navbar-form pull right" action="{{ route ('lista_perfiles')}}" method="GET" role="search">
+          <form class="navbar-form pull right" action="{{ route ('list_profile')}}" method="GET" role="search">
             <div class="panel-body">
               <div class="input-group input-group">
                 <input type="text" class="form-control" name="name" placeholder="Titulo de perfil o tesista..." aria-describedby="basic-addon2">
@@ -32,7 +30,7 @@
           {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
         </div>
         <br> @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No se encontró perfiles</h5>
+        <h5 class="h5 text-center">no hay perfiles que requieran tribunales</h5>
         @else @foreach($profiles as $profile)
 
         <div class="card list-group-item-action element-bg mb-1">
@@ -40,9 +38,10 @@
             <div class="card-header clearfix">
               <div class="row">
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
-                  <h6 class="h6">{{$profile->title}}</h6>
+                  <h6>{{$profile->title}}</h6>
 
                   <div class="row">
+
                     <div class="col-lg-12">
                       @foreach($profile->students as $student)
                       <div class="row">
@@ -63,6 +62,18 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-lg-1 col-12 text-center row-sm-center">
+                  <button 
+                    id="boton_asignar_tribunal"
+                    class="btn btn-rounded btn-info" 
+                    data-id="{{$profile->id}}"
+                    data-title="{{$profile->title}}"
+                    data-modality="{{$profile->modality->name}}"
+                    data-tutor="{{$profile->tutors}}">
+                    <i class="fa fa-users"></i>
+                  </button>
+                </div>
+
               </div>
             </div>
 
@@ -77,7 +88,11 @@
                           <label class="h6">Area(s):</label>
                         </div>
                         <div class="col-lg-9">
-                          <p class="mb-0 d-inline">falta area</p>
+
+                          @foreach($profile->areas as $area)
+                          <p class="mb-0 d-inline"> {{$area->name}}
+                          </p>
+                          <br> @endforeach
                         </div>
                       </div>
 
@@ -134,7 +149,9 @@
     <div class="col-md-3 col-xs-1"></div>
   </div>
 </div>
+@include('profile.modal_check_letters')
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{ url('asset/profile/letter_validate.js')}}"></script>
 @endsection
