@@ -54,7 +54,7 @@ class Profile extends Model
 
   public function date()
   {
-    return $this->hasMany('App\Date');
+    return $this->hasOne('App\Date');
   }
 
   public function areas()
