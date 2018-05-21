@@ -69,18 +69,30 @@ Route::get('/lista_perfiles', [
     'as' => 'lista_perfiles',
     'uses' => "ProfileController@profiles_list"]);
 
+
+//lista de ares
 Route::get('/lista_areas', [
     'as' => 'lista_areas',
     'uses' => "AreaController@areas_list"]);
+
+//registrar area
+Route::post('//registrar_area', [
+  'as' => 'create_area',
+  'uses' => 'AreaController@create'
+]);
+
+
 //lista profesional
 Route::get('/lista_profesionales', [
     'as' => 'lista_profesionales',
     'uses' => "ProfessionalController@professional_list"]);
+
 //registrar profesional
 Route::post('/registrar_profesional', [
   'as' => 'create_professional',
   'uses' => 'ProfessionalController@create'
 ]);
+
 //acualizar profesional
 Route::post('/actualizar_profesional', [
   'as' => 'update_professional',
@@ -88,7 +100,6 @@ Route::post('/actualizar_profesional', [
 ]);
 
 //Reportes de perfiles
-
 Route::get('/reporte/{id}', [
     'as' => 'reporte',
     'uses' => "ProfileController@show"]);
