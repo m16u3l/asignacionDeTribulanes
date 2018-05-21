@@ -42,18 +42,16 @@
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-11" data-toggle="collapse" href="#{{$professional->professional_name}}">
-                  <h6 class="titleColor">{{$professional->professional_name}} {{$professional->professional_last_name_father}} {{$professional->professional_last_name_mother}}</h6>
+                <div class="col-lg-11" data-toggle="collapse" href="#{{$professional->name}}">
+                  <h6 class="titleColor">{{$professional->name}} {{$professional->last_name_father}} {{$professional->last_name_mother}}</h6>
                 </div>
               </div>
             </div>
 
-            <div class="card-body collapse" id="{{$professional->professional_name}}">
+            <div class="card-body collapse" id="{{$professional->name}}">
               <div class="row">
                 <div class="col-lg-11">
-                          <label class="h6 titleColor">Areas de interes:</label>
-                          
-            <!-- OSCAR ACA HAZ TU MAGIA-->
+                  <label class="h6 titleColor">Areas de interes:</label>
                 </div>
               </div>
             </div>

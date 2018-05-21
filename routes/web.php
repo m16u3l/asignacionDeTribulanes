@@ -1,7 +1,7 @@
 <?php
 /*
-+    Organizacion de rutas
-+*/
+    rutas de asignacion de tribunales
+*/
 Route::get('/perfiles', [
     'as' => 'list_profile',
     'uses' => "ProfileController@list_profile"]);
@@ -26,25 +26,35 @@ Route::post('/finalizar_perfil', [
     'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
 
+/*store_rejection_request
+ Rutas de solicitud de renuncia
+*/
+Route::get('/solicitud/{id}', [
+    'as' => 'solicitud_rununcia',
+    'uses' => "ProfileController@solicitud_rununcia"]);
+
+Route::get('/rejection_request', [
+    'as' => 'rejection_request',
+    'uses' => "ProfessionalController@store_rejection_request"]);
 /*
 + Rutas de Importacion
 +*/
 
 Route::get('import_professionals', [
     'as' => 'import_professionals',
-    'uses' => 'ProfessionalController@uploadProfessionals']);
+    'uses' => 'ProfessionalController@upload_professionals']);
 
 Route::post('import_professionals', [
     'as' => 'import_professionals',
-    'uses' => 'ProfessionalController@importProfessionals']);
+    'uses' => 'ProfessionalController@import_professionals']);
 
 Route::get('import_profiles', [
     'as' => 'import_profiles',
-    'uses' => 'ProfileController@uploadProfiles']);
+    'uses' => 'ProfileController@upload_profiles']);
 
 Route::post('import_profiles',[
   'as'=>'import_profiles',
-  'uses'=>'ProfileController@importProfiles']);
+  'uses'=>'ProfileController@import_profiles']);
 
 Route::get('import_areas',[
     'as' => 'import_areas',

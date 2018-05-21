@@ -18,7 +18,7 @@ class CreateRejectionRequestsTable extends Migration
             $table->text('description');
             $table->integer('professional_id');
             $table->integer('profile_id');
-            $table->integer('career_director_id');
+            $table->integer('career_director_id')->nullable();
             $table->date('date')->nullable();
 
             $table->foreign('professional_id')->references('id')->on('professionals');

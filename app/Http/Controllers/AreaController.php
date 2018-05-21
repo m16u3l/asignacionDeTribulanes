@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 class AreaController extends Controller
 {
   public function areas_list(Request $request){
-		$areas = Area::orderBy('area_name')
+		$areas = Area::orderBy('name')
 					->paginate(10);
 		return view('area.areas_list', compact('areas'));
 	}
@@ -43,21 +43,29 @@ class AreaController extends Controller
     } else if(!$this->valid_document($file)) {
 
       return redirect('import_areas')->with('bad_status', 'Documento invalido');
+
     } else if($validator->passes()) {
        Excel::load($file, function($reader)
-      {
+      { 
         foreach ($reader->get() as $key => $value) {
-          $areas = Area::where('area_codigo', $value->codigo)->first();
-          if(is_null($areas)) {
+          $area = Area::where('codigo', $value->codigo)->first();
+          if(is_null($area)) {
             if (!is_null($value->codigo) &&
                 !is_null($value->nombre)) {
+
+              $sub_area = Area::where('id', $value->codigo_subarea)->first();
+
               $area = new Area;
-              $area->area_codigo = $value->codigo;
-              $area->area_name = $value->nombre;
-              $area->area_descripcion = $value->descripcion;
-              //$area->area_id = $value->codigo_subarea;
+              $area->codigo = $value->codigo;
+              $area->name = $value->nombre;
+              $area->descripcion = $value->descripcion;
+
+              if (!is_null($sub_area)) {
+                $area->area_id = $sub_area->id;
+              }
+
               $area->save();
-              
+
             }
           }
         }

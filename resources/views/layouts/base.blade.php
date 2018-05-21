@@ -40,12 +40,14 @@
   <div class="container-fluid" style="min-height:92vh">
     <div class="row">
       <!--sidebar-->
+
+    
       <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="min-height:92vh;">
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
           <div class="collapse" id="menu1">
             <a href="{{ route ('list_profile')}}" class="list-group-item" data-parent="#menu1">Perfiles sin tribunales</a>
-            <a href="{{ route ('list_profile_asigned')}}" class="list-group-item" data-parent="#menu1">Perfiles con tribunales asignados</a>
+            <a href="{{ route ('list_profile_asigned')}}" class="list-group-item" data-parent="#menu1">Perfiles con tribunales</a>
             <a href="{{ route ('list_profile_finalized')}}" class="list-group-item" data-parent="#menu1">Perfiles finalizados</a>
           </div>
 

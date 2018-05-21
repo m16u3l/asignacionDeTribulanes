@@ -109,12 +109,14 @@
 
                         </div>
                       </div>
+
+
                     </div>
 
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6">Tribunal:</label>
+                          <label class="h6">Tribunal(es):</label>
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->courts as $courts)
@@ -123,6 +125,15 @@
                                                     {{$courts->last_name_mother}}
                           </p>
                           <br> @endforeach
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6">fecha de asignacion:</label>
+                        </div>
+                        <div class="col-lg-9">
+                          <p class="card-text mb-2">{{$profile->date->assigned}}</p>
                         </div>
                       </div>
                     </div>

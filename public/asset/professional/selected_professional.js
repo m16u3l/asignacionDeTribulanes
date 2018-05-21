@@ -1,14 +1,13 @@
 var totalProf = 3;
-var selectedProf = 0;
+var selectedProf = $("#count1").val();
 var maxProf = 5;
 var minProf = 3;
-var assignedProf = $("#assigned-professional-list").children("div").length;
-
 
 function addProfessional(professional) {
   var added = document.createElement("div");
 
   if ($(professional).parent().attr("id") == "selected-professional-list") {
+    console.log("iii");
     $(professional).addClass("col-md-6");
     if ($(professional).hasClass("area-related-professional")) {
       $(professional).addClass("related-element");
@@ -21,17 +20,18 @@ function addProfessional(professional) {
     if (selectedProf == 0) {
       $("#no-selection-message").removeClass("d-none");
     }
-    console.log("wii");
+
   } else {
 
-    if (selectedProf + assignedProf < totalProf) {
+    if (selectedProf  < totalProf) {
+
       if (selectedProf == 0) {
         $("#no-selection-message").addClass("d-none");
       }
       selectedProf++;
       $("#selected-professional-list").append(professional);
       $(professional).removeClass("col-md-6 related-element not-related-element");
-      console.log("wii");
+
     } else {
       alert("Ha seleccionado/asignado suficientes profesionales.");
     }
@@ -42,12 +42,12 @@ function increaseMaxProf() {
   if (totalProf < maxProf) {
     totalProf++;
     $("#professional-number-label").text(totalProf);
-    console.log(totalProf);
+
   }
 }
 
 function decreaseMaxProf() {
-  console.log("wii");
+
   if (totalProf > minProf) {
     totalProf--;
     $("#professional-number-label").text(totalProf);
@@ -68,7 +68,7 @@ function increaseSelectedProf() {
 
 function registerProf() {
   {
-    if (selectedProf + assignedProf == totalProf) {
+    if (selectedProf  == totalProf) {
       var listOfProf = $("#selected-professional-list").find(".register_prof");
       for (var val of listOfProf) {
         var par = $(val).parent();
@@ -76,7 +76,7 @@ function registerProf() {
         var profileId = $($(par).children()[1]).attr("value");
         var proffesionalId = $($(par).children()[2]).attr("value");
         var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
-        console.log(dataString);
+
         register(dataString);
 
       }
@@ -86,9 +86,12 @@ function registerProf() {
         location.href = '/perfiles';
       }, 500);
     } else {
-      if (assignedProf >= totalProf) {
+
+      if (selectedProf >= totalProf) {
+
         alert("El perfil ya tiene profesionales asignados.");
       } else {
+
         alert("Por favor seleccione la cantidad requerida de profesionales.");
       }
     }
@@ -122,7 +125,7 @@ function paginationRelated(page) {
   var pag = parseInt($(page).attr("page"));
   $($($(page).parent()).children()).removeClass("active");
   $(page).addClass("active");
-  console.log(pag);
+
   $(".related-element").addClass("d-none");
   for (var i = 0; i < 8; i++) {
 
@@ -194,7 +197,7 @@ function searchBar() {
   }else {
     $("#related-pagination").addClass("d-none");
   }
-  
+
 }
 
 function notRelatedSearchBar() {
@@ -209,7 +212,7 @@ function notRelatedSearchBar() {
       if (h5.innerHTML.toUpperCase().indexOf(filter) > -1) {
         $(li[i]).parent().parent().parent().parent().parent().parent().removeClass("d-none");
         found = true;
-        
+
       } else {
         $(li[i]).parent().parent().parent().parent().parent().parent().addClass("d-none");
       }

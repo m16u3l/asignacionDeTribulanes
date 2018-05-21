@@ -106,6 +106,14 @@
                           <p class="card-text mb-2">{{$profile->modality->name}}</p>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <label class="h6 ">fecha de defensa:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <p class="card-text mb-2">{{$profile->date->defended}}</p>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="col-lg-6">
@@ -123,6 +131,15 @@
                           <br> @endforeach
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label class="h6 ">fecha de finalizacion:</label>
+                        </div>
+                        <div class="col-lg-6">
+                          <p class="card-text mb-2">{{$profile->date->finalized}}</p>
+                        </div>
+                      </div>
+
                     </div>
 
                     <div class="col-lg-12">

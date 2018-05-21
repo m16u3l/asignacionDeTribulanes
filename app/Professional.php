@@ -23,8 +23,8 @@ class Professional extends Model
    */
   public function scopeSearch_by_name($query, $name)
   {
-    $query -> where(\DB::raw("concat(professional_name, ' ', professional_last_name_father, ' ',
-      professional_last_name_mother)"), 'ilike','%'.$name.'%');
+    $query -> where(\DB::raw("concat(name, ' ', last_name_father, ' ',
+      last_name_mother)"), 'ilike','%'.$name.'%');
   }
 
   public function degree()

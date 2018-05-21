@@ -7,11 +7,14 @@ use Excel;
 use Validator;
 use Redirect;
 use App\Area;
+use App\Contact;
+use App\Degree;
 use App\Professional;
 use App\Court;
 use App\Profile;
 use App\State;
 use App\Date;
+use App\RejectionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -20,10 +23,12 @@ use Illuminate\Database\QueryException;
 
 class ProfessionalController extends Controller
 {
+
   public function professional_list(Request $request){
-    $professionals = Professional::orderBy('professional_name')
+    $professionals = Professional::orderBy('name')
                    ->search_by_name($request->name)
                    ->paginate(10);
+
 		return view('professional.professional_list', compact('professionals'));
 	}
 
@@ -75,6 +80,78 @@ class ProfessionalController extends Controller
 
   public function store(Request $request)
   {
+    $url = '/registrar_tribunal';
+    $profile = Profile::find($id);
+    $area = $profile->areas->first();
+    $courts=DB::table('professionals')
+           ->join('courts', 'professionals.id', '=', 'courts.professional_id')
+           ->select('professionals.*')
+           ->where('courts.profile_id', '=', $profile->id)
+           ->orderBy('count')
+           ->get();
+
+    $professionals = DB::table('professionals')
+                   ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
+                   ->select('professionals.*')
+                   ->where('area_interests.area_id', '=', $area->id)
+                   ->whereNotIn('professionals.id', DB::table('professionals')
+                                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                                ->select('professionals.id')
+                                ->where('tutors.profile_id', '=', $profile->id))
+                   ->whereNotIn('professionals.id', DB::table('professionals')
+                                ->join('courts','professionals.id', '=', 'courts.professional_id')
+                                ->select('professionals.id')
+                                ->where('courts.profile_id', '=', $profile->id))
+                   ->orderBy('count')
+                   ->get();
+
+    $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+                                                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                                                 ->select('professionals.id')
+                                                 ->where('tutors.profile_id', '=', $profile->id))
+                      ->whereNotIn('professionals.id', DB::table('professionals')
+                                   ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+                                   ->select('professionals.id')
+                                   ->where('area_interests.area_id', '=', $area->id))
+                      ->whereNotIn('professionals.id', DB::table('professionals')
+                                   ->join('courts','professionals.id', '=', 'courts.professional_id')
+                                   ->select('professionals.id')
+                                   ->where('courts.profile_id', '=', $profile->id))
+                      ->orderBy('count')
+                      ->get();
+
+    return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
+
+  }
+  public function store_rejection_request(Request $request)
+  {
+    $profile_id = $request->profile_id;
+    $professional_id = $request->professional_id;
+    $description=$request->description;
+      
+    $now = new \DateTime();
+    $profile = Profile::find($profile_id);
+    $profile->courts()->detach($professional_id);
+
+    $state = State::where('name','approved')->first();
+    $profile->state_id=$state->id;
+    $profile->save();
+
+    DB::table('profiles')->where('id', $profile_id)->decrement('count');
+
+    $rejection_request = new RejectionRequest;
+    $rejection_request->description=$description;
+    $rejection_request->professional_id=$professional_id;
+    $rejection_request->profile_id=$profile_id;
+
+    $rejection_request->date=$now;
+    $rejection_request->save();
+
+    return redirect('/perfiles/'. $profile_id);
+
+  }
+  public function store(Request $request)
+  {
 
     $now = new \DateTime();
     $url = 'perfiles/';
@@ -104,7 +181,8 @@ class ProfessionalController extends Controller
     return redirect($url);
 
   }
-  
+
+  // Andres
   public function form_register(){
     return view('professional.create_professional');
   }
@@ -156,14 +234,12 @@ class ProfessionalController extends Controller
     }
     return response()->json($response);
   }
+  // End Andres
 
-  public function show()
+  public function upload_professionals($value='')
   {
-  }
-
-  public function edit($id)
-  {
-    //
+    $messages = null;
+    return view('import.import_professionals', compact('messages'));
   }
 
   public function destroy($id)
@@ -176,9 +252,7 @@ class ProfessionalController extends Controller
     $messages = null;
     return view('import.import_professionals', compact('messages'));
   }
-
-
-  public function importProfessionals(Request $request)
+  public function import_professionals(Request $request)
   {
     $file = Input::file('fileProfessionals');
     $rules = array(
@@ -192,9 +266,11 @@ class ProfessionalController extends Controller
     $validator = Validator::make(Input::all(), $rules, $messages);
     if ($validator->fails()) {
       return redirect('import_professionals')->withErrors($validator);
+
     } else if(!$this->valid_document($file)) {
 
       return redirect('import_professionals')->with('bad_status', 'Documento invalido');
+
     } else if($validator->passes()) {
       Excel::load($file, function($reader)
       {
@@ -204,53 +280,67 @@ class ProfessionalController extends Controller
             if (!is_null($value->nombre) &&
                 !is_null($value->apellido_materno) &&
                 !is_null($value->apellido_paterno)) {
+
+              $degree = Degree::where('acronym', $value->titulo_docente)->first();
+
+              if(is_null($degree)) {
+                $degree = new Degree;
+                $degree->acronym = $value->titulo_docente;
+                $degree->save();
+              }
+
               $professional = new Professional;
-              $professional->professional_name = $value->nombre;
-              $professional->professional_last_name_mother = $value->apellido_materno;
-              $professional->professional_last_name_father = $value->apellido_paterno;
-              $professional->email = $value->correo;
-              $professional->degree = $value->titulo_docente;
-              $professional->workload = $value->carga_horaria;
-              $professional->phone = $value->telefono;
-              $professional->address = $value->direccion;
-              $professional->profile = $value->perfil;
+              $professional->name = $value->nombre;
+              $professional->last_name_mother = $value->apellido_materno;
+              $professional->last_name_father = $value->apellido_paterno;
               $professional->ci = $value->ci;
               $professional->cod_sis = $value->cod_sis;
+              $professional->workload = $value->carga_horaria;
+              $professional->degree_id = $degree->id;
               $professional->save();
+
+              $contact = new Contact;
+              $contact->email = $value->correo;
+              $contact->phone = $value->telefono;
+              $contact->address = $value->direccion;
+              $contact->profile = $value->perfil;
+              $contact->professional_id  = $professional->id;
+              $contact->save();
             }
           }
         }
-      });
-    }
-    return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
-  }
-
-  public function valid_document($file)
-  {
-    $valid = False;
-    Excel::load($file, function($file) use (&$valid){
-      $rs = $file->get();
-      $row = $rs[0];
-      $headers = $row->keys();
-      if( $headers[0] == 'nombre' &&
-          $headers[1] == 'apellido_paterno' &&
-          $headers[2] == 'apellido_materno' &&
-          $headers[3] == 'correo' &&
-          $headers[4] == 'titulo_docente' &&
-          $headers[5] == 'carga_horaria' &&
-          $headers[6] == 'nombre_cuenta' &&
-          $headers[7] == 'telefono' &&
-          $headers[8] == 'direccion' &&
-          $headers[9] == 'perfil' &&
-          $headers[10] == 'contrasena_cuenta' &&
-          $headers[11] == 'ci' &&
-          $headers[12] == 'cod_sis') {
-
-        $valid = True;
-
       }
-
-    });
-    return $valid;
+        });
   }
+  return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
+}
+
+public function valid_document($file)
+ {
+   $valid = False;
+   Excel::load($file, function($file) use (&$valid){
+     $rs = $file->get();
+     $row = $rs[0];
+     $headers = $row->keys();
+     if( $headers[0] == 'nombre' &&
+         $headers[1] == 'apellido_paterno' &&
+         $headers[2] == 'apellido_materno' &&
+         $headers[3] == 'correo' &&
+         $headers[4] == 'titulo_docente' &&
+         $headers[5] == 'carga_horaria' &&
+         $headers[6] == 'nombre_cuenta' &&
+         $headers[7] == 'telefono' &&
+         $headers[8] == 'direccion' &&
+         $headers[9] == 'perfil' &&
+         $headers[10] == 'contrasena_cuenta' &&
+         $headers[11] == 'ci' &&
+         $headers[12] == 'cod_sis') {
+
+       $valid = True;
+
+     }
+
+   });
+   return $valid;
+ }
 }
