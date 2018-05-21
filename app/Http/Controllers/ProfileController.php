@@ -36,14 +36,12 @@ class ProfileController extends Controller
 	{
 		$state = State::where('name','finalized')->first();
 		if($state!=null){
-			$profiles = Profile::where('count','>=',3)
-													->where('state_id',$state->id)
+			$profiles = Profile::where('state_id',$state->id)
 													->search_by_title_or_student($request->name)
 													->orderBy('title')
 													->paginate(5);
 		}else{
-			$profiles = Profile::where('count','>=',3)
-													->paginate(5);
+			$profiles = Profile::paginate(5);
 		}
 		return view('profile.list_profile_finalized', compact('profiles'));
 	}
@@ -52,27 +50,29 @@ class ProfileController extends Controller
 	{
 		$state = State::where('name','assigned')->first();
 		if($state!=null){
-			$profiles = Profile::where('count','>=',3)
-													->where('state_id',$state->id)
+			$profiles = Profile::where('state_id',$state->id)
 													->search_by_title_or_student($request->name)
 													->orderBy('title')
 								        	->paginate(5);
 		}else{
-			$profiles = Profile::where('count','>=',3)
-								        	->paginate(5);
+			$profiles = Profile::paginate(5);
 		}
 
 
 		return view('profile.list_profile_assigned', compact('profiles'));
 	}
+
 	public function list_profile(Request $request)
 	{
-		$profiles = Profile::where('count','<',3 )
-											->Letters()
+		$state = State::where('name','approved')->first();
+		if($state!=null){
+		$profiles = Profile::where('state_id',$state->id)
 											->search_by_title_or_student($request->name)
 											->orderBy('title')
 											->paginate(5);
-
+	}else{
+		$profiles = Profile::paginate(5);
+	}
 		 return view('profile.list_profile', compact('profiles'));
 	}
 

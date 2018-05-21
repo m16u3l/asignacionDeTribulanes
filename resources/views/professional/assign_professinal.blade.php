@@ -101,14 +101,41 @@
             </div>
           </div>
 
-
+          <input type="hidden" name="count1" id="count1" value="{{$profile->count}}">
           <div class="row mt-3" id="selected-professional-list">
+            @if ( empty($courts[0]))
             <div class="col-md-12 " id="no-selection-message">
               <div class="card list-group-item list-group-item-action mb-0">
                 <h6>Ningun profesional ha sido seleccionado</h6>
               </div>
             </div>
+            @else
+            @foreach($courts as $court)
+            <div class="col-md-12 area-related-professional" >
+              <div class="card list-group-item list-group-item-action mb-3">
+                <div class="row">
+                  <div class="col-10 pr-1">
+                    <div class="row">
+                      <div class="perfil col-12">
+                        <label class="h6 texto mb-0">Profesional:</label>
+                        <label class="texto mb-0 name-professional">{{$court->name}}
+                                                                    {{$court->last_name_father}}
+                                                                    {{$court->last_name_mother}}</label><br>
+                      </div>
+                      <div class="perfil col-12">
+                        <label class="h6 texto mb-0">Carga de perfiles:</label>
+                        <label class=" texto mb-0">{{$court->count}} perfiles</label>
+                      </div>
 
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            @endforeach
+            @endif
           </div>
 
         </section>
@@ -144,7 +171,7 @@
           </div>
           <!-Fin de buscador->
         -->
-        
+
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
 

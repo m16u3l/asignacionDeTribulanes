@@ -25,6 +25,7 @@ class ProfessionalController extends Controller
         $professionals = Professional::orderBy('name')
                     ->search_by_name($request->name)
                     ->paginate(10);
+
 		return view('professional.professional_list', compact('professionals'));
 	}
 
@@ -32,14 +33,18 @@ class ProfessionalController extends Controller
   {
       $url = '/registrar_tribunal';
       $profile = Profile::find($id);
-
       $area = $profile->areas->first();
+      $courts=DB::table('professionals')
+        ->join('courts', 'professionals.id', '=', 'courts.professional_id')
+        ->select('professionals.*')
+        ->where('courts.profile_id', '=', $profile->id)
+        ->orderBy('count')
+        ->get();
 
       $professionals = DB::table('professionals')
         ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
         ->select('professionals.*')
         ->where('area_interests.area_id', '=', $area->id)
-
         ->whereNotIn('professionals.id', DB::table('professionals')
             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
             ->select('professionals.id')
@@ -50,8 +55,6 @@ class ProfessionalController extends Controller
             ->where('courts.profile_id', '=', $profile->id))
         ->orderBy('count')
         ->get();
-
-        //->paginate(10);
 
             $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
                             ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
@@ -65,15 +68,27 @@ class ProfessionalController extends Controller
                             ->join('courts','professionals.id', '=', 'courts.professional_id')
                             ->select('professionals.id')
                             ->where('courts.profile_id', '=', $profile->id))
-
                         ->orderBy('count')
                         ->get();
-                        //->paginate(10);
 
-        return view('professional.assign_professinal', compact('url','profile', 'professionals','allProfessionals'));
+        return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
 
     }
+    public function store_rejection_request()
+    {
+      //$profile_id = $request->profile_id;
+			//$professional_id = $request->professional_id;
 
+      $profile = Profile::find(4);
+      $profile->courts()->detach(40);
+
+      $state = State::where('name','approved')->first();
+      $profile->state_id=$state->id;
+      $profile->save();
+
+      DB::table('profiles')->where('id', 4)->decrement('count');
+      return redirect("/perfiles/4");
+    }
     public function store(Request $request)
     {
 
@@ -95,7 +110,6 @@ class ProfessionalController extends Controller
 			$court = new Court;
 			$court->profile_id = $profile_id;
 			$court->professional_id = $professional_id;
-
 			$court->assigned = $now->format('d-m-Y');
 			$court->save();
 

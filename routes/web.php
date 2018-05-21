@@ -26,12 +26,16 @@ Route::post('/finalizar_perfil', [
     'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
 
-/*
+/*store_rejection_request
  Rutas de solicitud de renuncia
 */
 Route::get('/solicitud/{id}', [
     'as' => 'solicitud_rununcia',
     'uses' => "ProfileController@solicitud_rununcia"]);
+
+Route::get('/rejection_request', [
+    'as' => 'rejection_request',
+    'uses' => "ProfessionalController@store_rejection_request"]);
 /*
 + Rutas de Importacion
 +*/
