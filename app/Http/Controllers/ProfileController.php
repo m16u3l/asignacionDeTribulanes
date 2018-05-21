@@ -72,7 +72,7 @@ class ProfileController extends Controller
 											->paginate(5);
 	}else{
 		$profiles = Profile::paginate(5);
-	}
+  }
 		 return view('profile.list_profile', compact('profiles'));
 	}
 
@@ -103,6 +103,10 @@ class ProfileController extends Controller
 	{
 
 	}
+
+  public function letter_validate(){
+
+  }
 
 	public function create()
 	{

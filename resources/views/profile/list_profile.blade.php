@@ -63,8 +63,11 @@
                   </div>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
-                  <br>
-                  <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
+                  <button class="signate btn btn-rounded btn-info" 
+                    data-id="{{$profile->id}}"
+                    data-title="{{$profile->title}}">
+                    <i class="fa fa-users"></i>
+                  </button>
                 </div>
 
               </div>
