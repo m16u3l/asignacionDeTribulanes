@@ -88,7 +88,7 @@ class ProfileController extends Controller
 			$profile1->save();
 
 			$dates = Date::where('profile_id','=',$profile->id)->first();
-      $dates->finalized = $now->format('d-m-Y');
+      $dates->finalized = $now;
       $dates->save();
 
 			foreach ($profile->courts as &$professional) {

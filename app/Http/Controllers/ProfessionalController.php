@@ -14,6 +14,7 @@ use App\Court;
 use App\Profile;
 use App\State;
 use App\Date;
+use App\RejectionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -46,48 +47,60 @@ class ProfessionalController extends Controller
         ->select('professionals.*')
         ->where('area_interests.area_id', '=', $area->id)
         ->whereNotIn('professionals.id', DB::table('professionals')
-            ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-            ->select('professionals.id')
-            ->where('tutors.profile_id', '=', $profile->id))
+          ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+          ->select('professionals.id')
+          ->where('tutors.profile_id', '=', $profile->id))
         ->whereNotIn('professionals.id', DB::table('professionals')
-            ->join('courts','professionals.id', '=', 'courts.professional_id')
-            ->select('professionals.id')
-            ->where('courts.profile_id', '=', $profile->id))
+          ->join('courts','professionals.id', '=', 'courts.professional_id')
+          ->select('professionals.id')
+          ->where('courts.profile_id', '=', $profile->id))
         ->orderBy('count')
         ->get();
 
-            $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-                            ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                            ->select('professionals.id')
-                            ->where('tutors.profile_id', '=', $profile->id))
-                        ->whereNotIn('professionals.id', DB::table('professionals')
-                            ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-                            ->select('professionals.id')
-                            ->where('area_interests.area_id', '=', $area->id))
-                        ->whereNotIn('professionals.id', DB::table('professionals')
-                            ->join('courts','professionals.id', '=', 'courts.professional_id')
-                            ->select('professionals.id')
-                            ->where('courts.profile_id', '=', $profile->id))
-                        ->orderBy('count')
-                        ->get();
+      $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+        ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+        ->select('professionals.id')
+        ->where('tutors.profile_id', '=', $profile->id))
+        ->whereNotIn('professionals.id', DB::table('professionals')
+          ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+          ->select('professionals.id')
+          ->where('area_interests.area_id', '=', $area->id))
+        ->whereNotIn('professionals.id', DB::table('professionals')
+          ->join('courts','professionals.id', '=', 'courts.professional_id')
+          ->select('professionals.id')
+          ->where('courts.profile_id', '=', $profile->id))
+        ->orderBy('count')
+        ->get();
 
         return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
 
     }
-    public function store_rejection_request()
+    public function store_rejection_request(Request $request)
     {
-      //$profile_id = $request->profile_id;
-			//$professional_id = $request->professional_id;
-
-      $profile = Profile::find(4);
-      $profile->courts()->detach(40);
+      $profile_id = $request->profile_id;
+			$professional_id = $request->professional_id;
+      $description=$request->description;
+      
+      $now = new \DateTime();
+      $profile = Profile::find($profile_id);
+      $profile->courts()->detach($professional_id);
 
       $state = State::where('name','approved')->first();
       $profile->state_id=$state->id;
       $profile->save();
 
-      DB::table('profiles')->where('id', 4)->decrement('count');
-      return redirect("/perfiles/4");
+      DB::table('profiles')->where('id', $profile_id)->decrement('count');
+
+      $rejection_request = new RejectionRequest;
+      $rejection_request->description=$description;
+      $rejection_request->professional_id=$professional_id;
+      $rejection_request->profile_id=$profile_id;
+
+      $rejection_request->date=$now;
+      $rejection_request->save();
+
+      return redirect('/perfiles/'. $profile_id);
+
     }
     public function store(Request $request)
     {
@@ -104,13 +117,13 @@ class ProfessionalController extends Controller
       $profile->save();
 
       $dates = Date::where('profile_id','=',$profile_id)->first();
-      $dates->assigned = $now->format('d-m-Y');
+      $dates->assigned = $now;
       $dates->save();
 
 			$court = new Court;
 			$court->profile_id = $profile_id;
 			$court->professional_id = $professional_id;
-			$court->assigned = $now->format('d-m-Y');
+			$court->assigned = $now;
 			$court->save();
 
 			DB::table('profiles')->where('id', $profile_id)->increment('count');
