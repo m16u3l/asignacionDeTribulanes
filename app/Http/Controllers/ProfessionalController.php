@@ -29,10 +29,12 @@ class ProfessionalController extends Controller
 {
 
   public function professional_list(Request $request){
+    $degrees = Degree::all();
+
     $professionals = Professional::orderBy('name')
                    ->search_by_name($request->name)
                    ->paginate(10);
-		return view('professional.professional_list', compact('professionals'));
+		return view('professional.professional_list', compact('professionals', 'degrees'));
 	}
 
   public function index(Request $request, $id)
@@ -82,7 +84,7 @@ class ProfessionalController extends Controller
     $profile_id = $request->profile_id;
     $professional_id = $request->professional_id;
     $description=$request->description;
-      
+
     $now = new \DateTime();
     $profile = Profile::find($profile_id);
     $profile->courts()->detach($professional_id);
@@ -127,7 +129,7 @@ class ProfessionalController extends Controller
     $all_degrees = Degree::all();
     return view('professional.create_professional', compact('all_degrees'));
   }
-  
+
   public function create(Request $request){
     try {
       $new_professional = new Professional;
@@ -139,6 +141,16 @@ class ProfessionalController extends Controller
       $new_professional->workload = $request->workload;
       $new_professional->degree_id = $request->degree;
       $new_professional->save();
+
+      $contact = new Contact;
+      $contact->email = $request->email;
+      $contact->phone = $request->phone;
+      $contact->address = $request->address;
+
+      //$contact->profile = $value->perfil;
+      $contact->professional_id  = $new_professional->id;
+      $contact->save();
+     
       $response = array(
         "url" => ('/actualizar_profesional/' . (string)$new_professional->id),
         "name" => $request->name,

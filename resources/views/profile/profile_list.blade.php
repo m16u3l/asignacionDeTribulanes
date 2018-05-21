@@ -13,6 +13,7 @@
   <div class="container" id="profile_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
+        <br>
         <h3>Lista de perfiles</h3>
         <!-Buscador->
         <div class="mt-4 col-lg-8 col body-bg">

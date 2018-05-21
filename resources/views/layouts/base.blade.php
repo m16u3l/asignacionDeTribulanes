@@ -29,7 +29,7 @@
         </div>
         <div class=" col text-center" style="background-color:#2A3F54; color: #ffffff">
           <img class="logo d-inline mr-2" src="/images/UMSS.png">
-          <h6 class="h6 d-inline"> ASIGNACION DE TRIBUNALES</h6>
+          <h5 class="h5 d-inline"> ASIGNACION DE TRIBUNALES</h5>
         </div>
       </div>
     </nav>
@@ -41,7 +41,7 @@
     <div class="row">
       <!--sidebar-->
 
-    
+
       <div class="col-2 px-0 collapse show in bg-theme-1" id="sidebar" style="min-height:92vh;">
         <div class="list-group panel">
           <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas de perfiles</span> </a>
@@ -65,7 +65,7 @@
             <a href="{{ route ('lista_perfiles')}}" class="list-group-item" data-parent="#menu4">Lista de Perfiles</a>
             <a href="{{ route ('lista_areas')}}" class="list-group-item" data-parent="#menu4">Lista de Areas</a>
             <a href="{{ route ('lista_profesionales')}}" class="list-group-item" data-parent="#menu4">Lista de Profesionales</a>
-            <a href="{{ route ('create_professional')}}" class="list-group-item" data-parent="#menu4">Registrar Profesionales</a>
+            
           </div>
         </div>
       </div>
@@ -94,6 +94,7 @@
     crossorigin="anonymous"></script>
   <script src="{{ url('libraries/bootstrap/js/bootstrap.js')}}"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
+
   @yield('child_js')
 
 </body>
