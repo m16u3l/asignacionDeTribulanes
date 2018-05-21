@@ -95,3 +95,9 @@ Route::post('/actualizar_profesional/{id}', [
   'as' => 'update_professional',
   'uses' => 'ProfessionalController@update'
 ]);
+
+//Reportes de perfiles
+
+Route::get('/reporte/{id}', [
+    'as' => 'reporte',
+    'uses' => "ProfileController@show"]);

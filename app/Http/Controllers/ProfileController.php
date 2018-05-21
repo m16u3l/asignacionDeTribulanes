@@ -116,7 +116,11 @@ class ProfileController extends Controller
 
 	public function show($id)
 	{
-		//
+		$profile = Profile::find($id);
+    $view = view('profile.profile_report', compact('profile'));
+    $pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHtml($view);
+    return $pdf->stream('$profile');
 	}
 
 	public function edit($id)
