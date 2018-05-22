@@ -19,6 +19,23 @@ class AreaController extends Controller
 					->paginate(10);
 		return view('area.areas_list', compact('areas'));
 	}
+  public function create(Request $request){
+    try {
+      $new_area = new Area;
+      $new_area->name = $request->name;
+      $new_area->descripcion = $request->description;
+      $new_area->codigo=1;
+      $new_area->save();
+
+      $response = array("name"=>$request->name, "status"=>true);
+
+    }
+    catch (QueryException $e){
+      return response()->json(array("status"=>false));
+    }
+    return response()->json($response);
+  }
+
 
   public function upload_areas($value='')
   {
@@ -46,7 +63,7 @@ class AreaController extends Controller
 
     } else if($validator->passes()) {
        Excel::load($file, function($reader)
-      { 
+      {
         foreach ($reader->get() as $key => $value) {
           $area = Area::where('codigo', $value->codigo)->first();
           if(is_null($area)) {
@@ -75,7 +92,7 @@ class AreaController extends Controller
   }
 
   public function valid_document($file)
-  { 
+  {
     $valid = False;
     Excel::load($file, function($file) use (&$valid){
         $rs = $file->get();

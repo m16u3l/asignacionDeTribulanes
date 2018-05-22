@@ -31,9 +31,9 @@ class Professional extends Model
   {
     return $this->belongsTo('App\Degree');
   }
-  public function contacts()
+  public function contact()
   {
-    return $this->hasMany('App\Contact');
+    return $this->hasOne('App\Contact');
   }
   public function profiles_courts()
   {

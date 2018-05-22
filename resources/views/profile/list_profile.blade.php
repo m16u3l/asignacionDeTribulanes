@@ -39,9 +39,7 @@
               <div class="row">
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6>{{$profile->title}}</h6>
-
                   <div class="row">
-
                     <div class="col-lg-12">
                       @foreach($profile->students as $student)
                       <div class="row">
@@ -66,7 +64,6 @@
                   <br>
                   <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
                 </div>
-
               </div>
             </div>
 
@@ -75,13 +72,11 @@
                 <div class="col-lg-11">
                   <div class="row">
                     <div class="col-lg-6">
-
                       <div class="row">
                         <div class="col-lg-3">
                           <label class="h6">Area(s):</label>
                         </div>
                         <div class="col-lg-9">
-
                           @foreach($profile->areas as $area)
                           <p class="mb-0 d-inline"> {{$area->name}}
                           </p>
@@ -114,7 +109,6 @@
                         </div>
                       </div>
                     </div>
-
                     <div class="col-lg-12">
                       <label class="h6 card-subtitle">Objetivo:</label>
                       <br>
@@ -122,13 +116,10 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
-
         @endforeach @endif
       </div>
     </div>

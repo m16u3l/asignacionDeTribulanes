@@ -23,7 +23,6 @@
           </form>
         </div>
         <br>
-
         <div class="panel-body">
           {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
         </div>
@@ -61,7 +60,6 @@
                   <br>
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
                     data-finalize_profile="{{ $profile->id }}"><i class="fa fa-check"></i></a>
-
                 </div>
               </div>
             </div>
@@ -106,13 +104,10 @@
                         </div>
                         <div class="col-lg-9">
                           <p class="card-text mb-2">{{$profile->modality->name}}</p>
-
                         </div>
                       </div>
-
-
                     </div>
-
+                    
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-3">

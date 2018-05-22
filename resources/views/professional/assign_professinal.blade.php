@@ -24,7 +24,6 @@
               </div>
             </div>
 
-
             <div class="card-body collapse py-2" id="{{$profile->title}}">
               <div class="row">
                 <div class="col-lg-11">
@@ -66,23 +65,18 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-
-
       </div>
   </section>
 
   <div class="container-fluid">
     <div class="row">
-
       <div class="col-md-4 mt-3">
         <section id="selected-professional">
           <h5 class="h5">
             PROFESIONALES SELECCIONADOS
           </h5>
-
           <div class="row">
             <div class="col-lg-7">
               <label class="h6 d-inline">Necesarios para este perfil: </label>
@@ -100,7 +94,6 @@
               <button id="register" type="button" class="btn bg-theme-4 py-1" data-toggle="modal" data-target="#myModal"><i class="fa fa-save"></i></button>
             </div>
           </div>
-
           <input type="hidden" name="count1" id="count1" value="{{$profile->count}}">
           <div class="row mt-3" id="selected-professional-list">
             @if ( empty($courts[0]))
@@ -126,27 +119,19 @@
                         <label class="h6 texto mb-0">Carga de perfiles:</label>
                         <label class=" texto mb-0">{{$court->count}} perfiles</label>
                       </div>
-
                     </div>
-
                   </div>
-
                 </div>
               </div>
             </div>
             @endforeach
             @endif
           </div>
-
         </section>
       </div>
 
-
       <div class="mt-3 col-md-8">
         <section id="professional-list">
-
-
-
           <h5>SELECCIONAR PROFESIONALES</h5>
           <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
@@ -155,28 +140,10 @@
             <li class="nav-item">
               <label class="h6 nav-link" data-toggle="tab" href="#not-related">No relacionados con el area</label>
             </li>
-
           </ul>
-          <!--
-          <!-Buscador->
-          <div class="col-md-8 col text-center">
-            <form class="navbar-form pull right" action="{{ route ('asignacion',[$profile->id]) }}" method="GET" role="search">
-              <div class="panel-body">
-                <div class="input-group input-group">
-                  <input type="text" class="form-control" name="name" placeholder="Buscar profesional..." aria-describedby="basic-addon2">
-                  <span class="input-group-append"><button type="submit" class="btn bg-theme-1 input-group-append">Buscar</button></span>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-Fin de buscador->
-        -->
 
           <div class="tab-content">
             <div id="area-related" class="container tab-pane active">
-
-
-
               @if ( empty($professionals[0]))
               <div class="col-md-6">
                 <div class="card list-group-item list-group-item-action mb-0">
@@ -223,12 +190,10 @@
                           </form>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
                 @endforeach
-
               </div> @endif
 
               <div class="col-md-12">
@@ -239,10 +204,8 @@
             </div>
 
             <div id="not-related" class="container tab-pane fade">
-
               @if ( empty($allProfessionals[0]))
               <h6>No hay mas profesionales registrados</h6>
-
               @else
               <div class="row" id="not-related-list">
                 <div class="col-md-8">
@@ -299,19 +262,11 @@
               </div>
             </div>
           </div>
-
-
-
         </section>
       </div>
     </div>
-
-
-
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg">
-
-
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">REGISTRO DE TRIBUNALES</h5>

@@ -32,8 +32,8 @@ class ProfessionalController extends Controller
     $degrees = Degree::all();
 
     $professionals = Professional::orderBy('name')
-                   ->search_by_name($request->name)
-                   ->paginate(10);
+      ->search_by_name($request->name)
+      ->paginate(10);
 		return view('professional.professional_list', compact('professionals', 'degrees'));
 	}
 
@@ -43,39 +43,39 @@ class ProfessionalController extends Controller
     $profile = Profile::find($id);
     $area = $profile->areas->first();
     $courts=DB::table('professionals')
-           ->join('courts', 'professionals.id', '=', 'courts.professional_id')
-           ->select('professionals.*')
-           ->where('courts.profile_id', '=', $profile->id)
-           ->orderBy('count')
-           ->get();
+      ->join('courts', 'professionals.id', '=', 'courts.professional_id')
+      ->select('professionals.*')
+      ->where('courts.profile_id', '=', $profile->id)
+      ->orderBy('count')
+      ->get();
     $professionals = DB::table('professionals')
-                   ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
-                   ->select('professionals.*')
-                   ->where('area_interests.area_id', '=', $area->id)
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                ->select('professionals.id')
-                                ->where('tutors.profile_id', '=', $profile->id))
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                ->select('professionals.id')
-                                ->where('courts.profile_id', '=', $profile->id))
-                   ->orderBy('count')
-                   ->get();
+      ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
+      ->select('professionals.*')
+      ->where('area_interests.area_id', '=', $area->id)
+      ->whereNotIn('professionals.id', DB::table('professionals')
+        ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+        ->select('professionals.id')
+        ->where('tutors.profile_id', '=', $profile->id))
+      ->whereNotIn('professionals.id', DB::table('professionals')
+        ->join('courts','professionals.id', '=', 'courts.professional_id')
+        ->select('professionals.id')
+        ->where('courts.profile_id', '=', $profile->id))
+      ->orderBy('count')
+      ->get();
     $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-                                                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                                 ->select('professionals.id')
-                                                 ->where('tutors.profile_id', '=', $profile->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('area_interests.area_id', '=', $area->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('courts.profile_id', '=', $profile->id))
-                      ->orderBy('count')
-                      ->get();
+      ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+      ->select('professionals.id')
+      ->where('tutors.profile_id', '=', $profile->id))
+      ->whereNotIn('professionals.id', DB::table('professionals')
+        ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+        ->select('professionals.id')
+        ->where('area_interests.area_id', '=', $area->id))
+      ->whereNotIn('professionals.id', DB::table('professionals')
+        ->join('courts','professionals.id', '=', 'courts.professional_id')
+        ->select('professionals.id')
+        ->where('courts.profile_id', '=', $profile->id))
+      ->orderBy('count')
+      ->get();
     return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
   }
 
@@ -124,11 +124,6 @@ class ProfessionalController extends Controller
     return redirect($url);
   }
 
-  // Andres
-  public function form_register(){
-    $all_degrees = Degree::all();
-    return view('professional.create_professional', compact('all_degrees'));
-  }
 
   public function create(Request $request){
     try {
@@ -150,12 +145,7 @@ class ProfessionalController extends Controller
       //$contact->profile = $value->perfil;
       $contact->professional_id  = $new_professional->id;
       $contact->save();
-     
-      $response = array(
-        "url" => ('/actualizar_profesional/' . (string)$new_professional->id),
-        "name" => $request->name,
-        "status" => true
-      );
+      $response = array("name"=>$request->name, "status"=>true);
 
     }
     catch (QueryException $e){
@@ -164,18 +154,11 @@ class ProfessionalController extends Controller
     return response()->json($response);
   }
 
-  public function form_update($id){
-    $professional_update = Professional::where('id', $id)->get()->first();
-    $all_degrees = Degree::all();
-    return view('professional.update_professional', compact(
-      'professional_update',
-      'all_degrees'
-    ));
-  }
 
-  public function update(Request $request, $id){
+
+  public function update(Request $request){
     try{
-      $professional_update = Professional::where('id', $id)->get()->first();
+      $professional_update = Professional::find($request->id);
       $professional_update->ci = $request->ci;
       $professional_update->cod_sis = $request->cod_sis;
       $professional_update->name = $request->name;
@@ -184,6 +167,16 @@ class ProfessionalController extends Controller
       $professional_update->workload = $request->workload;
       $professional_update->degree_id = $request->degree;
       $professional_update->save();
+
+      $contact = Contact::where('professional_id', $request->id)->first();
+
+      $contact->email = $request->email;
+      $contact->phone = $request->phone;
+      $contact->address = $request->address;
+      //$contact->profile = $value->perfil;
+      $contact->professional_id  = $professional_update->id;
+      $contact->save();
+
       $response = array("name"=>$request->name, "status"=>true);
     }
     catch (QueryException $e){
@@ -266,9 +259,7 @@ class ProfessionalController extends Controller
             }
           }
         }
-      }
-
-      );
+      });
     }
     return redirect('import_professionals')->with('status', 'Los cambios se realizaron con exito.');
   }
@@ -295,9 +286,7 @@ class ProfessionalController extends Controller
           $headers[12] == 'cod_sis') {
 
         $valid = True;
-
       }
-
     });
     return $valid;
   }

@@ -15,25 +15,20 @@
                 <input type="hidden" name="profile_id" id="finalize_profile">
               </div>
 
-
-    <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datepicker1'>
-                    <input type='hidden'name="date_defended" class="form-control"  id="date_defended"/>
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+              <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datepicker1'>
+                                <input type='hidden'name="date_defended" class="form-control"  id="date_defended"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-
+              </div>
               <div class="form-group text-right m-b-0">
                 <input class="btn btn-lg btn-rounded btn-danger waves-effect waves-light" type="button" value="si" id="buton_date_defended">
                 <input class="btn btn-lg btn-rounded btn-danger waves-effect waves-light" type="hidden" value="ok" id="buton_save">

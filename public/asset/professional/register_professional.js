@@ -23,7 +23,7 @@ form = $("#register");
         swal("Registro exitoso!","se registro a" + response.name, "success");
         $('.swal2-confirm').on('click', function (event2) {
       event2.preventDefault();
-      window.location.href = response.url;
+      location.reload();
         })
     }
     else{
@@ -37,5 +37,18 @@ form = $("#register");
     }
       }
   });
+});
+$("#cancel_register_professional").on('click', function(){
+  
+  $("#name").val("");
+  $("#last_name_father").val("");
+  $("#last_name_mother").val("");
+  $("#ci").val("");
+  $("#cod_sis").val("");
+  $("#email").val("");
+  $("#phone").val("");
+  $("#address").val("");
+  $("#degree").val("");
+  $('#register_professinal_modal').modal('toggle');
 });
 });
