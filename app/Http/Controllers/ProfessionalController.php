@@ -89,8 +89,7 @@ class ProfessionalController extends Controller
     $profile = Profile::find($profile_id);
     $profile->courts()->detach($professional_id);
     $state = State::where('name','approved')->first();
-    $profile->state_id=$state->id;
-    $profile->save();
+    
     DB::table('profiles')->where('id', $profile_id)->decrement('count');
     $rejection_request = new RejectionRequest;
     $rejection_request->description=$description;
