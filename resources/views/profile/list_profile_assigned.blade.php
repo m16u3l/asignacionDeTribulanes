@@ -41,11 +41,13 @@
                       <div class="row">
                         <div class="col-lg-6">
                           <label class="h6 d-inline">Tesista:</label>
-                          <p class="mb-0 d-inline"> {{$student->name}} {{$student->last_name_father}} {{$student->last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$student->name}}
+                                                    {{$student->last_name_father}}
+                                                    {{$student->last_name_mother}}
                           </p>
                         </div>
                         <div class="col-lg-6">
-                          <label class="h6 d-inline">Carrera:</label>
+                            <label class="h6 d-inline">Carrera:</label>
                           <p class="mb-0 d-inline"> {{$student->career}}
                           </p>
                         </div>
@@ -55,11 +57,9 @@
                   </div>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
-
-                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info mb-2" data-toggle="modal" data-target="#finalize_profile_modal"
-                    data-finalize_profile="{{ $profile->id }}" data-title="{{ $profile->title }}"><i class="fa fa-check"></i></a>
-
-                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded btn-info"><i class="fa fa-times"></i></a>
+                  <br>
+                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
+                    data-finalize_profile="{{ $profile->id }}"><i class="fa fa-check"></i></a>
                 </div>
               </div>
             </div>
@@ -75,9 +75,12 @@
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->tutors as $tutor)
-                          <p class="mb-0 d-inline"> {{$tutor->name}} {{$tutor->last_name_father}} {{$tutor->last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$tutor->name}}
+                                                    {{$tutor->last_name_father}}
+                                                    {{$tutor->last_name_mother}}
                           </p>
-                          <br> @endforeach
+                          <br>
+                           @endforeach
                         </div>
                       </div>
 
@@ -90,7 +93,8 @@
                           @foreach($profile->areas as $area)
                           <p class="mb-0 d-inline"> {{$area->name}}
                           </p>
-                          <br> @endforeach
+                          <br>
+                           @endforeach
                         </div>
                       </div>
 
@@ -111,7 +115,9 @@
                         </div>
                         <div class="col-lg-9">
                           @foreach($profile->courts as $courts)
-                          <p class="mb-0 d-inline"> {{$courts->name}} {{$courts->last_name_father}} {{$courts->last_name_mother}}
+                          <p class="mb-0 d-inline"> {{$courts->name}}
+                                                    {{$courts->last_name_father}}
+                                                    {{$courts->last_name_mother}}
                           </p>
                           <br> @endforeach
                         </div>
