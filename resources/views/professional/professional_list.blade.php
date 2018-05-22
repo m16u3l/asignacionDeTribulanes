@@ -1,12 +1,12 @@
-@extends('layouts.base')
+@extends('layouts.base') 
 @section('head')
   <title>Asignacion de Tribunales UMSS</title>
 @endsection
-
+ 
 @section('child_css')
   <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
-
+ 
 @section('content')
 <div class="col">
   <div class="container" id="professional_list">
@@ -50,7 +50,7 @@
             <div class="card-header clearfix">
               <div class="row">
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$professional->name}}">
-                  <h6 class="titleColor">{{$professional->name}} {{$professional->last_name_father}} {{$professional->last_name_mother}}</h6>
+                  <h6 class="h6">{{$professional->name}} {{$professional->last_name_father}} {{$professional->last_name_mother}}</h6>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <a href="#" class="btn btn-rounded btn-success modal_update_professional" data-toggle="modal" data-target="#update_professinal_modal"
@@ -88,7 +88,7 @@
   <div class="row">
     <div class="col-md-3 col-xs-1"></div>
     <div class="col-md-6 col-xs-10 mipaginacion">
-            {!! $professionals->render() !!}
+      {!! $professionals->render() !!}
     </div>
     <div class="col-md-3 col-xs-1"></div>
   </div>
@@ -96,8 +96,9 @@
 
 @include('professional.modal_register_professional')
 @include('professional.modal_update_professional')
-@endsection
 
+@endsection
+ 
 @section('child_js')
   <script type="text/javascript" src="{{ url('asset/professional/update_professional.js')}}"></script>
   <script type="text/javascript" src="{{ url('asset/professional/register_professional.js')}}"></script>
