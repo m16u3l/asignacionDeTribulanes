@@ -52,41 +52,49 @@ function addProfessional(professional) {
 
 
 function registerProf() {
-  /*{
-    if (selectedProf == totalProf) {
-      var listOfProf = $("#selected-professional-list").find(".register_prof");
-      for (var val of listOfProf) {
-        var par = $(val).parent();
-        var token = $($(par).children()[0]).attr("value");
-        var profileId = $($(par).children()[1]).attr("value");
-        var proffesionalId = $($(par).children()[2]).attr("value");
-        var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
 
-        register(dataString);
 
-      }
+  var listOfProf = $("#selected-professional-list").find(".register_prof");
+  for (var val of listOfProf) {
+    var par = $(val).parent();
+    var token = $($(par).children()[0]).attr("value");
+    var profileId = $($(par).children()[1]).attr("value");
+    var proffesionalId = $($(par).children()[2]).attr("value");
+    var dataString = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId;
 
-      //alert (dataString);return false;
-      setTimeout(function () {
-        location.href = '/perfiles';
-      }, 500);
-    } else {
+    register(dataString);
 
-      if (selectedProf >= totalProf) {
+  }
+  var selectedProf = $(".selected-prof").find(".post-data")[0];
+  var token = $($(selectedProf).children()[0]).attr("value");
+  var profileId = $($(selectedProf).children()[1]).attr("value");
+  var proffesionalId = $($(selectedProf).children()[2]).attr("value");
+  var description = $("#description-text").val();
+  var dataString2 = "_token=" + token + "&profile_id=" + profileId + "&professional_id=" + proffesionalId + "&description=" + description;
+  register2(dataString2)
+  
+    //alert (dataString);return false;
+    setTimeout(function () {
+      location.href = '/perfiles/asignados';
+    }, 500);
+  
 
-        alert("El perfil ya tiene profesionales asignados.");
-      } else {
-
-        alert("Por favor seleccione la cantidad requerida de profesionales.");
-      }
-    }
-  }*/
 }
 
 function register(postData) {
   $.ajax({
     type: "POST",
     url: "/registrar_tribunal",
+    data: postData,
+    success: function () {}
+  });
+  return true;
+}
+
+function register2(postData) {
+  $.ajax({
+    type: "POST",
+    url: "/rejection_request",
     data: postData,
     success: function () {}
   });

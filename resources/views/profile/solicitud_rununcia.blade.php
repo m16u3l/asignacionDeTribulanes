@@ -1,12 +1,12 @@
-@extends('layouts.base')
+@extends('layouts.base') 
 @section('head')
 <title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
-
+ 
 @section('child_css')
 <link href="{{ url('css/menu_professional.css')}}" rel="stylesheet" type="text/css">
 @endsection
-
+ 
 @section('content')
 <div class="col" onload="addPages();">
   <section id="profile-info">
@@ -102,18 +102,17 @@
                         <label class="h6 texto mb-0">Carga de perfiles:</label>
                         <label class=" texto mb-0">{{$court->count}} perfiles</label>
                       </div>
-                      <div class="col-12 text-center">
-                        <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
-                          <input class="token" type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                          <input class="profile_id" type="hidden" name="profile_id" value="{{$profile->id}}">
-                          <input class="professional_id" type="hidden" name="professional_id" value="{{$court->id}}">
-                        </form>
-                      </div>
+
                     </div>
 
                   </div>
                   <div class="col-md-2 d-none check-mark">
                     <button class="btn bg-theme-4"><i class="fa fa-check"></i></button>
+                    <form action="{{$url}}" method="POST" class="py-0 mb-0 post-data">
+                      <input class="token" type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                      <input class="profile_id" type="hidden" name="profile_id" value="{{$profile->id}}">
+                      <input class="court_id" type="hidden" name="court_id" value="{{$court->id}}">
+                    </form>
                   </div>
                 </div>
               </div>
@@ -306,13 +305,10 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <p>Seleccione el motivo de renuncia </p>
+            <p>Escriba el motivo de renuncia </p>
             <form action="" class="form">
               <div class="form-group">
-                <select name="reason" id="reason">
-                  <option value="motivos_de_fuerza_mayor">Motivos de fuerza mayor</option>
-                  <option value="otra_opcion">Otra opcion</option>
-                </select>
+                <input type="text" class="form-control" id="description-text">
               </div>
             </form>
             <div class="modal-footer">
@@ -326,7 +322,7 @@
   </div>
   </div>
 @endsection
-
+ 
 @section('child_js')
 
   <script type="text/javascript" src="{{url('asset/professional/professional_change.js')}}"></script>
