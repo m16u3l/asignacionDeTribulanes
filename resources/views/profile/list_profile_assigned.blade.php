@@ -23,7 +23,6 @@
           </form>
         </div>
         <br>
-
         <div class="panel-body">
           {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
         </div>
@@ -60,7 +59,8 @@
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
-                    data-finalize_profile="{{ $profile->id }}"><i class="fa fa-check"></i></a>
+                    data-finalize_profile="{{ $profile->id }}" data-title="{{ $profile->title }}"><i class="fa fa-check"></i></a>
+                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded btn-info"><i class="fa fa-exchange"></i></a>
 
                 </div>
               </div>
@@ -106,11 +106,8 @@
                         </div>
                         <div class="col-lg-9">
                           <p class="card-text mb-2">{{$profile->modality->name}}</p>
-
                         </div>
                       </div>
-
-
                     </div>
 
                     <div class="col-lg-6">

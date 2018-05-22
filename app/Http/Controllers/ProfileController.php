@@ -20,15 +20,51 @@ use Illuminate\Support\Facades\Input;
 class ProfileController extends Controller
 {
 	public function solicitud_rununcia($id){
-		$profile = Profile::find($id);
+    $profile = Profile::find($id);
+    $url = '/rejection_request';
+    $area = $profile->areas->first();
+    $courts=DB::table('professionals')
+           ->join('courts', 'professionals.id', '=', 'courts.professional_id')
+           ->select('professionals.*')
+           ->where('courts.profile_id', '=', $profile->id)
+           ->orderBy('count')
+           ->get();
+    $professionals = DB::table('professionals')
+                   ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
+                   ->select('professionals.*')
+                   ->where('area_interests.area_id', '=', $area->id)
+                   ->whereNotIn('professionals.id', DB::table('professionals')
+                                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                                ->select('professionals.id')
+                                ->where('tutors.profile_id', '=', $profile->id))
+                   ->whereNotIn('professionals.id', DB::table('professionals')
+                                ->join('courts','professionals.id', '=', 'courts.professional_id')
+                                ->select('professionals.id')
+                                ->where('courts.profile_id', '=', $profile->id))
+                   ->orderBy('count')
+                   ->get();
+    $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+                                                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+                                                 ->select('professionals.id')
+                                                 ->where('tutors.profile_id', '=', $profile->id))
+                      ->whereNotIn('professionals.id', DB::table('professionals')
+                                   ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+                                   ->select('professionals.id')
+                                   ->where('area_interests.area_id', '=', $area->id))
+                      ->whereNotIn('professionals.id', DB::table('professionals')
+                                   ->join('courts','professionals.id', '=', 'courts.professional_id')
+                                   ->select('professionals.id')
+                                   ->where('courts.profile_id', '=', $profile->id))
+                      ->orderBy('count')
+                      ->get();
 
-		return view('profile.solicitud_rununcia', compact('profile'));
+		return view('profile.solicitud_rununcia', compact('url','profile','courts', 'professionals','allProfessionals'));
 	}
 
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
-					->search_by_title_or_student($request->name)
-					->paginate(10);
+      ->search_by_title_or_student($request->name)
+			->paginate(10);
 		return view('profile.profile_list', compact('profiles'));
 	}
 
@@ -37,9 +73,9 @@ class ProfileController extends Controller
 		$state = State::where('name','finalized')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-													->search_by_title_or_student($request->name)
-													->orderBy('title')
-													->paginate(5);
+				->search_by_title_or_student($request->name)
+				->orderBy('title')
+				->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
@@ -51,14 +87,12 @@ class ProfileController extends Controller
 		$state = State::where('name','assigned')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-													->search_by_title_or_student($request->name)
-													->orderBy('title')
-								        	->paginate(5);
+				->search_by_title_or_student($request->name)
+				->orderBy('title')
+				->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
-
-
 		return view('profile.list_profile_assigned', compact('profiles'));
 	}
 

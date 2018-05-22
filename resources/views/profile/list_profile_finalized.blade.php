@@ -23,7 +23,6 @@
           </form>
         </div>
         <br>
-
         <div class="panel-body">
           {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
         </div>
@@ -34,7 +33,6 @@
               <div class="row">
                 <div class="col-lg-12" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="h6">{{$profile->title}}</h6>
-
                   <div class="row">
                     <div class="col-lg-12">
                       @foreach($profile->students as $student)
@@ -56,12 +54,10 @@
                       @endforeach
                     </div>
                   </div>
-
                 </div>
                 <div>
                   {!! link_to_route('reporte', $title='Reporte', $parameters = $profile->id, $attributes = ['class'=>'btn btn-info']) !!}
                 </div>
-
               </div>
             </div>
 
@@ -142,7 +138,6 @@
                           <p class="card-text mb-2">{{$profile->date->finalized}}</p>
                         </div>
                       </div>
-
                     </div>
 
                     <div class="col-lg-12">

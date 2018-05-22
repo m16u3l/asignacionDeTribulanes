@@ -41,7 +41,6 @@
               <div class="row">
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="h6">{{$profile->title}}</h6>
-
                   <div class="row">
                     <div class="col-lg-12">
                       @foreach($profile->students as $student)
@@ -71,7 +70,6 @@
                 <div class="col-lg-11">
                   <div class="row">
                     <div class="col-lg-6">
-
                       <div class="row">
                         <div class="col-lg-3">
                           <label class="h6">Area(s):</label>
@@ -114,13 +112,10 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
         </div>
-
         @endforeach @endif
       </div>
     </div>

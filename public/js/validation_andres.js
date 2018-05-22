@@ -59,17 +59,10 @@ $(document).ready(function() {
   $('.input-cuenta-banco').keypress(function(event) {
     if ((event.which != 46 && event.which != 32 && event.which != 45) && (event.which < 48 || event.which > 59)){
       event.preventDefault();
-      // if ((event.which == 46) && ($(this).indexOf('.') != -1)) {
-      //   event.preventDefault();
-      // }
-      // if ((event.which == 32) && ($(this).indexOf(' ') != -1)) {
-      //   event.preventDefault();
-      // }
-      // if ((event.which == 45) && ($(this).indexOf('-') != -1)) {
-      //   event.preventDefault()
-      // }
     }
   });
+  
+
   
 });
 
