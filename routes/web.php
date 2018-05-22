@@ -76,7 +76,7 @@ Route::get('/lista_areas', [
     'uses' => "AreaController@areas_list"]);
 
 //registrar area
-Route::post('//registrar_area', [
+Route::post('/registrar_area', [
   'as' => 'create_area',
   'uses' => 'AreaController@create'
 ]);

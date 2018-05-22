@@ -1,12 +1,12 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
 <link href="{{ url('css/menu_professional.css')}}" rel="stylesheet" type="text/css">
 @endsection
- 
+
 @section('content')
 <div class="col" onload="addPages();">
   <section id="profile-info">
@@ -326,7 +326,7 @@
   </div>
   </div>
 @endsection
- 
+
 @section('child_js')
 
   <script type="text/javascript" src="{{url('asset/professional/professional_change.js')}}"></script>

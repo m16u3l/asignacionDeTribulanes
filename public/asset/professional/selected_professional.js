@@ -23,7 +23,7 @@ function addProfessional(professional) {
 
   } else {
 
-    
+    if (selectedProf  < totalProf) {
 
       if (selectedProf == 0) {
         $("#no-selection-message").addClass("d-none");
@@ -32,8 +32,33 @@ function addProfessional(professional) {
       $("#selected-professional-list").append(professional);
       $(professional).removeClass("col-md-6 related-element not-related-element");
 
-   
+    } else {
+      alert("Ha seleccionado/asignado suficientes profesionales.");
+    }
   }
+}
+
+function increaseMaxProf() {
+  if (totalProf < maxProf) {
+    totalProf++;
+    $("#professional-number-label").text(totalProf);
+
+  }
+}
+
+function decreaseMaxProf() {
+
+  if (totalProf > minProf) {
+    totalProf--;
+    $("#professional-number-label").text(totalProf);
+
+    if (selectedProf > totalProf) {
+      while (selectedProf > totalProf) {
+        addProfessional($("#selected-professional-list").children().last());
+      }
+    }
+  }
+
 }
 
 function increaseSelectedProf() {

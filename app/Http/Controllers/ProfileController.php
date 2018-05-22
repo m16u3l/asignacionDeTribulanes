@@ -57,7 +57,7 @@ class ProfileController extends Controller
                                    ->where('courts.profile_id', '=', $profile->id))
                       ->orderBy('count')
                       ->get();
-    
+
 		return view('profile.solicitud_rununcia', compact('url','profile','courts', 'professionals','allProfessionals'));
 	}
 
