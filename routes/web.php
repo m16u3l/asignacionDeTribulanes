@@ -26,6 +26,10 @@ Route::post('/finalizar_perfil', [
     'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
 
+Route::get('/validar_cartas', [
+  'as' => 'letter_validate',
+  'uses' => 'ProfileController@letter_validate']);
+
 /*store_rejection_request
  Rutas de solicitud de renuncia
 */

@@ -62,6 +62,18 @@
                     </div>
                   </div>
                 </div>
+
+                 <div class="col-lg-1 col-12 text-center row-sm-center">
+                  <a href="#" 
+                    id="boton_asignar_tribunal"
+                    class="btn btn-rounded btn-info" 
+                    data-id="{{$profile->id}}"
+                    data-title="{{$profile->title}}"
+                    data-modality="{{$profile->modality->name}}"
+                    data-tutors="{{$profile->tutors}}">
+                    <i class="fa fa-users"></i>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -129,7 +141,9 @@
     <div class="col-md-3 col-xs-1"></div>
   </div>
 </div>
+@include('profile.modal_check_letters')
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{ url('asset/profile/letter_validate.js')}}"></script>
 @endsection
