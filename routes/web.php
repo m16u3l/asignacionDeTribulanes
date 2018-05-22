@@ -33,7 +33,7 @@ Route::get('/solicitud/{id}', [
     'as' => 'solicitud_rununcia',
     'uses' => "ProfileController@solicitud_rununcia"]);
 
-Route::get('/rejection_request', [
+Route::post('/rejection_request', [
     'as' => 'rejection_request',
     'uses' => "ProfessionalController@store_rejection_request"]);
 /*
@@ -87,7 +87,11 @@ Route::get('/lista_profesionales', [
     'as' => 'lista_profesionales',
     'uses' => "ProfessionalController@professional_list"]);
 
-//registrar profesional
+Route::get('/registrar_profesional', [
+  'as' => 'create_professional',
+  'uses' => 'ProfessionalController@form_register']);
+
+
 Route::post('/registrar_profesional', [
   'as' => 'create_professional',
   'uses' => 'ProfessionalController@create'

@@ -1,49 +1,59 @@
-var totalProf = 3;
-var selectedProf = $("#count1").val();
-var maxProf = 5;
+var selected = 0;
+var substitute = false;
+
+$('.select-professional').on('click', function () {
+
+  if ($(this).find(".d-none").length != 0) {
+
+    if (selected == 0) {
+      $(this).find(".check-mark").removeClass("d-none");
+      $(this).find(".check-mark").addClass("selected-prof");
+      selected++;
+    } else {
+      alert("Solo puede sustituir un tribunal a la vez")
+    }
+  } else {
+
+    $(this).find(".check-mark").addClass("d-none");
+    $(this).find(".check-mark").removeClass("selected-prof");
+    selected--;
+  }
+});
+
 var minProf = 3;
 
 function addProfessional(professional) {
   var added = document.createElement("div");
 
   if ($(professional).parent().attr("id") == "selected-professional-list") {
-    console.log("iii");
-    $(professional).addClass("col-md-6");
-    if ($(professional).hasClass("area-related-professional")) {
-      $(professional).addClass("related-element");
-      $("#area-related-list").append(professional);
-    } else {
-      $(professional).addClass("not-related-element");
-      $("#not-related-list").append(professional);
-    }
-    selectedProf--;
-    if (selectedProf == 0) {
+    if (substitute) {
+      $(professional).addClass("col-md-6");
+      if ($(professional).hasClass("area-related-professional")) {
+        $(professional).addClass("related-element");
+        $("#area-related-list").append(professional);
+      } else {
+        $(professional).addClass("not-related-element");
+        $("#not-related-list").append(professional);
+      }
+      substitute = false;
       $("#no-selection-message").removeClass("d-none");
     }
-
   } else {
-
-    
-
-      if (selectedProf == 0) {
-        $("#no-selection-message").addClass("d-none");
-      }
-      selectedProf++;
+    if (!substitute) {
+      $("#no-selection-message").addClass("d-none");
+      substitute = true;
       $("#selected-professional-list").append(professional);
       $(professional).removeClass("col-md-6 related-element not-related-element");
+    }
 
-   
   }
 }
 
-function increaseSelectedProf() {
-  selectedProf++;
-  $("#professional-number-label").text(selectedProf + "/" + totalProf);
-}
+
 
 function registerProf() {
-  {
-    if (selectedProf  == totalProf) {
+  /*{
+    if (selectedProf == totalProf) {
       var listOfProf = $("#selected-professional-list").find(".register_prof");
       for (var val of listOfProf) {
         var par = $(val).parent();
@@ -70,7 +80,7 @@ function registerProf() {
         alert("Por favor seleccione la cantidad requerida de profesionales.");
       }
     }
-  }
+  }*/
 }
 
 function register(postData) {
@@ -115,10 +125,10 @@ window.onload = function () {
   $(".related-element").addClass("d-none");
 
   for (var i = 0; i < 8; i++) {
-    $($("#not-related-list").children()[i+2]).removeClass("d-none");
+    $($("#not-related-list").children()[i + 2]).removeClass("d-none");
   }
   for (var i = 0; i < 8; i++) {
-    $($("#area-related-list").children()[i+2]).removeClass("d-none");
+    $($("#area-related-list").children()[i + 2]).removeClass("d-none");
   }
 
   var notNeccesaryButtons = $("#not-related-list").children().length / 8;
@@ -158,7 +168,7 @@ function searchBar() {
       }
     }
   }
-  if(found){
+  if (found) {
     $("#related-not-found").addClass("d-none");
   } else {
     $("#related-not-found").removeClass("d-none");
@@ -166,10 +176,10 @@ function searchBar() {
   if (filter == "") {
     $(".related-element").addClass("d-none");
     for (var i = 0; i < 8; i++) {
-      $($("#area-related-list").children()[i+2]).removeClass("d-none");
+      $($("#area-related-list").children()[i + 2]).removeClass("d-none");
     }
     $("#related-pagination").removeClass("d-none");
-  }else {
+  } else {
     $("#related-pagination").addClass("d-none");
   }
 
@@ -194,7 +204,7 @@ function notRelatedSearchBar() {
     }
   }
 
-  if(found){
+  if (found) {
     $("#not-related-not-found").addClass("d-none");
   } else {
     $("#not-related-not-found").removeClass("d-none");
@@ -204,10 +214,18 @@ function notRelatedSearchBar() {
   if (filter == "") {
     $(".not-related-element").addClass("d-none");
     for (var i = 0; i < 8; i++) {
-      $($("#not-related-list").children()[i+2]).removeClass("d-none");
+      $($("#not-related-list").children()[i + 2]).removeClass("d-none");
     }
     $("#not-related-pagination").removeClass("d-none");
   } else {
     $("#not-related-pagination").addClass("d-none");
+  }
+}
+
+function verify() {
+  if (!substitute || selected == 0) {
+    alert("Por favor seleccione al profesional que renunciara y a un sustituto")
+  } else {
+    $('#myModal').modal('show');
   }
 }
