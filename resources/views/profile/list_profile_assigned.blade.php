@@ -59,7 +59,7 @@
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#finalize_profile_modal"
-                    data-finalize_profile="{{ $profile->id }}"><i class="fa fa-check"></i></a>
+                    data-finalize_profile="{{ $profile->id }}" data-title="{{ $profile->title }}"><i class="fa fa-check"></i></a>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="col-lg-6">
                       <div class="row">
                         <div class="col-lg-3">
