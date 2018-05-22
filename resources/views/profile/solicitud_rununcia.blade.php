@@ -106,7 +106,7 @@
                         <form id="asignar" action="{{$url}}" method="POST" class="py-0 mb-0">
                           <input class="token" type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                           <input class="profile_id" type="hidden" name="profile_id" value="{{$profile->id}}">
-                          <input class="professional_id" type="hidden" name="professional_id" value="{{$professional->id}}">
+                          <input class="professional_id" type="hidden" name="professional_id" value="{{$court->id}}">
                         </form>
                       </div>
                     </div>
