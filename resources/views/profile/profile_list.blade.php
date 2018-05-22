@@ -69,7 +69,7 @@
                     data-id="{{$profile->id}}"
                     data-title="{{$profile->title}}"
                     data-modality="{{$profile->modality->name}}"
-                    data-tutor="{{$profile->tutors}}">
+                    data-tutors="{{$profile->tutors}}">
                     <i class="fa fa-users"></i>
                   </button>
                 </div>

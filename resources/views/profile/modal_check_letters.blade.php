@@ -8,8 +8,7 @@
             <h4 class="modal-title"></h4>
           </div>
           <div class="modal-body">
-            <form data-parsley-validate novalidate method="POST">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+            <form class="form-horizontal" role="modal">
               <div class="form-group">
                 <label> El perfil selecionado debe cumplir con los siguientes requisitos: </label>
                 <input type="hidden" name="profile_id" id="finalize_profile">
@@ -31,7 +30,7 @@
               </div>
               
               <div class="form-group text-right m-b-0">
-                <button class="btn btn-lg btn-rounded btn-danger waves-effect waves-light" type="submit" id="boton_eliminar_form">
+                <button class="btn btn-lg btn-rounded btn-danger waves-effect waves-light" type="submit" id="boton_continuar">
                   Continuar
                 </button>
                 <button type="reset" class="btn btn-lg btn-rounded btn-default waves-effect waves-light m-l-5" data-dismiss="modal">

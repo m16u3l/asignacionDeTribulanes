@@ -30,7 +30,7 @@ class Profile extends Model
   }
   public function scopeLetters($query)
   {
-    $query ->where('letter', '=', 'true' );
+    $query ->where('letter_teacher', '=', 'true' );
           /* ->whereHas('mastutors', function($query){
              $query->where('letter','true' );
            }

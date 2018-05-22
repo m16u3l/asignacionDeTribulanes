@@ -27,7 +27,7 @@ class ProfileController extends Controller
 
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
-					->search_by_title_or_student($request->name)
+          ->search_by_title_or_student($request->name)
 					->paginate(5);
 		return view('profile.profile_list', compact('profiles'));
 	}
@@ -95,18 +95,32 @@ class ProfileController extends Controller
 			return redirect('perfiles/asignados');
 	}
 
-	public function index()
+  public function letter_validate(Request $request){
+    $rules = array(
+      'letter_tutor' => 'true',
+      'letter_teacher' => 'true',
+      'letter_modality' => 'true'
+    );
+    $validator = Validator::make ( Input::all(), $rules);
+    if ($validator->fails()){
+      return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
+    } else {
+      $profile = Profile::find($request->profile_id);
+			$state = State::where('name','approved')->first();
+			$profile1 = Profile::find($request->profile_id);
+      $profile1->state_id=$state->id;
+      $profile1->letter_teacher=true;
+      $profile1->letter_moddality=true;
+      $profile1->tutors->tutor->letter=true;
+      $profile1->save();
+      return response()->json($profile);
+    }
+  }
+
+  public function index()
 	{
 
 	}
-
-  public function letter_validate(Request $request){
-    //dd($request->id);
-    $profiles = Profile::find($request->id);
-    $profiles->title = $request->title;
-
-    return response ()->json($profiles);
-  }
 
 	public function create()
 	{

@@ -10,67 +10,42 @@ $(document).ready(function () {
         var tutores = $(this).data('tutors');
         tutores.forEach(tutor => {
             $('#carta_tutor_1').text("Carta de Tutor: "
-                                    +tutor.name+" "
-                                    +tutor.last_name_father+" "
-                                    +tutor.last_name_mother);
+                + tutor.name + " "
+                + tutor.last_name_father + " "
+                + tutor.last_name_mother);
         });
-        
+
         if ($(this).data('modality') == "Adscripción"
             || $(this).data('modality') == "Trabajo Dirigido") {
             $('#check_modality').show();
-            $('#carta_modality').text("Carta de Modalidad: "+ $(this).data('modality'));
-        }else{
+            $('#carta_modality').text("Carta de Modalidad: " + $(this).data('modality'));
+        } else {
             $('#check_modality').hide();
+            $('#value_4').prop('checked', true);
         }
-
-
-
-        /*
-        tutores.forEach(element => {
-            $('#yourTable').find('td').each(function(i,obj){
-                $(obj).append('<input type="checkbox" id="checkbox'+i+'" name="checkbox'+i+'">');
-              });
-        });*/
-
-    })
-});
-
-  //     
-/*
-check_modality
-        
-        $("#boton_asignar_tribunal").click(function () {
-            $.ajax({
-                type: 'GET',
-                url: 'validar_cartas',
-                data: {
-                    'id': $(this).data('id'),
-                    'title': $(this).data('title')
-                },
-                success: function (data) {
-
-                },
-            });
-        });
-
     });
-*/
-    //$('#boton_asignar_tribunal').on('click','#validar_cartas');
+    $(document).on('click', '#boton_continuar', function () {
 
-/*function letter_validate(id){
-    var route = "{{url('perfiles')}}/"+id+"letter_validate";
-    alert(route);
-    $('#check_profile_letter').val($(this).data("profile"));
-    //alert(id);
+        $.ajax({
+            method: 'post',
+            url: 'verificar_cartas',
+            dataType: 'JSON',
+            data: {
+                'id_profile': $(this).data('id'),
+                'letter_tutor': $('#value_2').prop('checked'),
+                'letter_teacher': $('#value_1').prop('checked'),
+                'letter_modality': $('#value_4').prop('checked')
+            },
+            success: function (data) {
+                console.log(data);
+                alert(data);
+                if (data.errors) {
+                    window.location.replace('lista_perfiles');
 
-    $.get(route, function (data) {
-        alert(id);
-    })
-}
-*/
- // $(document).on('click', '#boton_finalizar_tribunal', function() {
-   // alert(profile.id);
-
-    //$('#check_profile_letter_modal input #profile').val($(this).data("profile"));
-    //{{ route ('asignacion',[$profile->id]) }}
- // });
+                } else {
+                    window.location.replace('asignacion' + $(this).data('id'));
+                }
+            }
+        });
+    });
+});

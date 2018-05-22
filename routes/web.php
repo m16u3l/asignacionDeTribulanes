@@ -14,7 +14,7 @@ Route::get('/perfiles/finalizados', [
     'as' => 'list_profile_finalized',
     'uses' => "ProfileController@list_profile_finalized"]);
 
-Route::post('/perfiles/{id}', [
+Route::get('/perfiles/{id}', [
     'as' => 'asignacion',
     'uses' => "ProfessionalController@index"]);
 
@@ -26,9 +26,7 @@ Route::post('/finalizar_perfil', [
     'as' => 'finalizar_perfil',
     'uses' => "ProfileController@finalizar_perfil"]);
 
-Route::get('/verificar', [
-    'as' => 'verificar_cartas',
-    'uses' => "ProfileController@letter_validate"]);
+Route::post('verificar_cartas', 'ProfileController@letter_validate');
 
 /*store_rejection_request
  Rutas de solicitud de renuncia
