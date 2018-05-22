@@ -14,12 +14,10 @@
       <div class="offset-md-1 col-md-10">
         <br>
         <br>
-
         <div class="row">
           <div class="offset-md-4 col-md-6">
             <a id="boton_register_professional" href="#" class="btn btn-md btn-rounded btn-info" data-toggle="modal" data-target="#register_professinal_modal"
               >NUEVO PROFESIONAL</a>
-
           </div>
         </div>
 
@@ -33,7 +31,6 @@
             </div>
           </form>
         </div>
-
         <br>
         <div class="panel-body">
           {{$professionals->total()}} registros |
@@ -41,7 +38,6 @@
             de {{ $professionals->lastPage() }}
          </div>
         <br>
-
         @if ( empty($professionals[0]))
         <h5 class="h5 text-center">No se encontró profesionales</h5>
         @else @foreach($professionals as $professional)
@@ -82,7 +78,6 @@
             </div>
           </div>
         </div>
-
         @endforeach @endif
       </div>
     </div>

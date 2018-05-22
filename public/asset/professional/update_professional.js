@@ -57,4 +57,9 @@
        }
    });
      });
+
+  $("#cancel_edit_professional").on('click', function(){
+    $('#update_professinal_modal').modal('toggle');
+  });
+
  });

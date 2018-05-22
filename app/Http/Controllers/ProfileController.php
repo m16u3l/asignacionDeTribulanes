@@ -27,8 +27,8 @@ class ProfileController extends Controller
 
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
-					->search_by_title_or_student($request->name)
-					->paginate(10);
+			->search_by_title_or_student($request->name)
+			->paginate(10);
 		return view('profile.profile_list', compact('profiles'));
 	}
 
@@ -37,9 +37,9 @@ class ProfileController extends Controller
 		$state = State::where('name','finalized')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-													->search_by_title_or_student($request->name)
-													->orderBy('title')
-													->paginate(5);
+				->search_by_title_or_student($request->name)
+				->orderBy('title')
+				->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
@@ -51,14 +51,12 @@ class ProfileController extends Controller
 		$state = State::where('name','assigned')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-													->search_by_title_or_student($request->name)
-													->orderBy('title')
-								        	->paginate(5);
+				->search_by_title_or_student($request->name)
+				->orderBy('title')
+				->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
-
-
 		return view('profile.list_profile_assigned', compact('profiles'));
 	}
 

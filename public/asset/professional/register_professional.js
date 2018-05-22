@@ -38,4 +38,17 @@ form = $("#register");
       }
   });
 });
+$("#cancel_register_professional").on('click', function(){
+  
+  $("#name").val("");
+  $("#last_name_father").val("");
+  $("#last_name_mother").val("");
+  $("#ci").val("");
+  $("#cod_sis").val("");
+  $("#email").val("");
+  $("#phone").val("");
+  $("#address").val("");
+  $("#degree").val("");
+  $('#register_professinal_modal').modal('toggle');
+});
 });

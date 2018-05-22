@@ -11,7 +11,7 @@
             <form action="/registrar_profesional" method="POST" id="update">
             	{{ csrf_field() }}
               <div class="">
-                <input class="form-control" name="id" id="edit_id" type="text" value=""/>
+                <input class="form-control" name="id" id="edit_id" type="hidden" value=""/>
               </div>
             	<div class="row">
             	  <div class="offset-lg-2 col-lg-4">
@@ -58,8 +58,6 @@
                     <option value="Tiempo Parcial">Tiempo Parcial</option>
                   </select>
             	  </div>
-
-
             	</div>
 
               <div class="row">
@@ -68,6 +66,7 @@
                   <input class="form-control" name="email" id="edit_email" type="text" value=""/>
                 </div>
               </div>
+
               <div class="row">
                 <div class="offset-lg-2 col-lg-8">
                   <label for="">telefono</label>
@@ -81,13 +80,10 @@
                   <input class="form-control" name="address" id="edit_address" type="text" value=""/>
                 </div>
               </div>
-
-
             	<br/>
-            	<button class="row offset-lg-2 col-lg-2 btn btn-success" id="update1" type="submit"> Acualizar</button>
-
-          </form>
-
+            	<button class="row offset-lg-4 col-lg-2 btn btn-success" id="update1" type="submit"> Guardar</button>
+              <button class=" col-lg-2 btn btn-danger" id="cancel_edit_professional" type="button"> Volver</button>
+            </form>
           </div>
         </div>
       </div>

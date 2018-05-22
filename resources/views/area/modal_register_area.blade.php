@@ -23,14 +23,10 @@
                   <label for="">descripcion:</label>
                   <textarea class="form-control" rows="5"name="description" id="description"></textarea>
                 </div>
-
             	</div>
-
             	<br/>
             	<button class="row offset-lg-2 col-lg-2 btn btn-primary" id="button_register_area" type="submit"> Registrar</button>
-
           </form>
-
           </div>
         </div>
       </div>

@@ -9,7 +9,6 @@
 
 @section('content')
 <div class="col">
-
   <div class="container" id="area_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
@@ -27,12 +26,10 @@
             pagina {{ $areas->currentPage() }}
             de {{ $areas->lastPage() }}
         </div>
-
         <br>
         @if ( empty($areas[0]))
         <h5 class="h5 text-center">No se encontró areas</h5>
         @else @foreach($areas as $area)
-
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
@@ -40,7 +37,6 @@
                 <div class="col-lg-11" data-toggle="collapse" href="#{{$area->name}}">
                   <h6 class="titleColor">{{$area->name}}</h6>
                 </div>
-
               </div>
             </div>
           </div>
