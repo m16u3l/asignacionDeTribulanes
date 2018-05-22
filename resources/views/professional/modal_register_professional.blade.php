@@ -77,8 +77,8 @@
                 </div>
               </div>
               <br/>
-            	<button class="row offset-lg-4 col-lg-2 btn btn-primary" id="register1" type="submit"> Registrar</button>
-              <button class=" col-lg-2 btn btn-danger" id="cancel_register_professional" type="button"> Volver</button>
+            	<button class="row offset-lg-4 col-lg-2 btn bg-theme-4" id="register1" type="submit"> Registrar</button>
+              <button class=" col-lg-2 btn bg-theme-1" id="cancel_register_professional" type="button"> Volver</button>
             </form>
           </div>
         </div>

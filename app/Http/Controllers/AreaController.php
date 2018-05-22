@@ -16,7 +16,7 @@ class AreaController extends Controller
 {
   public function areas_list(Request $request){
 		$areas = Area::orderBy('name')
-					->paginate(10);
+					->paginate(18);
 		return view('area.areas_list', compact('areas'));
 	}
   public function create(Request $request){
