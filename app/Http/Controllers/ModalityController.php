@@ -7,79 +7,39 @@ use Illuminate\Http\Request;
 
 class ModalityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  public function index()
+  {
+    //
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function create()
+  {
+    //
+  }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\modality  $modality
-     * @return \Illuminate\Http\Response
-     */
-    public function show(modality $modality)
-    {
-        //
-    }
+  public function store(Request $request)
+  {
+    //
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\modality  $modality
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(modality $modality)
-    {
-        //
-    }
+  public function show(modality $modality)
+  {
+    //
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\modality  $modality
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, modality $modality)
-    {
-        //
-    }
+  public function edit(modality $modality)
+  {
+    //
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\modality  $modality
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(modality $modality)
-    {
-        //
-    }
+  public function update(Request $request, modality $modality)
+  {
+    //
+  }
+
+  public function destroy(modality $modality)
+  {
+    //
+  }
 }

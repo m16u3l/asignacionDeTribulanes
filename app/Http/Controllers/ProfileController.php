@@ -20,51 +20,51 @@ use Illuminate\Support\Facades\Input;
 class ProfileController extends Controller
 {
 	public function solicitud_rununcia($id){
-    $profile = Profile::find($id);
-    $url = '/rejection_request';
-    $area = $profile->areas->first();
-    $courts=DB::table('professionals')
-           ->join('courts', 'professionals.id', '=', 'courts.professional_id')
-           ->select('professionals.*')
-           ->where('courts.profile_id', '=', $profile->id)
-           ->orderBy('count')
-           ->get();
-    $professionals = DB::table('professionals')
-                   ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
-                   ->select('professionals.*')
-                   ->where('area_interests.area_id', '=', $area->id)
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                ->select('professionals.id')
-                                ->where('tutors.profile_id', '=', $profile->id))
-                   ->whereNotIn('professionals.id', DB::table('professionals')
-                                ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                ->select('professionals.id')
-                                ->where('courts.profile_id', '=', $profile->id))
-                   ->orderBy('count')
-                   ->get();
-    $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-                                                 ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-                                                 ->select('professionals.id')
-                                                 ->where('tutors.profile_id', '=', $profile->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('area_interests.area_id', '=', $area->id))
-                      ->whereNotIn('professionals.id', DB::table('professionals')
-                                   ->join('courts','professionals.id', '=', 'courts.professional_id')
-                                   ->select('professionals.id')
-                                   ->where('courts.profile_id', '=', $profile->id))
-                      ->orderBy('count')
-                      ->get();
+		$profile = Profile::find($id);
+		$url = '/rejection_request';
+		$area = $profile->areas->first();
+		$courts=DB::table('professionals')
+		->join('courts', 'professionals.id', '=', 'courts.professional_id')
+		->select('professionals.*')
+		->where('courts.profile_id', '=', $profile->id)
+		->orderBy('count')
+		->get();
+		$professionals = DB::table('professionals')
+		->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
+		->select('professionals.*')
+		->where('area_interests.area_id', '=', $area->id)
+		->whereNotIn('professionals.id', DB::table('professionals')
+		->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+		->select('professionals.id')
+		->where('tutors.profile_id', '=', $profile->id))
+		->whereNotIn('professionals.id', DB::table('professionals')
+		->join('courts','professionals.id', '=', 'courts.professional_id')
+		->select('professionals.id')
+		->where('courts.profile_id', '=', $profile->id))
+		->orderBy('count')
+		->get();
+		$allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
+		->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+		->select('professionals.id')
+		->where('tutors.profile_id', '=', $profile->id))
+		->whereNotIn('professionals.id', DB::table('professionals')
+		->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+		->select('professionals.id')
+		->where('area_interests.area_id', '=', $area->id))
+		->whereNotIn('professionals.id', DB::table('professionals')
+		->join('courts','professionals.id', '=', 'courts.professional_id')
+		->select('professionals.id')
+		->where('courts.profile_id', '=', $profile->id))
+		->orderBy('count')
+		->get();
 
 		return view('profile.solicitud_rununcia', compact('url','profile','courts', 'professionals','allProfessionals'));
 	}
 
 	public function profiles_list(Request $request){
 		$profiles = Profile::orderBy('title')
-      ->search_by_title_or_student($request->name)
-			->paginate(10);
+		->search_by_title_or_student($request->name)
+		->paginate(10);
 		return view('profile.profile_list', compact('profiles'));
 	}
 
@@ -73,9 +73,9 @@ class ProfileController extends Controller
 		$state = State::where('name','finalized')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-				->search_by_title_or_student($request->name)
-				->orderBy('title')
-				->paginate(5);
+			->search_by_title_or_student($request->name)
+			->orderBy('title')
+			->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
@@ -87,9 +87,9 @@ class ProfileController extends Controller
 		$state = State::where('name','assigned')->first();
 		if($state!=null){
 			$profiles = Profile::where('state_id',$state->id)
-				->search_by_title_or_student($request->name)
-				->orderBy('title')
-				->paginate(5);
+			->search_by_title_or_student($request->name)
+			->orderBy('title')
+			->paginate(5);
 		}else{
 			$profiles = Profile::paginate(5);
 		}
@@ -100,37 +100,37 @@ class ProfileController extends Controller
 	{
 		$state = State::where('name','approved')->first();
 		if($state!=null){
-		$profiles = Profile::where('state_id',$state->id)
-											->search_by_title_or_student($request->name)
-											->orderBy('title')
-											->paginate(5);
-	}else{
-		$profiles = Profile::paginate(5);
-	}
-		 return view('profile.list_profile', compact('profiles'));
+			$profiles = Profile::where('state_id',$state->id)
+			->search_by_title_or_student($request->name)
+			->orderBy('title')
+			->paginate(5);
+		}else{
+			$profiles = Profile::paginate(5);
+		}
+		return view('profile.list_profile', compact('profiles'));
 	}
 
 	public function finalizar_perfil(Request $request)
 	{
-	  	$profile = Profile::find($request->profile_id);
+		$profile = Profile::find($request->profile_id);
 
-      $now = new \DateTime();
+		$now = new \DateTime();
 
-			$state = State::where('name','finalized')->first();
+		$state = State::where('name','finalized')->first();
 
-			$profile1 = Profile::find($request->profile_id);
-      $profile1->state_id=$state->id;
-			$profile1->save();
+		$profile1 = Profile::find($request->profile_id);
+		$profile1->state_id=$state->id;
+		$profile1->save();
 
-			$dates = Date::where('profile_id','=',$profile->id)->first();
-      $dates->finalized = $now;
-			$dates->defended = $request->date_defended;
-      $dates->save();
+		$dates = Date::where('profile_id','=',$profile->id)->first();
+		$dates->finalized = $now;
+		$dates->defended = $request->date_defended;
+		$dates->save();
 
-			foreach ($profile->courts as &$professional) {
-				DB::table('professionals')->where('id', $professional->id)->decrement('count');
-	 		}
-			return redirect('perfiles/asignados');
+		foreach ($profile->courts as &$professional) {
+			DB::table('professionals')->where('id', $professional->id)->decrement('count');
+		}
+		return redirect('perfiles/asignados');
 	}
 
 	public function index()
@@ -151,10 +151,10 @@ class ProfileController extends Controller
 	public function show($id)
 	{
 		$profile = Profile::find($id);
-    $view = view('profile.profile_report', compact('profile'));
-    $pdf = \App::make('dompdf.wrapper');
-    $pdf->loadHtml($view);
-    return $pdf->stream('$profile');
+		$view = view('profile.profile_report', compact('profile'));
+		$pdf = \App::make('dompdf.wrapper');
+		$pdf->loadHtml($view);
+		return $pdf->stream('$profile');
 	}
 
 	public function edit($id)
@@ -173,170 +173,170 @@ class ProfileController extends Controller
 	}
 
 	public function upload_profiles($value='')
-    {
-      return view('import.import_profiles');
-    }
+	{
+		return view('import.import_profiles');
+	}
 
-    public function import_profiles(Request $request)
-    {
-       $salto = chr(13).chr(10);
-       $file = Input::file('fileProfiles');
-       $rules = array(
-         'fileProfiles' => 'required|mimes:xlsx',
-          );
-       $messages = array(
-          'required' => 'ningun archivo xlsx seleccionado',
-          'mimes' => 'el archivo debe estar en formato .xlsx',
-       );
-       $validator = Validator::make(Input::all(), $rules, $messages);
-      if ($validator->fails()) {
+	public function import_profiles(Request $request)
+	{
+		$salto = chr(13).chr(10);
+		$file = Input::file('fileProfiles');
+		$rules = array(
+			'fileProfiles' => 'required|mimes:xlsx',
+		);
+		$messages = array(
+			'required' => 'ningun archivo xlsx seleccionado',
+			'mimes' => 'el archivo debe estar en formato .xlsx',
+		);
+		$validator = Validator::make(Input::all(), $rules, $messages);
+		if ($validator->fails()) {
 
-          return redirect('import_profiles')->withErrors($validator);
+			return redirect('import_profiles')->withErrors($validator);
 
-      } else if(!$this->valid_document($file)) {
+		} else if(!$this->valid_document($file)) {
 
-          return redirect('import_profiles')->with('bad_status', 'Documento invalido');
+			return redirect('import_profiles')->with('bad_status', 'Documento invalido');
 
-      } else if($validator->passes()) {
+		} else if($validator->passes()) {
 
-      	Excel::load($file, function($reader)
-        {
-       	  foreach ($reader->get() as $key => $value) {
+			Excel::load($file, function($reader)
+			{
+				foreach ($reader->get() as $key => $value) {
 
-            $modality = Modality::where('name', $value->modalidad_titulacion)->first();
-            $now = new \DateTime();
+					$modality = Modality::where('name', $value->modalidad_titulacion)->first();
+					$now = new \DateTime();
 
-            if(is_null($modality)) {
-              $modality = new Modality();
-              $modality->name = $value->modalidad_titulacion;
-              $modality->description = "";
-              $modality->save();
-            }
+					if(is_null($modality)) {
+						$modality = new Modality();
+						$modality->name = $value->modalidad_titulacion;
+						$modality->description = "";
+						$modality->save();
+					}
 
-            $profile = Profile::where('title', $value->titulo_proyecto_final)
-                  ->where('objective', $value->objetivo_general)
-                  ->first();
+					$profile = Profile::where('title', $value->titulo_proyecto_final)
+					->where('objective', $value->objetivo_general)
+					->first();
 
-            $student = Student::where('name', $value->nombre_postulante)
-                  ->where('last_name_father', $value->apellido_paterno_postulante)
-                  ->where('last_name_mother', $value->apellido_materno_postulante)
-                  ->where('career', $value->carrera)
-                  ->first();
+					$student = Student::where('name', $value->nombre_postulante)
+					->where('last_name_father', $value->apellido_paterno_postulante)
+					->where('last_name_mother', $value->apellido_materno_postulante)
+					->where('career', $value->carrera)
+					->first();
 
-            $professional_tutor = Professional::where('name', $value->nombre_tutor)
-                    ->where('last_name_father', $value->apellido_paterno_tutor)
-                  //->where('last_name_mother', $value->apellido_materno_tutor)
-                    ->first();
+					$professional_tutor = Professional::where('name', $value->nombre_tutor)
+					->where('last_name_father', $value->apellido_paterno_tutor)
+					//->where('last_name_mother', $value->apellido_materno_tutor)
+					->first();
 
-            $area = Area::where('name', $value->area)->first();
+					$area = Area::where('name', $value->area)->first();
 
-            if(!is_null($professional_tutor)) {
+					if(!is_null($professional_tutor)) {
 
-              if(is_null($profile)) {
+						if(is_null($profile)) {
 
-                $state = State::where('name', 'initiated')->first();
+							$state = State::where('name', 'initiated')->first();
 
-                if(is_null($state)) {
-                  $state = new State();
-                  $state->name = 'initiated';
-                  $state->save();
+							if(is_null($state)) {
+								$state = new State();
+								$state->name = 'initiated';
+								$state->save();
 
-                  $state = new State();
-                  $state->name = 'approved';
-                  $state->save();
+								$state = new State();
+								$state->name = 'approved';
+								$state->save();
 
-                  $state = new State();
-                  $state->name = 'assigned';
-                  $state->save();
+								$state = new State();
+								$state->name = 'assigned';
+								$state->save();
 
-                  $state = new State();
-                  $state->name = 'finalized';
-                  $state->save();
+								$state = new State();
+								$state->name = 'finalized';
+								$state->save();
 
-                  $state = new State();
-                  $state->name = 'defended';
-                  $state->save();
+								$state = new State();
+								$state->name = 'defended';
+								$state->save();
 
-                  $state = new State();
-                  $state->name = 'abandoned';
-                  $state->save();
+								$state = new State();
+								$state->name = 'abandoned';
+								$state->save();
 
-                }
+							}
 
-//                $academic_term = new AcademicTerm();
-//                $academic_term->date_ini = $now->format('d-m-Y');
-//                $academic_term->date_fin = $now->format('d-m-Y');
-//                $academic_term->period = 1;
-//                $academic_term->save();
-
-
-                $profile = new Profile();
-                $profile->title = $value->titulo_proyecto_final;
-                $profile->objective = $value->objetivo_general;
-                $profile->modality_id  = $modality->id;
-                $profile->state_id = $state->id;
-//                $profile->academic_term_id = $academic_term->id;
-                //$profile->area_id = $area->id;
-                $profile->save();
+							//                $academic_term = new AcademicTerm();
+							//                $academic_term->date_ini = $now->format('d-m-Y');
+							//                $academic_term->date_fin = $now->format('d-m-Y');
+							//                $academic_term->period = 1;
+							//                $academic_term->save();
 
 
-                $area->profiles()->attach($profile->id);
+							$profile = new Profile();
+							$profile->title = $value->titulo_proyecto_final;
+							$profile->objective = $value->objetivo_general;
+							$profile->modality_id  = $modality->id;
+							$profile->state_id = $state->id;
+							//                $profile->academic_term_id = $academic_term->id;
+							//$profile->area_id = $area->id;
+							$profile->save();
 
 
-                if (!is_null($student)) {
-                  $student->profiles()->attach($profile->id);
-                }
+							$area->profiles()->attach($profile->id);
 
-                $date = new Date();
-                $date->initiated = $now;
-                $date->profile_id = $profile->id;
-                $date->save();
 
-                $professional_tutor->profiles_tutors()->attach($profile->id);
+							if (!is_null($student)) {
+								$student->profiles()->attach($profile->id);
+							}
 
-              }
+							$date = new Date();
+							$date->initiated = $now;
+							$date->profile_id = $profile->id;
+							$date->save();
 
-              if (is_null($student)) {
-                $student = new Student();
-                $student->name = $value->nombre_postulante;
-                $student->last_name_father = $value->apellido_paterno_postulante;
-                $student->last_name_mother = $value->apellido_materno_postulante;
-                $student->career = $value->carrera;
-                $student->save();
+							$professional_tutor->profiles_tutors()->attach($profile->id);
 
-                $student->profiles()->attach($profile->id);
-              }
-            }
-          }
-        });
-      	return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.' );
-    	}
-    }
+						}
 
-    public function valid_document($file)
-    {
-    	$valid = False;
-    	Excel::load($file, function($reader) use (&$valid) {
-    	  $rs = $reader->get();
-          $row = $rs[0];
-          $headers = $row->keys();
-          if( $headers[0] == 'titulo_proyecto_final' &&
-              $headers[1] == 'nombre_tutor' &&
-              $headers[2] == 'apellido_paterno_tutor' &&
-              $headers[3] == 'apellido_materno_tutor' &&
-              $headers[4] == 'nombre_postulante' &&
-              $headers[5] == 'apellido_paterno_postulante' &&
-              $headers[6] == 'apellido_materno_postulante' &&
-              $headers[7] == 'objetivo_general' &&
-              $headers[8] == 'area' &&
-              $headers[9] == 'modalidad_titulacion' &&
-              $headers[10] =='carrera') {
+						if (is_null($student)) {
+							$student = new Student();
+							$student->name = $value->nombre_postulante;
+							$student->last_name_father = $value->apellido_paterno_postulante;
+							$student->last_name_mother = $value->apellido_materno_postulante;
+							$student->career = $value->carrera;
+							$student->save();
 
-             $valid = True;
+							$student->profiles()->attach($profile->id);
+						}
+					}
+				}
+			});
+			return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.' );
+		}
+	}
 
-          }
-    	});
+	public function valid_document($file)
+	{
+		$valid = False;
+		Excel::load($file, function($reader) use (&$valid) {
+			$rs = $reader->get();
+			$row = $rs[0];
+			$headers = $row->keys();
+			if( $headers[0] == 'titulo_proyecto_final' &&
+			$headers[1] == 'nombre_tutor' &&
+			$headers[2] == 'apellido_paterno_tutor' &&
+			$headers[3] == 'apellido_materno_tutor' &&
+			$headers[4] == 'nombre_postulante' &&
+			$headers[5] == 'apellido_paterno_postulante' &&
+			$headers[6] == 'apellido_materno_postulante' &&
+			$headers[7] == 'objetivo_general' &&
+			$headers[8] == 'area' &&
+			$headers[9] == 'modalidad_titulacion' &&
+			$headers[10] =='carrera') {
 
-    	return $valid;
-    }
+				$valid = True;
+
+			}
+		});
+
+		return $valid;
+	}
 }

@@ -19,12 +19,12 @@ class Professional extends Model
   ];
 
   /**
-   *  buscar profesionales por nombre
-   */
+  *  buscar profesionales por nombre
+  */
   public function scopeSearch_by_name($query, $name)
   {
     $query -> where(\DB::raw("concat(name, ' ', last_name_father, ' ',
-      last_name_mother)"), 'ilike','%'.$name.'%');
+    last_name_mother)"), 'ilike','%'.$name.'%');
   }
 
   public function degree()
@@ -33,7 +33,7 @@ class Professional extends Model
   }
   public function contact()
   {
-    return $this->hasOne('App\Contact');
+    return $this->hasone('App\Contact');
   }
   public function profiles_courts()
   {

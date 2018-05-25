@@ -18,73 +18,65 @@ class Profile extends Model
   public function scopeSearch_by_title_or_student($query, $name='')
   {
     if (trim($name) != '') {
-           $this->_searchName = $name;
-           $query -> where('title', 'ilike',"%$name%")
-               ->orWhereHas('students', function($query){
-                    $name = $this->_searchName;
-                  $query->where(\DB::raw("concat(name, ' ', last_name_father, ' ',
-                  last_name_mother)"),'ilike',"%$name%");
-               }
-             );
-       }
+      $this->_searchName = $name;
+      $query -> where('title', 'ilike',"%$name%")
+      ->orWhereHas('students', function($query){
+        $name = $this->_searchName;
+        $query->where(\DB::raw("concat(name, ' ', last_name_father, ' ',
+        last_name_mother)"),'ilike',"%$name%");
+      }
+    );
   }
-  public function scopeLetters($query)
-  {
-    $query ->where('letter', '=', 'true' );
-          /* ->whereHas('mastutors', function($query){
-             $query->where('letter','true' );
-           }
-         );*/
-  }
+}
 
-  public function academic_term()
-  {
-    return $this->belongsTo('App\AcademicTerm');
-  }
+public function academic_term()
+{
+  return $this->belongsTo('App\AcademicTerm');
+}
 
-  public function modality()
-  {
-    return $this->belongsTo('App\Modality');
-  }
+public function modality()
+{
+  return $this->belongsTo('App\Modality');
+}
 
-  public function state()
-  {
-    return $this->belongsTo('App\State');
-  }
+public function state()
+{
+  return $this->belongsTo('App\State');
+}
 
-  public function date()
-  {
-    return $this->hasOne('App\Date');
-  }
+public function date()
+{
+  return $this->hasOne('App\Date');
+}
 
-  public function areas()
-  {
-    return $this->belongsToMany('App\Area','area_perfiles');
-  }
+public function areas()
+{
+  return $this->belongsToMany('App\Area','area_perfiles');
+}
 
-  public function courts()
-  {
-    return $this->belongsToMany('App\Professional','courts');
-  }
+public function courts()
+{
+  return $this->belongsToMany('App\Professional','courts');
+}
 
-  public function tutors()
-  {
-    return $this->belongsToMany('App\Professional','tutors');
-  }
+public function tutors()
+{
+  return $this->belongsToMany('App\Professional','tutors');
+}
 
-  public function students()
-  {
-    return $this->belongsToMany('App\Student','student_profiles');
-  }
+public function students()
+{
+  return $this->belongsToMany('App\Student','student_profiles');
+}
 
-  public function type_changes()
-  {
-    return $this->belongsToMany('App\TypeChange','change_binnacles');
-  }
+public function type_changes()
+{
+  return $this->belongsToMany('App\TypeChange','change_binnacles');
+}
 
-  public function change_courts()
-  {
-    return $this->belongsToMany('App\Professional','rejection_requests');
-  }
+public function change_courts()
+{
+  return $this->belongsToMany('App\Professional','rejection_requests');
+}
 
 }

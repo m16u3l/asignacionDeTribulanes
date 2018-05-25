@@ -11,25 +11,25 @@ a {
 
 body {
   position: relative;
-  height: 29.7cm; 
-  margin: 0 auto; 
+  height: 29.7cm;
+  margin: 0 auto;
   color: #001028;
-  background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
-  font-size: 12px; 
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
   font-family: Arial;
 }
 
 
 .left {
-  width:245px; 
+  width:245px;
   float:left;
   text-align: left;
 }
 
 .rigth {
 
-  width:245px; 
+  width:245px;
   float:right;
   text-align: left;
 }
@@ -73,7 +73,7 @@ table th {
   padding: 5px 20px;
   color: #5D6975;
   border-bottom: 1px solid #C1CED9;
-  white-space: nowrap;        
+  white-space: nowrap;
   font-weight: normal;
 }
 
@@ -101,4 +101,3 @@ table td.total {
 table td.grand {
   border-top: 1px solid #5D6975;;
 }
-

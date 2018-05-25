@@ -32,10 +32,10 @@ class ProfessionalController extends Controller
     $degrees = Degree::all();
 
     $professionals = Professional::orderBy('name')
-      ->search_by_name($request->name)
-      ->paginate(10);
-		return view('professional.professional_list', compact('professionals', 'degrees'));
-	}
+    ->search_by_name($request->name)
+    ->paginate(10);
+    return view('professional.professional_list', compact('professionals', 'degrees'));
+  }
 
   public function index(Request $request, $id)
   {
@@ -43,39 +43,39 @@ class ProfessionalController extends Controller
     $profile = Profile::find($id);
     $area = $profile->areas->first();
     $courts=DB::table('professionals')
-      ->join('courts', 'professionals.id', '=', 'courts.professional_id')
-      ->select('professionals.*')
-      ->where('courts.profile_id', '=', $profile->id)
-      ->orderBy('count')
-      ->get();
+    ->join('courts', 'professionals.id', '=', 'courts.professional_id')
+    ->select('professionals.*')
+    ->where('courts.profile_id', '=', $profile->id)
+    ->orderBy('count')
+    ->get();
     $professionals = DB::table('professionals')
-      ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
-      ->select('professionals.*')
-      ->where('area_interests.area_id', '=', $area->id)
-      ->whereNotIn('professionals.id', DB::table('professionals')
-        ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-        ->select('professionals.id')
-        ->where('tutors.profile_id', '=', $profile->id))
-      ->whereNotIn('professionals.id', DB::table('professionals')
-        ->join('courts','professionals.id', '=', 'courts.professional_id')
-        ->select('professionals.id')
-        ->where('courts.profile_id', '=', $profile->id))
-      ->orderBy('count')
-      ->get();
+    ->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
+    ->select('professionals.*')
+    ->where('area_interests.area_id', '=', $area->id)
+    ->whereNotIn('professionals.id', DB::table('professionals')
+    ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+    ->select('professionals.id')
+    ->where('tutors.profile_id', '=', $profile->id))
+    ->whereNotIn('professionals.id', DB::table('professionals')
+    ->join('courts','professionals.id', '=', 'courts.professional_id')
+    ->select('professionals.id')
+    ->where('courts.profile_id', '=', $profile->id))
+    ->orderBy('count')
+    ->get();
     $allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
-      ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
-      ->select('professionals.id')
-      ->where('tutors.profile_id', '=', $profile->id))
-      ->whereNotIn('professionals.id', DB::table('professionals')
-        ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
-        ->select('professionals.id')
-        ->where('area_interests.area_id', '=', $area->id))
-      ->whereNotIn('professionals.id', DB::table('professionals')
-        ->join('courts','professionals.id', '=', 'courts.professional_id')
-        ->select('professionals.id')
-        ->where('courts.profile_id', '=', $profile->id))
-      ->orderBy('count')
-      ->get();
+    ->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
+    ->select('professionals.id')
+    ->where('tutors.profile_id', '=', $profile->id))
+    ->whereNotIn('professionals.id', DB::table('professionals')
+    ->join('area_interests','professionals.id', '=', 'area_interests.professional_id')
+    ->select('professionals.id')
+    ->where('area_interests.area_id', '=', $area->id))
+    ->whereNotIn('professionals.id', DB::table('professionals')
+    ->join('courts','professionals.id', '=', 'courts.professional_id')
+    ->select('professionals.id')
+    ->where('courts.profile_id', '=', $profile->id))
+    ->orderBy('count')
+    ->get();
     return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
   }
 
@@ -89,7 +89,7 @@ class ProfessionalController extends Controller
     $profile = Profile::find($profile_id);
     $profile->courts()->detach($professional_id);
     $state = State::where('name','approved')->first();
-    
+
     DB::table('profiles')->where('id', $profile_id)->decrement('count');
     $rejection_request = new RejectionRequest;
     $rejection_request->description=$description;
@@ -197,6 +197,7 @@ class ProfessionalController extends Controller
     $messages = null;
     return view('import.import_professionals', compact('messages'));
   }
+
   public function import_professionals(Request $request)
   {
     $file = Input::file('fileProfessionals');
@@ -223,8 +224,8 @@ class ProfessionalController extends Controller
           $prof = Professional::where('ci', $value->ci)->first();
           if(is_null($prof)) {
             if (!is_null($value->nombre) &&
-                !is_null($value->apellido_materno) &&
-                !is_null($value->apellido_paterno)) {
+            !is_null($value->apellido_materno) &&
+            !is_null($value->apellido_paterno)) {
 
               $degree = Degree::where('acronym', $value->titulo_docente)->first();
 
@@ -267,18 +268,18 @@ class ProfessionalController extends Controller
       $row = $rs[0];
       $headers = $row->keys();
       if( $headers[0] == 'nombre' &&
-          $headers[1] == 'apellido_paterno' &&
-          $headers[2] == 'apellido_materno' &&
-          $headers[3] == 'correo' &&
-          $headers[4] == 'titulo_docente' &&
-          $headers[5] == 'carga_horaria' &&
-          $headers[6] == 'nombre_cuenta' &&
-          $headers[7] == 'telefono' &&
-          $headers[8] == 'direccion' &&
-          $headers[9] == 'perfil' &&
-          $headers[10] == 'contrasena_cuenta' &&
-          $headers[11] == 'ci' &&
-          $headers[12] == 'cod_sis') {
+      $headers[1] == 'apellido_paterno' &&
+      $headers[2] == 'apellido_materno' &&
+      $headers[3] == 'correo' &&
+      $headers[4] == 'titulo_docente' &&
+      $headers[5] == 'carga_horaria' &&
+      $headers[6] == 'nombre_cuenta' &&
+      $headers[7] == 'telefono' &&
+      $headers[8] == 'direccion' &&
+      $headers[9] == 'perfil' &&
+      $headers[10] == 'contrasena_cuenta' &&
+      $headers[11] == 'ci' &&
+      $headers[12] == 'cod_sis') {
 
         $valid = True;
       }

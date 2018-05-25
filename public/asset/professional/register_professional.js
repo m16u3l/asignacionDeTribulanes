@@ -10,7 +10,7 @@ $(document).ready(function(){
     response = _email_validate($('#email').val());
     _show_message(response);
   });
-  
+
   // Register new professional Ajax
   $("#register1").on('click', function(e){
     e.preventDefault();
@@ -40,7 +40,7 @@ $(document).ready(function(){
       }
     });
   });
-  
+
   // Clean modal register professional
   $("#cancel_register_professional").on('click', function(){
     $("#name").val("");
@@ -54,17 +54,16 @@ $(document).ready(function(){
     $("#degree").val("");
     $('#register_professinal_modal').modal('toggle');
   });
-  
-  
+
   // Private methods
   function _email_validate(input) {
     console.log(input);
     var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
     if (input.match(numericExpression))
-      return true;
+    return true;
     return false;
   }
-  
+
   function _show_message(response) {
     if (!response) {
       swal({
@@ -78,4 +77,3 @@ $(document).ready(function(){
     }
   }
 });
-
