@@ -15,7 +15,7 @@ class CreateTypeLettersTable extends Migration
     {
         Schema::create('type_letters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('name');
+            $table->String('name');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -21,10 +21,10 @@
             	<div class="row container" id="div_letter">
 
             	</div>
-              
+
               <label for="">carta de docente</label>
               <br>
-              <button class="row offset-lg-8 col-lg-2 btn btn-danger" id="register1" type="submit"> cancelar</button>
+              <button class="row offset-lg-8 col-lg-2 btn btn-danger" id="register1" type="button" data-dismiss="modal"> cancelar</button>
 
             </form>
           </div>
