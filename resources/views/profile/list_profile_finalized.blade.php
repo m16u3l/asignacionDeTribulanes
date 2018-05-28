@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div>
-                  {!! link_to_route('reporte', $title='Reporte', $parameters = $profile->id, $attributes = ['class'=>'btn btn-info']) !!}
+                  {!! link_to_route('reporte', $title='Reporte', $parameters = $profile->id, $attributes = ['class'=>'btn bg-theme-4']) !!}
                 </div>
               </div>
             </div>

@@ -1,12 +1,12 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
   <title>Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
   <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
- 
+
 @section('content')
 <div class="col">
   <div class="container" id="professional_list">
@@ -98,7 +98,7 @@
 @include('professional.modal_update_professional')
 
 @endsection
- 
+
 @section('child_js')
   <script type="text/javascript" src="{{ url('asset/professional/update_professional.js')}}"></script>
   <script type="text/javascript" src="{{ url('asset/professional/register_professional.js')}}"></script>

@@ -1,12 +1,12 @@
-@extends('layouts.base') 
+@extends('layouts.base')
 @section('head')
 <title>Asignacion de Tribunales UMSS</title>
 @endsection
- 
+
 @section('child_css')
 <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
 @endsection
- 
+
 @section('content')
 <div class="col">
   <div class="container" id="area_list">
@@ -22,7 +22,8 @@
         <div class="d-inline offset-md-7">
           <a id="boton_register_area" href="#" class="btn btn-md btn-rounded bg-theme-4" data-toggle="modal" data-target="#register_area_modal">NUEVA AREA</a>
         </div>
-        <br> @if ( empty($areas[0]))
+        <br><br>
+        @if ( empty($areas[0]))
         <h5 class="h5 text-center">No se encontró areas</h5>
         @else
         <div class="row">
@@ -57,7 +58,7 @@
 </div>
   @include('area.modal_register_area')
 @endsection
- 
+
 @section('child_js')
 
 <script type="text/javascript" src="{{ url('asset/area/register_area.js')}}"></script>

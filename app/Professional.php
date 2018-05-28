@@ -31,10 +31,12 @@ class Professional extends Model
   {
     return $this->belongsTo('App\Degree');
   }
+
   public function contact()
   {
     return $this->hasone('App\Contact');
   }
+
   public function profiles_courts()
   {
     return $this->belongsToMany('App\Profile','courts');
@@ -47,9 +49,12 @@ class Professional extends Model
 
   public function profiles_tutors()
   {
-    return $this->belongsToMany('App\Profile','tutors');
+    return $this->belongsToMany('App\Profile','tutors')->withPivot('id','letter');
   }
-
+  public function letter_profile()
+  {
+    return $this->belongsToMany('App\Profile','letters');
+  }
   public function type_changes()
   {
     return $this->belongsToMany('App\TypeChange','change_binnacles');

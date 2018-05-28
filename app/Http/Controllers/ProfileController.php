@@ -13,6 +13,7 @@ use App\Professional;
 use App\Profile;
 use App\Date;
 use App\State;
+use App\Tutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -62,10 +63,47 @@ class ProfileController extends Controller
 	}
 
 	public function profiles_list(Request $request){
+	/*	$profile = Profile::find(2);
+		foreach ($profile->tutors as $menu) {
+     //obteniendo los datos de un menu específico
+     echo $menu->pivot->letter;
+
+		 echo "a";
+		 echo $menu->pivot->profile_id;
+		 echo $menu->pivot->professional_id;
+	 }*/
+
+
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
 		->paginate(10);
 		return view('profile.profile_list', compact('profiles'));
+	}
+	public function registrar_letter(Request $request){
+		$profile=Profile::find($request->profile_id);
+		$tutor=Tutor::where('profile_id',$request->profile_id)
+		->where('professional_id',$request->professional_id)
+		->first();
+		$tutor->letter=$request->valor;
+		$tutor->save();
+
+		$var=false;
+		foreach ($profile->tutors as $tutor) {
+     if($tutor->pivot->letter==true){
+			 $var=true;
+		 }else{
+			 $var=false;
+		 }
+    }
+
+		if($var){
+			$state = State::where('name','approved')->first();
+			$profile1 = Profile::find($request->profile_id);
+			$profile1->state_id=$state->id;
+			$profile1->save();
+			$response = array("name"=>$request->name, "status"=>true);
+		}
+		return response()->json($response);
 	}
 
 	public function list_profile_finalized(Request $request)

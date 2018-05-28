@@ -40,6 +40,10 @@ Route::post('/rejection_request', [
 + Rutas de Importacion
 +*/
 
+Route::post('/registrar_letter', [
+    'as' => 'registrar_letter',
+    'uses' => 'ProfileController@registrar_letter']);
+
 Route::get('import_professionals', [
     'as' => 'import_professionals',
     'uses' => 'ProfessionalController@upload_professionals']);

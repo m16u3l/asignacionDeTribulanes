@@ -60,9 +60,14 @@
                       </div>
                       @endforeach
                     </div>
-                  </div>
+
                 </div>
               </div>
+              <div class="col-lg-1 col-12 text-center row-sm-center">
+                <a href="#" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#letter_modal"
+                onclick="omar({{$profile}},{{$profile->tutors}})"
+                ><i class="fa fa-envelope"></i></a>
+             </div>
             </div>
 
             <div class="card-body collapse" id="{{$profile->title}}">
@@ -129,7 +134,13 @@
     <div class="col-md-3 col-xs-1"></div>
   </div>
 </div>
+
+<script type="text/javascript" src="{{url('asset/profile/letter.js')}}"></script>
+
+@include('profile.modal_register_letter')
+
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{url('asset/profile/letter.js')}}"></script>
 @endsection
