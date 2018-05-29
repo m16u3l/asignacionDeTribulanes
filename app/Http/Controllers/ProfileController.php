@@ -13,7 +13,7 @@ use App\Professional;
 use App\Profile;
 use App\Date;
 use App\State;
-use App\Tutor;
+use App\Letter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -63,17 +63,6 @@ class ProfileController extends Controller
 	}
 
 	public function profiles_list(Request $request){
-	/*	$profile = Profile::find(2);
-		foreach ($profile->tutors as $menu) {
-     //obteniendo los datos de un menu específico
-     echo $menu->pivot->letter;
-
-		 echo "a";
-		 echo $menu->pivot->profile_id;
-		 echo $menu->pivot->professional_id;
-	 }*/
-
-
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
 		->paginate(10);
@@ -81,27 +70,48 @@ class ProfileController extends Controller
 	}
 	public function registrar_letter(Request $request){
 		$profile=Profile::find($request->profile_id);
-		$tutor=Tutor::where('profile_id',$request->profile_id)
+		$letter_tutors=Letter::where('profile_id',$request->profile_id)
 		->where('professional_id',$request->professional_id)
+		->where('type_letter_id',$request->type_letter)
 		->first();
-		$tutor->letter=$request->valor;
-		$tutor->save();
+		$letter_tutors->letter=$request->valor;
+		$letter_tutors->save();
 
+	}
+	public function confirm_letter(Request $request){
+		$profile=Profile::find($request->profile_id);
 		$var=false;
-		foreach ($profile->tutors as $tutor) {
-     if($tutor->pivot->letter==true){
+		foreach ($profile->letter_tutors as $letter_tutor) {
+		 if($letter_tutor->pivot->letter == true){
 			 $var=true;
 		 }else{
 			 $var=false;
 		 }
-    }
+	 }
 
-		if($var){
+		$letter_teacher=$profile->letters->where('name','teacher')->first();
+		if($letter_teacher->pivot->letter == true){
+			$var=true;
+		}else{
+			$var=false;
+		}
+		if($profile->modality->name == 'Adscripción'){
+			$letter_supervisor=$profile->letters->where('name','supervisor')->first();
+			if($letter_supervisor->pivot->letter == true){
+				$var=true;
+			}else{
+				$var=false;
+			}
+		}
+
+		if($var == true){
 			$state = State::where('name','approved')->first();
 			$profile1 = Profile::find($request->profile_id);
 			$profile1->state_id=$state->id;
 			$profile1->save();
 			$response = array("name"=>$request->name, "status"=>true);
+		}else{
+			$response = array("name"=>$request->name, "status"=>false);
 		}
 		return response()->json($response);
 	}

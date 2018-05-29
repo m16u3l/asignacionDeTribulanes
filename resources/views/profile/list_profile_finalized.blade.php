@@ -31,7 +31,7 @@
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-12" data-toggle="collapse" href="#{{$profile->title}}">
+                <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="h6">{{$profile->title}}</h6>
                   <div class="row">
                     <div class="col-lg-12">
@@ -55,8 +55,9 @@
                     </div>
                   </div>
                 </div>
-                <div>
-                  {!! link_to_route('reporte', $title='Reporte', $parameters = $profile->id, $attributes = ['class'=>'btn bg-theme-4']) !!}
+                <div class="col-lg-1">
+                  <a  href="{{ route ('reporte',[$profile->id])}}" class="btn btn-rounded bg-theme-5"><i class="fa fa-file-pdf-o"></i></a>
+
                 </div>
               </div>
             </div>

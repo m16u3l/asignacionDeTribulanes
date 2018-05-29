@@ -13,6 +13,7 @@ class TypeLetter extends Model
 
   public function profiles()
   {
-    return $this->belongsToMany('App\Profile','letters');
+    return $this->belongsToMany('App\Profile','letters')->withPivot('id','profile_id','professional_id','letter');
   }
+
 }
