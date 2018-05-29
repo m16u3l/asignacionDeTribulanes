@@ -13,12 +13,10 @@ use App\Professional;
 use App\Profile;
 use App\Date;
 use App\State;
-<<<<<<< HEAD
 use App\Tutor;
 use App\TypeLetter;
-=======
 use App\Letter;
->>>>>>> 5c85c50f8c3f7c8a22d656bd6e81e0568b108ec7
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -374,7 +372,7 @@ class ProfileController extends Controller
 			$state = new State();
 			$state->name = 'initiated';
 			$state->save();
-		} 
+		}
 		$state = State::where('name', 'approved')->first();
 		if (is_null($state)) {
 			$state = new State();
