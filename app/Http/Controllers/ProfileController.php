@@ -14,6 +14,7 @@ use App\Profile;
 use App\Date;
 use App\State;
 use App\Tutor;
+use App\TypeLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -227,6 +228,8 @@ class ProfileController extends Controller
 			'mimes' => 'el archivo debe estar en formato .xlsx',
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
+		$this->fill_states();
+		$this->fill_type_letters();
 		if ($validator->fails()) {
 
 			return redirect('import_profiles')->withErrors($validator);
@@ -273,33 +276,6 @@ class ProfileController extends Controller
 						if(is_null($profile)) {
 
 							$state = State::where('name', 'initiated')->first();
-
-							if(is_null($state)) {
-								$state = new State();
-								$state->name = 'initiated';
-								$state->save();
-
-								$state = new State();
-								$state->name = 'approved';
-								$state->save();
-
-								$state = new State();
-								$state->name = 'assigned';
-								$state->save();
-
-								$state = new State();
-								$state->name = 'finalized';
-								$state->save();
-
-								$state = new State();
-								$state->name = 'defended';
-								$state->save();
-
-								$state = new State();
-								$state->name = 'abandoned';
-								$state->save();
-
-							}
 
 							//                $academic_term = new AcademicTerm();
 							//                $academic_term->date_ini = $now->format('d-m-Y');
@@ -376,5 +352,73 @@ class ProfileController extends Controller
 		});
 
 		return $valid;
+	}
+
+	private function fill_states() {
+		$state = State::where('name', 'initiated')->first();
+		if(is_null($state)) {
+			$state = new State();
+			$state->name = 'initiated';
+			$state->save();
+		} 
+		$state = State::where('name', 'approved')->first();
+		if (is_null($state)) {
+			$state = new State();
+			$state->name = 'approved';
+			$state->save();
+		}
+		$state = State::where('name', 'approved')->first();
+		if (is_null($state)) {
+			$state = new State();
+			$state->name = 'approved';
+			$state->save();
+		}
+		$state = State::where('name', 'assigned')->first();
+		if (is_null($state)) {
+			$state = new State();
+			$state->name = 'assigned';
+			$state->save();
+		}
+		$state = State::where('name', 'finalized')->first();
+		if (is_null($state)) {
+			$state = new State();
+			$state->name = 'finalized';
+			$state->save();
+		}
+		$state = State::where('name', 'defended')->first();
+		if (is_null($state)) {
+			$state = new State();
+								$state->name = 'defended';
+								$state->save();
+		}
+		$state = State::where('name', 'abandoned')->first();
+		if (is_null($state)) {
+			$state = new State();
+			$state->name = 'abandoned';
+			$state->save();
+		}
+	}
+
+	private function fill_type_letters() {
+		$type_letter = TypeLetter::where('name', 'tutor')->first();
+		if (is_null($type_letter)) {
+			$type_letter = new TypeLetter();
+			$type_letter->name = 'tutor';
+			$type_letter->save();
+		}
+
+		$type_letter = TypeLetter::where('name', 'supervisor')->first();
+		if (is_null($type_letter)) {
+			$type_letter = new TypeLetter();
+			$type_letter->name = 'supervisor';
+			$type_letter->save();
+		}
+
+		$type_letter = TypeLetter::where('name', 'docente')->first();
+		if (is_null($type_letter)) {
+			$type_letter = new TypeLetter();
+			$type_letter->name = 'docente';
+			$type_letter->save();
+		}
 	}
 }
