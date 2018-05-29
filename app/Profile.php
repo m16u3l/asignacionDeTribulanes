@@ -66,7 +66,12 @@ public function tutors()
 
 public function letter_tutors()
 {
-  return $this->belongsToMany('App\Professional','letters');
+  return $this->belongsToMany('App\Professional','letters')->withPivot('id','profile_id','professional_id','letter');
+}
+
+public function letters()
+{
+  return $this->belongsToMany('App\TypeLetter','letters')->withPivot('id','profile_id','professional_id','letter');
 }
 
 public function students()

@@ -65,7 +65,7 @@
               </div>
               <div class="col-lg-1 col-12 text-center row-sm-center">
                 <a href="#" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#letter_modal"
-                onclick="omar({{$profile}},{{$profile->tutors}})"
+                onclick="omar({{$profile}},{{$profile->letter_tutors}}, {{$profile->letters}},{{$profile->modality}})"
                 ><i class="fa fa-envelope"></i></a>
              </div>
             </div>
@@ -142,5 +142,6 @@
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{url('js/sweetalert.js')}}"></script>
 <script type="text/javascript" src="{{url('asset/profile/letter.js')}}"></script>
 @endsection

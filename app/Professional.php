@@ -53,7 +53,7 @@ class Professional extends Model
   }
   public function letter_profile()
   {
-    return $this->belongsToMany('App\Profile','letters');
+    return $this->belongsToMany('App\Profile','letters')->withPivot('id','letter');
   }
   public function type_changes()
   {

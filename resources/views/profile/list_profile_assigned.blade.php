@@ -58,11 +58,12 @@
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
-                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-4" data-toggle="modal" data-target="#finalize_profile_modal"
+                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#finalize_profile_modal"
                     data-finalize_profile="{{ $profile->id }}"
                     data-title="{{ $profile->title }}"
-                  ><i class="fa fa-check"></i></a>
-                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-4"><i class="fa fa-exchange"></i></a>
+                  ><i class="fa fa-thumbs-o-up "></i></a>
+                  <br>
+                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5"><i class="fa fa-exchange"></i></a>
                 </div>
               </div>
             </div>
