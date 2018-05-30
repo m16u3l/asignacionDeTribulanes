@@ -15,10 +15,6 @@ use App\Date;
 use App\State;
 use App\Tutor;
 use App\TypeLetter;
-<<<<<<< HEAD
-=======
-use App\Letter;
->>>>>>> 29b39f224ee589492ae82a8a62c5c10b4dceda1b
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -367,7 +363,7 @@ class ProfileController extends Controller
 			$state = new State();
 			$state->name = 'initiated';
 			$state->save();
-		}
+		} 
 		$state = State::where('name', 'approved')->first();
 		if (is_null($state)) {
 			$state = new State();
@@ -434,9 +430,8 @@ class ProfileController extends Controller
 		$letter = Letter::where('profile_id', $id)->first();
 		$profile = Profile::where('id', $id)->first();
 		if(is_null($letter)) {
-
 			$letter->profile_id = $profile->id;
-
+			
 		}
 
 	}
