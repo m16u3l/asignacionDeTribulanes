@@ -103,7 +103,7 @@ for (var i = 0; i < tutors.length; i+=1) {
       }
     });
   });
-
+  console.log(modality.name);
   $("#div_letter_supervisor").addClass("hidden_div");
   if(modality.name =='Adscripción'){
     $("#div_letter_supervisor").removeClass("hidden_div");
