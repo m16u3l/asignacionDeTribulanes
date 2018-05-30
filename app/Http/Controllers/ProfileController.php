@@ -13,12 +13,8 @@ use App\Professional;
 use App\Profile;
 use App\Date;
 use App\State;
-<<<<<<< HEAD
 use App\Tutor;
 use App\TypeLetter;
-=======
-use App\Letter;
->>>>>>> 5c85c50f8c3f7c8a22d656bd6e81e0568b108ec7
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -68,6 +64,17 @@ class ProfileController extends Controller
 	}
 
 	public function profiles_list(Request $request){
+	/*	$profile = Profile::find(2);
+		foreach ($profile->tutors as $menu) {
+     //obteniendo los datos de un menu específico
+     echo $menu->pivot->letter;
+
+		 echo "a";
+		 echo $menu->pivot->profile_id;
+		 echo $menu->pivot->professional_id;
+	 }*/
+
+
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
 		->paginate(10);
@@ -75,48 +82,27 @@ class ProfileController extends Controller
 	}
 	public function registrar_letter(Request $request){
 		$profile=Profile::find($request->profile_id);
-		$letter_tutors=Letter::where('profile_id',$request->profile_id)
+		$tutor=Tutor::where('profile_id',$request->profile_id)
 		->where('professional_id',$request->professional_id)
-		->where('type_letter_id',$request->type_letter)
 		->first();
-		$letter_tutors->letter=$request->valor;
-		$letter_tutors->save();
+		$tutor->letter=$request->valor;
+		$tutor->save();
 
-	}
-	public function confirm_letter(Request $request){
-		$profile=Profile::find($request->profile_id);
 		$var=false;
-		foreach ($profile->letter_tutors as $letter_tutor) {
-		 if($letter_tutor->pivot->letter == true){
+		foreach ($profile->tutors as $tutor) {
+     if($tutor->pivot->letter==true){
 			 $var=true;
 		 }else{
 			 $var=false;
 		 }
-	 }
+    }
 
-		$letter_teacher=$profile->letters->where('name','teacher')->first();
-		if($letter_teacher->pivot->letter == true){
-			$var=true;
-		}else{
-			$var=false;
-		}
-		if($profile->modality->name == 'Adscripción'){
-			$letter_supervisor=$profile->letters->where('name','supervisor')->first();
-			if($letter_supervisor->pivot->letter == true){
-				$var=true;
-			}else{
-				$var=false;
-			}
-		}
-
-		if($var == true){
+		if($var){
 			$state = State::where('name','approved')->first();
 			$profile1 = Profile::find($request->profile_id);
 			$profile1->state_id=$state->id;
 			$profile1->save();
 			$response = array("name"=>$request->name, "status"=>true);
-		}else{
-			$response = array("name"=>$request->name, "status"=>false);
 		}
 		return response()->json($response);
 	}
@@ -335,6 +321,9 @@ class ProfileController extends Controller
 							$student->profiles()->attach($profile->id);
 						}
 					}
+
+
+
 				}
 			});
 			return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.' );
@@ -435,4 +424,17 @@ class ProfileController extends Controller
 			$type_letter->save();
 		}
 	}
+
+	private function fill_letter($id) {
+
+		$letter = Letter::where('profile_id', $id)->first();
+		$profile = Profile::where('id', $id)->first();
+		if(is_null($letter)) {
+
+			$letter->profile_id = $profile->id;
+
+		}
+
+	}
+
 }
