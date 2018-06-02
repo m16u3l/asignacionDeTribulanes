@@ -72,6 +72,16 @@ Route::post('import_areas',[
     'as' => 'import_areas',
     'uses' => 'AreaController@import_areas']);
 
+Route::get('import_periods',[
+    'as' => 'import_periods',
+    'uses' => 'AcademicTermController@upload_periods']);
+
+Route::post('import_periods',[
+    'as' => 'import_periods',
+    'uses' => 'AcademicTermController@import_periods']);
+
+
+
 //listas de importaciones...
 Route::get('/lista_perfiles', [
     'as' => 'lista_perfiles',

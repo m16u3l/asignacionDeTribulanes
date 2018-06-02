@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\date;
 use Illuminate\Http\Request;
 
+
 class DateController extends Controller
 {
 

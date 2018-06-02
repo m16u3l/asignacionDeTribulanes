@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcademicTerm extends Model
 {
-  protected $table = "academic_term";
+  protected $table = "academic_terms";
   protected $fillable = [
     'date_ini', 'date_fin', 'period'
   ];

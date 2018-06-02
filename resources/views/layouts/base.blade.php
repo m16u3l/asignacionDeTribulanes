@@ -58,6 +58,8 @@
             <a href="{{ route ('import_professionals')}}" class="list-group-item" data-parent="#menu3">Profesionales</a>
 
             <a href="{{ route ('import_areas')}}" class="list-group-item" data-parent="#menu3">Areas</a>
+
+            <a href="{{ route ('import_periods')}}" class="list-group-item" data-parent="#menu3">Periodos</a>
           </div>
 
           <a href="#menu4" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="d-none d-md-inline">Listas</span> </a>
