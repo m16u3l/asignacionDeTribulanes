@@ -45,6 +45,7 @@ class AreaController extends Controller
 
   public function import_areas(Request $request)
   {
+    $news = 0;
     $file = Input::file('areasFile');
     $rules = array(
       'areasFile' => 'required|mimes:xlsx',
@@ -62,7 +63,7 @@ class AreaController extends Controller
       return redirect('import_areas')->with('bad_status', 'Documento invalido');
 
     } else if($validator->passes()) {
-      Excel::load($file, function($reader)
+      Excel::load($file, function($reader) use (&$news)
       {
         foreach ($reader->get() as $key => $value) {
           $area = Area::where('codigo', $value->codigo)->first();
@@ -81,12 +82,13 @@ class AreaController extends Controller
                 $area->area_id = $sub_area->id;
               }
               $area->save();
+              $news++;
             }
           }
         }
       });
     }
-    return redirect('import_areas')->with('status', 'Los cambios se realizaron con exito.');
+    return redirect('import_areas')->with('status', 'Los cambios se realizaron con exito: '. $news. ' datos añadidos');
   }
 
   public function valid_document($file)

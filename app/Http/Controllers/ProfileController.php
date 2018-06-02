@@ -217,7 +217,8 @@ class ProfileController extends Controller
 	}
 
 	public function import_profiles(Request $request)
-	{
+	{	
+		$news = 0;
 		$salto = chr(13).chr(10);
 		$file = Input::file('fileProfiles');
 		$rules = array(
@@ -225,7 +226,7 @@ class ProfileController extends Controller
 		);
 		$messages = array(
 			'required' => 'ningun archivo xlsx seleccionado',
-			'mimes' => 'el archivo debe estar en formato .xlsx',
+			'mimes' => 'el formato no es compatible',
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 		$this->fill_states();
@@ -240,19 +241,11 @@ class ProfileController extends Controller
 
 		} else if($validator->passes()) {
 
-			Excel::load($file, function($reader)
+			Excel::load($file, function($reader) use (&$news)
 			{
 				foreach ($reader->get() as $key => $value) {
-
 					$modality = Modality::where('name', $value->modalidad_titulacion)->first();
 					$now = new \DateTime();
-
-					if(is_null($modality)) {
-						$modality = new Modality();
-						$modality->name = $value->modalidad_titulacion;
-						$modality->description = "";
-						$modality->save();
-					}
 
 					$profile = Profile::where('title', $value->titulo_proyecto_final)
 					->where('objective', $value->objetivo_general)
@@ -292,6 +285,7 @@ class ProfileController extends Controller
 							//                $profile->academic_term_id = $academic_term->id;
 							//$profile->area_id = $area->id;
 							$profile->save();
+							$news++;
 
 
 							$area->profiles()->attach($profile->id);
@@ -326,7 +320,7 @@ class ProfileController extends Controller
 
 				}
 			});
-			return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito.' );
+			return redirect('import_profiles')->with('status', 'Los cambios se realizaron con exito: '. $news. ' datos añadidos' );
 		}
 	}
 
