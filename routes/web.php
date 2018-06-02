@@ -80,6 +80,14 @@ Route::post('import_periods',[
     'as' => 'import_periods',
     'uses' => 'AcademicTermController@import_periods']);
 
+Route::get('import_modalities',[
+    'as' => 'import_modalities',
+    'uses' => 'ModalityController@upload_modalities']);
+
+Route::post('import_modalities',[
+    'as' => 'import_modalities',
+    'uses' => 'ModalityController@import_modalities']);
+
 
 
 //listas de importaciones...
