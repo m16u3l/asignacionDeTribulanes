@@ -8,6 +8,7 @@ use App\Student;
 use App\Area;
 use App\AcademicTerm;
 use App\Assignement;
+use App\AreaInterest;
 use App\Modality;
 use App\Professional;
 use App\Profile;
@@ -244,7 +245,9 @@ class ProfileController extends Controller
 			Excel::load($file, function($reader) use (&$news)
 			{
 				foreach ($reader->get() as $key => $value) {
+
 					$modality = Modality::where('name', $value->modalidad_titulacion)->first();
+
 					$now = new \DateTime();
 
 					$profile = Profile::where('title', $value->titulo_proyecto_final)
@@ -264,7 +267,19 @@ class ProfileController extends Controller
 
 					$area = Area::where('name', $value->area)->first();
 
-					if(!is_null($professional_tutor)) {
+					if(!is_null($professional_tutor) && !is_null($area)) {
+						$area_interest = AreaInterest::where('area_id', $area->id)
+											->where('professional_id', $professional_tutor->id)
+											->first();
+						if(is_null($area_interest)) {
+							$area_interest = new AreaInterest();
+							$area_interest->area_id = $area->id;
+							$area_interest->professional_id = $professional_tutor->id;
+							$area_interest->save();
+						}
+					}
+
+					if(!is_null($professional_tutor) && !is_null($modality)) {
 
 						if(is_null($profile)) {
 
