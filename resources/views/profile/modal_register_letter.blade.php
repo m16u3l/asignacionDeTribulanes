@@ -12,16 +12,7 @@
           <div class="modal-body">
             <h4 class="container" id="letter_title"></h4>
             <br>
-            {{--Form--}}
-            <form action="" method="POST" id="register_letter">
-            	{{ csrf_field() }}
 
-              <br>
-              <input class="form-control" name="profile_id" id="profile_id" type="hidden" value=""/>
-              <input class="form-control" name="professional_id" id="professional_id" type="hidden" value=""/>
-              <input class="form-control" name="valor" id="valor" type="hidden" value=""/>
-              <input class="form-control" name="type_letter" id="type_letter" type="hidden" value=""/>
-            </form>
             <label for="">CARTAS REQUERIDAS</label>
             	<div class="row container" id="div_letter">
 
@@ -32,7 +23,7 @@
                     <label for="">carta de docente de la materia</label>
                   </div>
                   <div class="col-md-2">
-                    <input type="checkbox" name="" value="" id="letter_teacher" >
+                    <input type="checkbox" name="" value="false" id="letter_teacher" >
                   </div>
                 </div>
             	</div>
@@ -43,16 +34,13 @@
                     <label for="">carta de supervisor de trabajo</label>
                   </div>
                   <div class="col-md-2">
-                    <input type="checkbox" name="" value="" id="letter_supervisor" >
+                    <input type="checkbox" name="" value="false" id="letter_supervisor" >
                   </div>
                 </div>
             	</div>
 
               <br>
-              <form action="" method="POST" id="form_confirm_letter">
-              	{{ csrf_field() }}
-                <input class="form-control" name="profile_id" id="confirm_profile_id" type="hidden" value=""/>
-              </form>
+  
               <a class="offset-lg-6 col-lg-1 btn btn-success"  id="confirm_letter" href="#"><i class="fa fa-check"></i></a>
               <a class="col-lg-1 btn btn-danger" data-dismiss="modal"  href="#"><i class="fa fa-times"></i></a>
           </div>

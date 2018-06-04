@@ -13,8 +13,6 @@ class CreateTutorsTable extends Migration
       $table->integer('profile_id');
       $table->integer('professional_id');
 
-      $table->boolean('letter')->default(true);
-
       $table->foreign('profile_id')->references('id')->on('profiles');
       $table->foreign('professional_id')->references('id')->on('professionals');
 

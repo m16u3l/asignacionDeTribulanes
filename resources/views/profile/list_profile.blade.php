@@ -62,7 +62,9 @@
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
-                  <a href="{{ route ('asignacion',[$profile->id])}}" class="btn bg-theme-5 "><i class="fa fa-users"></i></a>
+                  <a href="#" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#letter_modal"
+                onclick="omar({{$profile}},{{$profile->tutors}}, {{$profile->modality}})"
+                ><i class="fa fa-users"></i></a>
                 </div>
               </div>
             </div>
@@ -133,7 +135,14 @@
     <div class="col-md-3 col-xs-1"></div>
   </div>
 </div>
+
+
+@include('profile.modal_register_letter')
+
+<script type="text/javascript" src="{{url('asset/profile/letter.js')}}"></script>
 @endsection
 
 @section('child_js')
+<script type="text/javascript" src="{{url('js/sweetalert.js')}}"></script>
+<script type="text/javascript" src="{{url('asset/profile/letter.js')}}"></script>
 @endsection

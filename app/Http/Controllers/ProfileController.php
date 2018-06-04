@@ -26,12 +26,14 @@ class ProfileController extends Controller
 		$profile = Profile::find($id);
 		$url = '/rejection_request';
 		$area = $profile->areas->first();
+		
 		$courts=DB::table('professionals')
 		->join('courts', 'professionals.id', '=', 'courts.professional_id')
 		->select('professionals.*')
 		->where('courts.profile_id', '=', $profile->id)
 		->orderBy('count')
 		->get();
+
 		$professionals = DB::table('professionals')
 		->join('area_interests', 'professionals.id', '=', 'area_interests.professional_id')
 		->select('professionals.*')
@@ -46,6 +48,7 @@ class ProfileController extends Controller
 		->where('courts.profile_id', '=', $profile->id))
 		->orderBy('count')
 		->get();
+
 		$allProfessionals = Professional::whereNotIn('professionals.id', DB::table('professionals')
 		->join('tutors', 'professionals.id', '=', 'tutors.professional_id')
 		->select('professionals.id')
@@ -65,48 +68,13 @@ class ProfileController extends Controller
 	}
 
 	public function profiles_list(Request $request){
-	/*	$profile = Profile::find(2);
-		foreach ($profile->tutors as $menu) {
-     //obteniendo los datos de un menu específico
-     echo $menu->pivot->letter;
-
-		 echo "a";
-		 echo $menu->pivot->profile_id;
-		 echo $menu->pivot->professional_id;
-	 }*/
-
 
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
 		->paginate(10);
 		return view('profile.profile_list', compact('profiles'));
 	}
-	public function registrar_letter(Request $request){
-		$profile=Profile::find($request->profile_id);
-		$tutor=Tutor::where('profile_id',$request->profile_id)
-		->where('professional_id',$request->professional_id)
-		->first();
-		$tutor->letter=$request->valor;
-		$tutor->save();
-
-		$var=false;
-		foreach ($profile->tutors as $tutor) {
-     if($tutor->pivot->letter==true){
-			 $var=true;
-		 }else{
-			 $var=false;
-		 }
-    }
-
-		if($var){
-			$state = State::where('name','approved')->first();
-			$profile1 = Profile::find($request->profile_id);
-			$profile1->state_id=$state->id;
-			$profile1->save();
-			$response = array("name"=>$request->name, "status"=>true);
-		}
-		return response()->json($response);
-	}
+	
 
 	public function list_profile_finalized(Request $request)
 	{
