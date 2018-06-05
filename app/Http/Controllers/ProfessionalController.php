@@ -76,6 +76,7 @@ class ProfessionalController extends Controller
     ->where('courts.profile_id', '=', $profile->id))
     ->orderBy('count')
     ->get();
+    
     return view('professional.assign_professinal', compact('url','profile','courts', 'professionals','allProfessionals'));
   }
 

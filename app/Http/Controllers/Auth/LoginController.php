@@ -25,8 +25,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
+    protected $redirectTo = '/perfiles';
+    protected $redirectPath = '/iniciar_sesion';
     /**
      * Create a new controller instance.
      *
@@ -36,4 +36,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function username()
+{
+    return 'account_name';
+}
 }

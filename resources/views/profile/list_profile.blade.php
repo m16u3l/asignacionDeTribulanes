@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
                   <br>
-                  <a href="#" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#letter_modal"
+                  <a href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#letter_modal"
                 onclick="omar({{$profile}},{{$profile->tutors}}, {{$profile->modality}})"
                 ><i class="fa fa-users"></i></a>
                 </div>

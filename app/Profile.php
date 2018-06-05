@@ -61,7 +61,7 @@ public function courts()
 
 public function tutors()
 {
-  return $this->belongsToMany('App\Professional','tutors')->withPivot('id','profile_id','professional_id','letter');
+  return $this->belongsToMany('App\Professional','tutors');
 }
 
 

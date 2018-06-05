@@ -12,7 +12,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('account_name');
             $table->string('password');
-            $table->string('password_repeat');
+            
             $table->rememberToken();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ use App\Profile;
 use App\Date;
 use App\State;
 use App\Tutor;
-use App\TypeLetter;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -72,6 +72,7 @@ class ProfileController extends Controller
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
 		->paginate(10);
+
 		return view('profile.profile_list', compact('profiles'));
 	}
 	
@@ -115,6 +116,7 @@ class ProfileController extends Controller
 		}else{
 			$profiles = Profile::paginate(5);
 		}
+
 		return view('profile.list_profile', compact('profiles'));
 	}
 
@@ -199,7 +201,7 @@ class ProfileController extends Controller
 		);
 		$validator = Validator::make(Input::all(), $rules, $messages);
 		$this->fill_states();
-		$this->fill_type_letters();
+		
 		if ($validator->fails()) {
 
 			return redirect('import_profiles')->withErrors($validator);
@@ -379,38 +381,7 @@ class ProfileController extends Controller
 		}
 	}
 
-	private function fill_type_letters() {
-		$type_letter = TypeLetter::where('name', 'tutor')->first();
-		if (is_null($type_letter)) {
-			$type_letter = new TypeLetter();
-			$type_letter->name = 'tutor';
-			$type_letter->save();
-		}
 
-		$type_letter = TypeLetter::where('name', 'supervisor')->first();
-		if (is_null($type_letter)) {
-			$type_letter = new TypeLetter();
-			$type_letter->name = 'supervisor';
-			$type_letter->save();
-		}
 
-		$type_letter = TypeLetter::where('name', 'docente')->first();
-		if (is_null($type_letter)) {
-			$type_letter = new TypeLetter();
-			$type_letter->name = 'docente';
-			$type_letter->save();
-		}
-	}
-
-	private function fill_letter($id) {
-
-		$letter = Letter::where('profile_id', $id)->first();
-		$profile = Profile::where('id', $id)->first();
-		if(is_null($letter)) {
-			$letter->profile_id = $profile->id;
-			
-		}
-
-	}
 
 }
