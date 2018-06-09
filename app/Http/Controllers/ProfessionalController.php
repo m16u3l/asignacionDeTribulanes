@@ -21,7 +21,6 @@ use App\RejectionRequest;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Database\QueryException;
 

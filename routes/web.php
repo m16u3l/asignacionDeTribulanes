@@ -144,6 +144,12 @@ Route::get('/reporte/{id}', [
     'as' => 'reporte',
     'uses' => "ProfileController@show"]);
 
+Route::get('/reportes', [
+    'middleware' => 'auth',
+    'as' => 'reportes',
+    'uses' => "ProfileController@reports"]);
+
+
 Auth::routes();
 
 

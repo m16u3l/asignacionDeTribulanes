@@ -167,6 +167,16 @@ class ProfileController extends Controller
 		return $pdf->stream('$profile');
 	}
 
+	public function reports() {
+
+		$state = State::where('name', 'finalized')->first();
+		$profiles = Profile::where('state_id', $state->id)->get();
+		$view = view('profile.profiles_report', compact('profiles'));
+		$pdf = \App::make('dompdf.wrapper');
+		$pdf->loadHtml($view);
+		return $pdf->stream('$profiles');
+	}
+
 	public function edit($id)
 	{
 		//
