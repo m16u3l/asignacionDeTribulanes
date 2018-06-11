@@ -1,5 +1,8 @@
 @extends('layouts.base')
 
+@section('head')
+INICIO DE SISTEMA
+@endsection
 @section('content')
 <br>
 <br>
@@ -23,7 +26,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-12 control-label">Password</label>
+                            <label for="password" class="col-md-12 control-label">contraseña</label>
 
                             <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password"   >
@@ -61,8 +64,7 @@
         <h5 class="h5 text-center">NO SE ENCONTRO NINGUN PERFIL</h5>
         @else
         <center>
-           <h4>LISTA DE PERFILES</h4>
-        
+         
         <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('lista_perfiles')}}" method="GET" role="search">
             <div class="panel-body">
