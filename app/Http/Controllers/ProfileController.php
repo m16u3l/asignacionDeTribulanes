@@ -273,7 +273,7 @@ class ProfileController extends Controller
 
 
 							$profile = new Profile();
-							$profile->title = $value->titulo_proyecto_final;
+							$profile->title = trim($value->titulo_proyecto_final);
 							$profile->objective = $value->objetivo_general;
 							$profile->modality_id  = $modality->id;
 							$profile->state_id = $state->id;
