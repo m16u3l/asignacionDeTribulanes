@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-<title>Asignacion de Tribunales UMSS</title>
+  LISTA DE PERFILES
 @endsection
 
 @section('child_css')
@@ -14,9 +14,13 @@
     <div class="row">
       <div class="offset-md-1 col-md-10">
         <br>
-        <h3>Lista de perfiles</h3>
-        <!-Buscador->
-        <div class="mt-4 col-lg-8 col body-bg">
+        
+        @if ( empty($profiles[0]))
+        <br><br>
+        <h5 class="h5 text-center">NO SE ENCONTRO NINGUN PERFIL</h5>
+        @else
+        <center>
+          <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('lista_perfiles')}}" method="GET" role="search">
             <div class="panel-body">
               <div class="input-group input-group">
@@ -26,14 +30,9 @@
             </div>
           </form>
         </div>
-        <!-Fin de buscador->
-        <br>
-        <div class="panel-body">
-          {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
-        </div>
-        <br> @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No se encontró perfiles</h5>
-        @else @foreach($profiles as $profile)
+        </center>
+
+        <br> @foreach($profiles as $profile)
 
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
@@ -119,8 +118,9 @@
             </div>
           </div>
         </div>
+        </div>
         @endforeach @endif
-      </div>
+      
     </div>
   </div>
   <br>

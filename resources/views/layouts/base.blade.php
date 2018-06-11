@@ -3,7 +3,8 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> @yield('head')
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  
   <meta name="description" content="Sistema de Asignacion de Tribunales UMSS">
   <meta name="BOY S-Code" content="">
 
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="{{ url('css/body.css')}}">
   <link rel="stylesheet" href="/css/fer_imagen.css">
   <link rel="stylesheet" href="/css/navbar.css"> 
-<link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
   @yield('child_css')
 
 

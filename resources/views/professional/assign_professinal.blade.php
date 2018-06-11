@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-<title>{{$profile->title}} - Asignacion de Tribunales UMSS</title>
+  ASIGNACION DE TRIBUNALES
 @endsection
 
 @section('child_css')

@@ -12,6 +12,7 @@
   <div class="container" id="profile_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
+
         <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('list_profile_finalized')}}" method="GET" role="search">
             <div class="panel-body">
@@ -22,14 +23,12 @@
             </div>
           </form>
         </div>
-        <br>
-        <div class="panel-body">
-          {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
-        </div>
+       
         <br>
         <div>
           <a  href="{{ route ('reportes')}}" class="btn btn-rounded bg-theme-5">Reporte de Perfiles</a>
         </div>
+        
         <br> @foreach($profiles as $profile)
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">

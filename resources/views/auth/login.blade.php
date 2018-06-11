@@ -57,8 +57,12 @@
     <div class="row">
       <div class="offset-md-1 col-md-10">
         <br>
-        <h3>Lista de perfiles</h3>
-        <!-Buscador->
+        @if ( empty($profiles[0]))
+        <h5 class="h5 text-center">NO SE ENCONTRO NINGUN PERFIL</h5>
+        @else
+        <center>
+           <h4>LISTA DE PERFILES</h4>
+        
         <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('lista_perfiles')}}" method="GET" role="search">
             <div class="panel-body">
@@ -68,21 +72,17 @@
               </div>
             </div>
           </form>
-        </div>
-        <!-Fin de buscador->
+        </div> 
+        </center>
+        
         <br>
-        <div class="panel-body">
-          {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
-        </div>
-        <br> @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No se encontró perfiles</h5>
-        @else @foreach($profiles as $profile)
+         @foreach($profiles as $profile)
 
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
             <div class="card-header clearfix">
               <div class="row">
-                <div class="col-lg-11" data-toggle="collapse" href="#{{$profile->title}}">
+                <div class="col-lg-12" data-toggle="collapse" href="#{{$profile->title}}">
                   <h6 class="h6">{{$profile->title}}</h6>
                   <div class="row">
                     <div class="col-lg-12">
@@ -162,8 +162,9 @@
             </div>
           </div>
         </div>
+        </div>
         @endforeach @endif
-      </div>
+      
     </div>
   </div>
   <br>

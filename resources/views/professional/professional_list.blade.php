@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-  <title>Asignacion de Tribunales UMSS</title>
+  LISTA DE PROFESIONALES
 @endsection
 
 @section('child_css')
@@ -8,20 +8,18 @@
 @endsection
 
 @section('content')
-<div class="col">
+<div class="col"> 
   <div class="container" id="professional_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
-        <br> <br>
+        <br> 
         {{--Register professioanl--}}
-        <div class="row">
-          <div class="offset-md-4 col-md-6">
-            <a id="boton_register_professional" href="#" class="btn btn-md btn-rounded btn-info" data-toggle="modal" data-target="#register_professinal_modal"
+        
+         <center>
+           <a id="boton_register_professional" href="#" class="btn btn-md btn-rounded btn-info" data-toggle="modal" data-target="#register_professinal_modal"
               >NUEVO PROFESIONAL</a>
-          </div>
-        </div>
-        {{--Search--}}
-        <div class=" mt-4 col-md-12 col body-bg">
+
+            <div class=" mt-4 col-md-10 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('lista_profesionales')}}" method="GET" role="search">
             <div class="panel-body">
               <div class="input-group input-group">
@@ -31,13 +29,8 @@
             </div>
           </form>
         </div>
-        <br>
-        {{--Info Pagination--}}
-        <div class="panel-body">
-          {{$professionals->total()}} registros |
-            pagina {{ $professionals->currentPage() }}
-            de {{ $professionals->lastPage() }}
-         </div>
+         </center>
+
         <br>
         @if ( empty($professionals[0]))
         <h5 class="h5 text-center">No se encontró profesionales</h5>

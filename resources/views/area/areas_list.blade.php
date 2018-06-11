@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-<title>Asignacion de Tribunales UMSS</title>
+LISTA DE AREAS
 @endsection
 
 @section('child_css')
@@ -13,15 +13,13 @@
     <div class="row">
       <div class="offset-md-1 col-md-10">
         <br>
-        <br>
-
-        <br>
-        <div class="panel-body d-inline">
-          {{$areas->total()}} registros | pagina {{ $areas->currentPage() }} de {{ $areas->lastPage() }}
-        </div>
-        <div class="d-inline offset-md-7">
+        
+        <center>
+          <div class="d-inline">
           <a id="boton_register_area" href="#" class="btn btn-md btn-rounded bg-theme-4" data-toggle="modal" data-target="#register_area_modal">NUEVA AREA</a>
         </div>
+        </center>
+        
         <br><br>
         @if ( empty($areas[0]))
         <h5 class="h5 text-center">No se encontró areas</h5>

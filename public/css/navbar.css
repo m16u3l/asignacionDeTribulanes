@@ -11,7 +11,7 @@
 
 /* highlight active menu */
 #sidebar .list-group-item:not(.collapsed) {
-  background-color: #2A3F54;
+  background-color: green;
 }
 
 /* closed state */
@@ -25,7 +25,7 @@ padding-left: 5px;
 
 /* open state */
 #sidebar .list-group .list-group-item[aria-expanded="true"] {
-background-color: #324557;
+background-color: blue;
 }
 #sidebar .list-group .list-group-item[aria-expanded="true"]::after {
 content: " \f0da";
