@@ -24,18 +24,16 @@
   @if (Auth::guest())
     @include('layouts.header')
     <div class="row " >
-         <div class=" offset-sm-4 col-lg-4" style="background-color:#2A3F54; color: #ffffff;
-        position: fixed; margin-top:25px ">
+      <div class="col-lg-3" style="background-color:#2A3F54; color: #ffffff;
+         ">
         @yield('content')
       </div>
-      <div class=" offset-sm-3 col-lg-9">
-        
+      <div class="col-lg-9">
+        @yield('content1')
       </div>
-    
-
     </div>
      
-     @include('layouts.footer')
+    @include('layouts.footer')
   @else
   @include('layouts.header')
 
