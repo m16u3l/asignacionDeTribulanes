@@ -279,8 +279,12 @@ class ProfileController extends Controller
 							$profile->state_id = $state->id;
 							//                $profile->academic_term_id = $academic_term->id;
 							//$profile->area_id = $area->id;
-							$profile->save();
+							//$profile->save();
 							$news++;
+
+							$state = State::where('name', 'approved')->first();
+							$profile->state_id = $state->id;
+							$profile->save();
 
 
 							$area->profiles()->attach($profile->id);
@@ -292,6 +296,7 @@ class ProfileController extends Controller
 
 							$date = new Date();
 							$date->initiated = $now;
+							$date->approved = $now;
 							$date->profile_id = $profile->id;
 							$date->save();
 

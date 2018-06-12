@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-<title> Perfiles con tribunales asignados - Asignacion de tribunales UMSS</title>
+  PERFILES CON TRIBUNALES ASIGNADOS
 @endsection
 
 @section('child_css')
@@ -12,7 +12,12 @@
   <div class="container" id="profile_list">
     <div class="row">
       <div class="offset-md-1 col-md-10">
-        <div class="mt-4 col-lg-8 col body-bg">
+        @if ( empty($profiles[0]))
+        <br><br>
+        <h5 class="h5 text-center">NO HAY PERFILES CON TRIBUNALES ASIGNADOS</h5>
+        @else
+        <CENTER>
+          <div class="mt-4 col-lg-8 col body-bg">
           <form class="navbar-form pull right" action="{{ route ('list_profile_asigned')}}" method="GET" role="search">
             <div class="panel-body">
               <div class="input-group input-group">
@@ -22,13 +27,10 @@
             </div>
           </form>
         </div>
-        <br>
-        <div class="panel-body">
-          {{$profiles->total()}} registros | pagina {{ $profiles->currentPage() }} de {{ $profiles->lastPage() }}
-        </div>
-        <br> @if ( empty($profiles[0]))
-        <h5 class="h5 text-center">No hay perfiles con tribunal asignado</h5>
-        @else @foreach($profiles as $profile)
+        </CENTER>
+        
+        <br> 
+        @foreach($profiles as $profile)
         <div class="card list-group-item-action element-bg mb-1">
           <div class="card list-group-item-action">
             <div class="card-header clearfix">

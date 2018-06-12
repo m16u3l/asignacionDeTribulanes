@@ -3,7 +3,8 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> @yield('head')
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>asignacion de tribunales</title>
   <meta name="description" content="Sistema de Asignacion de Tribunales UMSS">
   <meta name="BOY S-Code" content="">
 
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="{{ url('css/body.css')}}">
   <link rel="stylesheet" href="/css/fer_imagen.css">
   <link rel="stylesheet" href="/css/navbar.css"> 
-<link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{ url('css/pagination.css')}}" rel="stylesheet" type="text/css">
   @yield('child_css')
 
 
@@ -24,18 +25,16 @@
   @if (Auth::guest())
     @include('layouts.header')
     <div class="row " >
-         <div class=" offset-sm-4 col-lg-4" style="background-color:#2A3F54; color: #ffffff;
-        position: fixed; margin-top:25px ">
+      <div class="col-lg-3" style="background-color:#2A3F54; color: #ffffff;
+         ">
         @yield('content')
       </div>
-      <div class=" offset-sm-3 col-lg-9">
-        
+      <div class="col-lg-9">
+        @yield('content1')
       </div>
-    
-
     </div>
      
-     @include('layouts.footer')
+    @include('layouts.footer')
   @else
   @include('layouts.header')
 

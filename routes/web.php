@@ -156,4 +156,6 @@ Route::post('/send_mail', [
     
         Auth::routes();
 
-
+Route::get('/', [
+    'as' => 'home',
+    'uses' => "HomeController@index"]);

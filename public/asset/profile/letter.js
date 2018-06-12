@@ -113,7 +113,7 @@ for (var i = 0; i < tutors.length; i+=1) {
   var letter_supervisor =  document.getElementById("letter_supervisor");
   letter_supervisor.checked = false;
   $("#div_letter_supervisor").addClass("hidden_div");
-  if(modality.name =='Adscripción'){
+  if(modality.name =='Adscripción' || modality.name =='Trabajo Dirigido'){
     $("#div_letter_supervisor").removeClass("hidden_div");
 
     $('#letter_supervisor').on('change', function(){
