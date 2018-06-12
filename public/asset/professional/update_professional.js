@@ -1,12 +1,9 @@
 $(document).ready(function(){
   /* Validations */
-  $("#edit_name").addClass("input-text");
-  $("#edit_last_name_father").addClass("input-text");
-  $("#edit_last_name_mother").addClass("input-text");
   $("#edit_ci").addClass("input-number");
   $("#edit_cod_sis").addClass("input-number");
   $("#edit_email").change(function(){
-    response = _email_validate($('#email').val());
+    response = _email_validate($('#edit_email').val());
     _show_message(response);
   });
 
@@ -68,10 +65,8 @@ $(document).ready(function(){
   // Private methods
   function _email_validate(input) {
     console.log(input);
-    var numericExpression = /^w.+@[a-zA-Z_-]+?.[a-zA-Z]{2,3}$/;
-    if (input.match(numericExpression))
-    return true;
-    return false;
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(input);
   }
 
   function _show_message(response) {
