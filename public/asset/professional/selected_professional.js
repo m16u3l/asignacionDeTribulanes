@@ -70,7 +70,7 @@ function registerProf() {
         register(dataString);
       }
       setTimeout(function () {
-        location.href = '/perfiles';
+        location.href = '/lista_perfiles';
       }, 500);
     } else {
       if (selectedProf >= totalProf) {
