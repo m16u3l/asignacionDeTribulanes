@@ -1,6 +1,7 @@
 @extends('layouts.base')
 @section('head')
-<title> Perfiles con tribunales asignados - Asignacion de tribunales UMSS</title>
+PERFILES CON DEFENSA FINALIZADA
+<title> Perfiles con defensa finalizada - Asignacion de tribunales UMSS</title>
 @endsection
 
 @section('child_css')

@@ -1,6 +1,5 @@
 .table th,
 .table td {
-  padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
   font-size: 1em;
@@ -286,13 +285,15 @@ table .td {
   white-space: nowrap;
   font-weight: normal;
   padding: 5px;
-  margin: 0;
   display: table-cell;
 vertical-align: middle;
 font-size: 0.9em;
 }
 
-h3 {
+.td-title{
   text-align: center;
-  padding: 0 10%;
+  margin-top : 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }

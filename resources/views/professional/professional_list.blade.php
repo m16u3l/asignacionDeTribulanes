@@ -16,7 +16,7 @@
         {{--Register professioanl--}}
         
          <center>
-           <a id="boton_register_professional" href="#" class="btn btn-md btn-rounded btn-info" data-toggle="modal" data-target="#register_professinal_modal"
+           <a id="boton_register_professional" href="#" class="btn btn-md btn-rounded bg-theme-4" data-toggle="modal" data-target="#register_professinal_modal"
               >NUEVO PROFESIONAL</a>
 
             <div class=" mt-4 col-md-10 col body-bg">
@@ -46,7 +46,7 @@
                   <h6 class="h6">{{$professional->name}} {{$professional->last_name_father}} {{$professional->last_name_mother}}</h6>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
-                  <a href="#" class="btn btn-rounded btn-success modal_update_professional" data-toggle="modal" data-target="#update_professinal_modal"
+                  <a href="#" class="btn btn-rounded bg-theme-5 modal_update_professional" data-toggle="modal" data-target="#update_professinal_modal"
                     data-id="{{ $professional->id }}"
                     data-name="{{ $professional->name }}"
                     data-last_name_father="{{ $professional->last_name_father }}"

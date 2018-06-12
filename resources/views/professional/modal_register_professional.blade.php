@@ -65,29 +65,29 @@
 
               <div class="row">
                 <div class="offset-lg-2 col-lg-8">
-                  <label for="">email</label>
+                  <label for="">Email</label>
                   <input class="form-control" name="email" id="email" type="email" value=""/>
                 </div>
               </div>
 
               <div class="row">
                 <div class="offset-lg-2 col-lg-8">
-                  <label for="">telefono</label>
+                  <label for="">Telefono</label>
                   <input class="form-control" name="phone" id="phone" type="text" value=""/>
                 </div>
               </div>
 
               <div class="row">
                 <div class="offset-lg-2 col-lg-8">
-                  <label for="">direccion</label>
+                  <label for="">Direccion</label>
                   <input class="form-control" name="address" id="address" type="text" value=""/>
                 </div>
               </div>
 
               <br/>
               {{--Buttons--}}
-            	<button class="row offset-lg-4 col-lg-2 btn btn-primary" id="register1" type="submit"> Registrar</button>
-              <button class=" col-lg-2 btn btn-danger" id="cancel_register_professional" type="button"> Volver</button>
+            	<button class="row offset-lg-4 col-lg-2 btn bg-theme-4" id="register1" type="submit"> Registrar</button>
+              <button class=" col-lg-2 btn bg-theme-1" id="cancel_register_professional" type="button"> Volver</button>
 
             </form>
           </div>

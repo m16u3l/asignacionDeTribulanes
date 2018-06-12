@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-  PERFILES CON TRIBUNALES ASIGNADOS
+  PERFILES CON TRIBUNAL ASIGNADO
 @endsection
 
 @section('child_css')
@@ -59,13 +59,13 @@
                   </div>
                 </div>
                 <div class="col-lg-1 col-12 text-center row-sm-center">
-                  <br>
+                
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#finalize_profile_modal"
                     data-finalize_profile="{{ $profile->id }}"
                     data-title="{{ $profile->title }}"
-                  ><i class="fa fa-thumbs-o-up "></i></a>
+                  ><i class="fa fa-check "></i></a>
                   <br>
-                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5"><i class="fa fa-exchange"></i></a>
+                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5 my-2"><i class="fa fa-exchange"></i></a>
                   <br>
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#send_mail_modal"
                     data-send_mail="{{ $profile->id }}"
@@ -74,7 +74,7 @@
                     data-tutores="{{ $profile->tutors}}"
                     data-tribunales="{{ $profile->courts}}"
                     data-date_asignate="{{$profile->date->assigned}}"
-                  ><i class="fa fa-thumbs-o-up "></i></a>
+                  ><i class="fa fa-envelope "></i></a>
                   </div>
               </div>
             </div>

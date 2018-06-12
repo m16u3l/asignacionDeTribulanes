@@ -23,7 +23,7 @@
     <tbody>
       @foreach($profiles as $profile)
       <tr>
-        <td>
+        <td class="td-title">
           <h5>{{ $profile->title }}</h5>
         </td>
 

@@ -25,7 +25,7 @@
                 </div>
             	</div>
             	<br/>
-            	<button class="row offset-lg-2 col-lg-2 btn btn-primary" id="button_register_area" type="submit"> Registrar</button>
+            	<button class="row offset-lg-8 col-lg-2 btn bg-theme-4" id="button_register_area" type="submit">Registrar</button>
           </form>
           </div>
         </div>

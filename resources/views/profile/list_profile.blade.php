@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('head')
-  PERFILES SIN TRIBUNALES ASIGNADOS
+  PERFILES SIN TRIBUNAL ASIGNADO
 @endsection
 
 @section('child_css')

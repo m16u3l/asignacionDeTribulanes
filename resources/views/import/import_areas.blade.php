@@ -1,6 +1,6 @@
 @extends('layouts.base') 
 @section('head')
-<title>Importar Areas</title>
+<title>IMPORTAR AREAS</title>
 @endsection
  
 @section('child_css')
@@ -26,7 +26,7 @@
   </div>
   @endif
 
-  <h5 class="h5 text-center" for="fileProfessionals">Importar Areas</h5>
+  <h5 class="h5 text-center" for="fileProfessionals">IMPORTACION DE AREAS</h5>
   <div class="row">
     <div class="col-md-6">
       <h6 class="h6 mt-3 text-center">EJEMPLO DE DOCUMENTO</h6>
@@ -39,14 +39,14 @@
     </div>
     <div class="col-md-6">
       <h6 class="h6 text-center mt-3">ESPECIFICACIONES DEL DOCUMENTO</h6>
-      <ul class="list-group">
-        <li class="list-group-item">El documento a ser importado debe estar en formato .xlsx</li>
-        <li class="list-group-item">La primera fila debe tener columnas cuyo contenido sea "CODIGO", "NOMBRE", "DESCRIPCION", "CODIGO SUBAREA", de izquierda
+      <ul class="list">
+        <li class="list-item">El documento a ser importado debe estar en formato .xlsx</li>
+        <li class="list-item">La primera fila debe tener columnas cuyo contenido sea "CODIGO", "NOMBRE", "DESCRIPCION", "CODIGO SUBAREA", de izquierda
           a derecha en ese orden.
         </li>
-        <li class="list-group-item">Las siguientes filas deben contener los datos especificados anteriormente. Por ejemplo "1", "Base de Datos", "Descripcion
+        <li class="list-item">Las siguientes filas deben contener los datos especificados anteriormente. Por ejemplo "1", "Base de Datos", "Descripcion
           de prueba" y "2"</li>
-        <li class="list-group-item">El espacio de CODIGO SUBAREA es opcional, por lo que puede quedar en blanco</li>
+        <li class="list-item">El espacio de CODIGO SUBAREA es opcional, por lo que puede quedar en blanco</li>
       </ul>
     </div>
   </div>
