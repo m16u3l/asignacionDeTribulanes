@@ -71,7 +71,7 @@ class ProfileController extends Controller
 
 		$profiles = Profile::orderBy('title')
 		->search_by_title_or_student($request->name)
-		->paginate(10);
+		->paginate(5);
 
 		return view('profile.profile_list', compact('profiles'));
 	}

@@ -60,7 +60,7 @@
                       </div>
                       @endforeach
                     </div>
-
+                  </div>
                 </div>
               </div>
               <div class="col-lg-1 col-12 text-center row-sm-center">
@@ -78,7 +78,11 @@
                           <label class="h6">Area(s):</label>
                         </div>
                         <div class="col-lg-9">
-                          <p class="mb-0 d-inline">falta area</p>
+                        @foreach($profile->areas as $area)
+                          <p class="mb-0 d-inline"> {{$area->name}}
+                          </p>
+                          <br>
+                           @endforeach
                         </div>
                       </div>
 

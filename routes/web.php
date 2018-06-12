@@ -148,8 +148,12 @@ Route::get('/reportes', [
     'middleware' => 'auth',
     'as' => 'reportes',
     'uses' => "ProfileController@reports"]);
-
-
-Auth::routes();
+    
+Route::post('/send_mail', [
+        'middleware' => 'auth',
+        'as' => 'send_mail',
+        'uses' => "MailController@store"]);
+    
+        Auth::routes();
 
 

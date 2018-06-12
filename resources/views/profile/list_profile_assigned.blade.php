@@ -64,7 +64,16 @@
                   ><i class="fa fa-thumbs-o-up "></i></a>
                   <br>
                   <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5"><i class="fa fa-exchange"></i></a>
-                </div>
+                  <br>
+                  <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#send_mail_modal"
+                    data-send_mail="{{ $profile->id }}"
+                    data-title="{{ $profile->title }}"
+                    data-estudiantes="{{ $profile->students}}"
+                    data-tutores="{{ $profile->tutors}}"
+                    data-tribunales="{{ $profile->courts}}"
+                    data-date_asignate="{{$profile->date->assigned}}"
+                  ><i class="fa fa-thumbs-o-up "></i></a>
+                  </div>
               </div>
             </div>
 
@@ -129,7 +138,7 @@
 
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6">fecha de asignacion:</label>
+                          <label class="h6">Fecha de asignacion:</label>
                         </div>
                         <div class="col-lg-9">
                           <p class="card-text mb-2">{{$profile->date->assigned}}</p>
@@ -163,6 +172,7 @@
   </div>
 </div>
   @include('profile.modal_finalize_profile')
+  @include('email.modal_send_mail')
 @endsection
 
 @section('child_js')
