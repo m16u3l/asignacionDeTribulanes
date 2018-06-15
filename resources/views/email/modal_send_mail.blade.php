@@ -21,8 +21,8 @@
                 <input type="hidden" name="date_asignate" id="date_asignate"/>
               </div>
               <div class="form-group text-right m-b-0">
-                <button class="row offset-lg-4 col-lg-2 btn btn-primary" id="enviar1" type="submit"> Enviar</button> 
-                <button class=" col-lg-2 btn btn-danger" id="cancelar_envio" type="button"> Cancelar</button>
+                <button class="offset-lg-4 col-lg-2 btn bg-theme-4" id="enviar1" type="submit">Enviar</button> 
+                <button class="col-lg-2 btn bg-theme-1" id="cancelar_envio" type="button" data-dismiss="modal">Cancelar</button>
               </div>
             </form>
           </div>

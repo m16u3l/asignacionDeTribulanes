@@ -13,7 +13,8 @@
             <h5 class="container" id="letter_title"></h5>
             
 
-            <label for="">CARTAS REQUERIDAS</label>
+            <label class="h6" for="">CARTAS REQUERIDAS</label>
+            <p>Marque las cartas con las que cuenta el perfil:</p>
             	<div class="row container" id="div_letter">
 
             	</div>
@@ -41,8 +42,8 @@
 
               <br>
   
-              <a class="offset-lg-9 col-lg-1 btn bg-theme-4"  id="confirm_letter" href="#"><i class="fa fa-check"></i></a>
-              <a class="col-lg-1 btn bg-theme-1" data-dismiss="modal"  href="#"><i class="fa fa-times"></i></a>
+              <a class="offset-lg-5 col-lg-3 btn bg-theme-4"  id="confirm_letter" href="#">Aceptar</i></a>
+              <a class="col-lg-3 btn bg-theme-1" data-dismiss="modal"  href="#">Cancelar</i></a>
           </div>
           {{--End Modal Body--}}
         </div>

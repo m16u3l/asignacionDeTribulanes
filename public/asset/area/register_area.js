@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  $("#name").addClass("input-text");
   $("#button_register_area").on('click', function(e){
     e.preventDefault();
     form = $("#register_area");

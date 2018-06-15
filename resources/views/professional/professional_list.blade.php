@@ -65,7 +65,7 @@
             <div class="card-body collapse" id="{{$professional->name}}">
               <div class="row">
                 <div class="col-lg-11">
-                  <label class="h6 titleColor">Areas de interes:</label>
+                  <label class="h6">Areas de interes:</label>
                 </div>
               </div>
             </div>

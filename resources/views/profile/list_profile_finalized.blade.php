@@ -112,7 +112,7 @@ PERFILES CON DEFENSA FINALIZADA
                       </div>
                       <div class="row">
                         <div class="col-lg-3">
-                          <label class="h6 ">fecha de defensa:</label>
+                          <label class="h6 ">Fecha de defensa:</label>
                         </div>
                         <div class="col-lg-7">
                           <p class="card-text mb-2">{{$profile->date->defended}}</p>
@@ -137,7 +137,7 @@ PERFILES CON DEFENSA FINALIZADA
                       </div>
                       <div class="row">
                         <div class="col-lg-4">
-                          <label class="h6 ">fecha de finalizacion:</label>
+                          <label class="h6 ">Fecha de finalizacion:</label>
                         </div>
                         <div class="col-lg-6">
                           <p class="card-text mb-2">{{$profile->date->finalized}}</p>

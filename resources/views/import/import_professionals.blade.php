@@ -40,7 +40,7 @@
       <h6 class="h6 mt-2">Seleccione el documento del cual desea importar datos</h6>
       <input id="fileProfessionales" type="file" name="fileProfessionals">
 
-      <input id="import" class="btn bg-theme-4 text-center my-2 " type="submit" value="Importar..." style="Color:white">
+      <input id="import" class="btn bg-theme-4 text-center my-2 " type="submit" value="Importar" style="Color:white">
     </div>
     <div class="col-md-6">
       <h6 class="h6 text-center mt-3">ESPECIFICACIONES DEL DOCUMENTO</h6>

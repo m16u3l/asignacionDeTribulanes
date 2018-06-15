@@ -18,7 +18,7 @@
               <h6 class="text-center" id="label_title"></h6>
               <div class="row ocultar_mensaje" id="ocultar_mensaje">
                 <div class="col">
-                  <p class="text-center"> Ingrese la fecha de defensa del perfil </p>
+                  <p class="text-center">Ingrese la fecha de defensa del perfil </p>
                 </div>
               </div>
 
@@ -37,8 +37,8 @@
                 </div>
               </div>
               <div class="form-group text-right m-b-0">
-                <input class="btn  bg-theme-4 waves-effect waves-light" type="button" value="Si" id="buton_date_defended" style="color:white">
-                <input class="btn  bg-theme-4 waves-effect waves-light" type="hidden" value="Ok" id="buton_save" style="color:white">
+                <input class="btn  bg-theme-4 waves-effect waves-light" type="button" value="Aceptar" id="buton_date_defended" style="color:white">
+                <input class="btn  bg-theme-4 waves-effect waves-light" type="hidden" value="Aceptar" id="buton_save" style="color:white">
                 <button type="reset" class="btn bg-theme-1 waves-effect waves-light m-l-5" data-dismiss="modal">
                   Cancelar
                 </button>

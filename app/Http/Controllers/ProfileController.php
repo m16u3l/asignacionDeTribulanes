@@ -242,7 +242,7 @@ class ProfileController extends Controller
 
 					$professional_tutor = Professional::where('name', $value->nombre_tutor)
 					->where('last_name_father', $value->apellido_paterno_tutor)
-					//->where('last_name_mother', $value->apellido_materno_tutor)
+					->where('last_name_mother', $value->apellido_materno_tutor)
 					->first();
 
 					$area = Area::where('name', $value->area)->first();
@@ -265,21 +265,11 @@ class ProfileController extends Controller
 
 							$state = State::where('name', 'initiated')->first();
 
-							//                $academic_term = new AcademicTerm();
-							//                $academic_term->date_ini = $now->format('d-m-Y');
-							//                $academic_term->date_fin = $now->format('d-m-Y');
-							//                $academic_term->period = 1;
-							//                $academic_term->save();
-
-
 							$profile = new Profile();
 							$profile->title = trim($value->titulo_proyecto_final);
 							$profile->objective = $value->objetivo_general;
 							$profile->modality_id  = $modality->id;
 							$profile->state_id = $state->id;
-							//                $profile->academic_term_id = $academic_term->id;
-							//$profile->area_id = $area->id;
-							//$profile->save();
 							$news++;
 
 							$state = State::where('name', 'approved')->first();

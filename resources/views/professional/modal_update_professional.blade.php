@@ -88,8 +88,8 @@
 
             	<br/>
               {{--Buttons--}}
-            	<button class="row offset-lg-4 col-lg-2 btn bg-theme-4" id="update1" type="submit"> Guardar</button>
-              <button class=" col-lg-2 btn bg-theme-1" id="cancel_edit_professional" type="button"> Volver</button>
+            	<button class="row offset-lg-4 col-lg-2 btn bg-theme-4" id="update1" type="submit">Aceptar</button>
+              <button class=" col-lg-2 btn bg-theme-1" id="cancel_edit_professional" type="button">Cancelar</button>
             </form>
           </div>
           {{--End Body--}}

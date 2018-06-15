@@ -65,8 +65,10 @@
                     data-title="{{ $profile->title }}"
                   ><i class="fa fa-check "></i></a>
                   <br>
-                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5 my-2"><i class="fa fa-exchange"></i></a>
+                  <a class="btn btn-rounded bg-theme-5 my-2" href="/perfiles/{{ $profile->id }}"><i class="fa fa-users"></i></a>
                   <br>
+                  <a id="boton_modificar_tribunal" href="{{ route ('solicitud_rununcia',[$profile->id])}}" class="btn btn-rounded bg-theme-5 my-2"><i class="fa fa-exchange"></i></a>
+                  
                   <a id="boton_finalizar_tribunal" href="#" class="btn btn-rounded bg-theme-5" data-toggle="modal" data-target="#send_mail_modal"
                     data-send_mail="{{ $profile->id }}"
                     data-title="{{ $profile->title }}"

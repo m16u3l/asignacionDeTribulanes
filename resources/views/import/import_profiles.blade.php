@@ -44,7 +44,7 @@
 
       <input id="fileProfiles" type="file" name="fileProfiles">
 
-      <input class="btn bg-theme-4 text-center my-2" type="submit" value="Importar..." style="Color:white">
+      <input class="btn bg-theme-4 text-center my-2" type="submit" value="Importar" style="Color:white">
     </div>
     <div class="col-md-6">
       <h6 class="h6 text-center mt-3">ESPECIFICACIONES DEL DOCUMENTO</h6>

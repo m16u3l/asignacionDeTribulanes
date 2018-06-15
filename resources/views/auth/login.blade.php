@@ -6,13 +6,13 @@ INICIO DE SISTEMA
 @section('content')
 <br>
 <br>
-<center><h4>iniciar sesion</h4></center>
+<center><h4>Iniciar sesion</h4></center>
 <br>
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('account_name') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-12 control-label">usuario</label>
+                            <label for="email" class="col-md-12 control-label">Usuario</label>
 
                             <div class="col-md-12">
                                 <input id="account_name" type="text" class="form-control" name="account_name" value="{{ old('account_name') }}"  autofocus>
@@ -26,7 +26,7 @@ INICIO DE SISTEMA
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-12 control-label">contraseña</label>
+                            <label for="password" class="col-md-12 control-label">Contraseña</label>
 
                             <div class="col-md-12">
                                 <input id="password" type="password" class="form-control" name="password"   >
@@ -41,8 +41,8 @@ INICIO DE SISTEMA
 <br>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-rounded bg-theme-5">
-                                    Login
+                                <button type="submit" class="btn btn-rounded bg-theme-4 text-center">
+                                    Ingresar
                                 </button>
 
       

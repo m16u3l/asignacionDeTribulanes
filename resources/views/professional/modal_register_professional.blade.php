@@ -87,7 +87,7 @@
               <br/>
               {{--Buttons--}}
             	<button class="row offset-lg-4 col-lg-2 btn bg-theme-4" id="register1" type="submit"> Registrar</button>
-              <button class=" col-lg-2 btn bg-theme-1" id="cancel_register_professional" type="button"> Volver</button>
+              <button class=" col-lg-2 btn bg-theme-1" id="cancel_register_professional" type="button">Cancelar</button>
 
             </form>
           </div>
