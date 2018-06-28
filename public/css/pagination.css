@@ -1,0 +1,29 @@
+
+
+.mipaginacion li a
+{
+  color:  #2A3F54;
+  background: #2A3F54;
+  border: 1px solid #2A3F54;
+  padding: 3px;
+  margin: 2px;
+  padding-right:5px;
+  padding-left: 5px;
+}
+.mipaginacion li  span
+{
+  color:  #2A3F54;
+  background: white;
+  border: 1px solid #2A3F54;
+  padding: 3px;
+  margin: 2px;
+  padding-right:5px;
+  padding-left: 5px;
+
+}
+.ocultar_mensaje{
+  display:none;
+}
+.hidden_div{
+  display:none;
+}

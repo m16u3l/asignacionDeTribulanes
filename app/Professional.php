@@ -8,24 +8,60 @@ class Professional extends Model
 {
   protected $table = "professionals";
   protected $fillable = [
-    'cod_sis', 'ci', 'degree', 'name', 'last_name_mother', 'last_name_father', 'workload',
-    'phone', 'address', 'email', 'image', 'account_name', 'password', 'password_repeat','profile',
-    'count'
+    'cod_sis',
+    'ci',
+    'name',
+    'last_name_mother',
+    'last_name_father',
+    'workload',
+    'count',
+    'degree_id'
   ];
 
-  public function assingements()
+  /**
+  *  buscar profesionales por nombre
+  */
+  public function scopeSearch_by_name($query, $name)
   {
-    return $this->hasMany('App\Assignement');
+    $query -> where(\DB::raw("concat(name, ' ', last_name_father, ' ',
+    last_name_mother)"), 'ilike','%'.$name.'%');
   }
 
-  public function historys()
+  public function degree()
   {
-    return $this->hasMany('App\History');
+    return $this->belongsTo('App\Degree');
+  }
+
+  public function contact()
+  {
+    return $this->hasone('App\Contact');
+  }
+
+  public function profiles_courts()
+  {
+    return $this->belongsToMany('App\Profile','courts');
   }
 
   public function interests()
   {
-    return $this->hasMany('App\AreaInterest');
+    return $this->belongsToMany('App\Area','area_interests');
   }
 
+  public function profiles_tutors()
+  {
+    return $this->belongsToMany('App\Profile','tutors');
+  }
+  public function letter_profile()
+  {
+    return $this->belongsToMany('App\Profile','letters');
+  }
+  public function type_changes()
+  {
+    return $this->belongsToMany('App\TypeChange','change_binnacles');
+  }
+
+  public function change_profiles()
+  {
+    return $this->belongsToMany('App\Profile','rejection_requests');
+  }
 }

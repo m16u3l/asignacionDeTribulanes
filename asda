@@ -1,0 +1,27 @@
+PROFILE
+
+'objective', 'registration_date', 'period', 'degree_modality', 'count',
+'profile_state', 'area_id'
+
+PROFESIONAL
+'cod_sis', 'ci', 'degree', 'name', 'last_name_mother', 'last_name_father', 'workload',
+'phone', 'address', 'email', 'image', 'account_name', 'password', 'password_repeat','profile',
+'count'
+
+STUDENT
+'applicant_name', 'applicant_last_name_mother', 'applicant_last_name_father',
+
+AREA
+'name', 'area_id'
+
+AREA_INTEREST
+'area_id', 'professional_id'
+
+Assignement
+'profile_id', 'professional_id', 'assigned'
+
+TUTOR
+'profile_id', 'professional_id'
+
+STUDENT_PROFILE
+'student_id', 'profile_id'
